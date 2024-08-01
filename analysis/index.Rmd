@@ -8,4 +8,69 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# Citation
+Medina, Annapragada et. al., 2024
+
+# Abstract
+
+# Feature Generation Pipelines
+Upstream preprocessing code needed to run the DELFI pipeline and generate features used to train and evaluate the models is available at https://github.com/cancer-genomics/delfi3
+
+# Training DELFI-Pro Models
+The code needed to train the models may be found in [code](../code)
+
+# Documentation
+We have provided a README describing the structure of this workflowr and additional README files in subfolders as needed. Briefly, this github provides all data and code needed to train DELFI-Pro models and reproduce figures. Code needed to train models is in the [code](../code) folder while the code for each figure and supplementary figure is in the [Analysis](../Analysis) folder. The [data](../data) folder contains data that code in [Analysis](../Analysis) relies on, and [docs](../docs) contains html markdown files and the produced figures.
+
+A list of R-related dependencies for reproducing the figures in the manuscript is available in the [SessionInfo](../docs/SessionInfo.html) document. Most of the R packages are available from Bioconductor or CRAN. 
+
+There are two packages that we wrote with useful functions  - useful.stuff.aa and liver.tools. Copies of both are available in the [code](../code) folder.
+useful.stuff.aa is originally from https://github.com/cancer-genomics/artemis2024
+liver.tools is originally from https://github.com/cancer-genomics/reproduce_liver_final
+
+
+# Figures
+- Figure 1: 
+- Figure 2: 
+  - A: [Code](../analysis/2A.Rmd), [PDF](../docs/figure/2A.Rmd/fragplot generation-2.pdf)
+  - B: [Code](../analysis/2B.Rmd), [PDF](../docs/figure/2B.Rmd/heatmap-2.pdf)
+  - C: [Code](../analysis/2c.Rmd), [PDF](../docs/figure/2c.Rmd/fig4-1.pdf)
+  - D: [Code](../analysis/2d.Rmd), [PDF part 1](../docs/figure/2d.Rmd/coefs-1.pdf), [PDF part 2](../docs/figure/2d.Rmd/circle-2.pdf)
+- Figure 3:
+  - A: [Code](../analysis/3abc.Rmd), [PDF](../docs/figure/3abc.Rmd/unnamed-chunk-6-1.pdf)
+  - B: [Code](../analysis/3abc.Rmd), [PDF](../docs/figure/3abc.Rmd/unnamed-chunk-5-2.pdf)
+  - C: [Code](../analysis/3abc.Rmd), [PDF](../docs/figure/3abc.Rmd/unnamed-chunk-7-1.pdf)
+  - D: [Code](../analysis/3d.Rmd), [PDF](../docs/figure/3d.Rmd/test-1.pdf)
+- Figure 4:
+  - A: See manuscript for schematic
+  - B,C,D: [Code](../analysis/4bcd.Rmd), [PDF](../docs/figure/4bcd.Rmd/full-1.pdf), [Legend](../docs/figure/4bcd.Rmd/panelA-1.png)
+
+# Supplementary Figures
+- S1: [Code](../analysis/S1.Rmd), [PDF](../docs/figure/S1.Rmd/all_cancer-1.pdf)
+- S2: [Code](../analysis/S2.Rmd), [PDF](../docs/figure/S2.Rmd/all_cancer2-1.pdf)
+- S3: [Code](../analysis/S3.Rmd), [PDF](../docs/figure/S3.Rmd/coefs-1.pdf)
+- S4: [Code](../analysis/S4.Rmd), [PDF](../docs/figure/S4.Rmd/unnamed-chunk-7-1.pdf)
+- S5: [Code](../analysis/S5.Rmd), [PDF](../docs/figure/S5.Rmd/combo-1.pdf)
+- S6: [Code](../analysis/S6.Rmd), [PDF A,B](../docs/figure/S6.Rmd/ichor-3.pdf), [PNG C, D](../docs/figure/S6.Rmd/D-Pro vs ichorCNA-4.png)
+- S7: [Code](../analysis/S7.Rmd), [PDF](../docs/figure/S7.Rmd/unnamed-chunk-6-1.pdf)
+- S8: [Code](../analysis/S8.Rmd), [PDF](../docs/figure/S8.Rmd/fragplot generation-1.pdf)
+- S9: [Code](../analysis/S9.Rmd), [PDF](../docs/figure/S9.Rmd/cowplot-1.pdf)
+- S10:
+  - A: [Code](../analysis/S10a.Rmd), [PDF](../docs/figure/S10a.Rmd/unnamed-chunk-1-1.pdf)
+  - B,C: [Code](../analysis/S10B_C.Rmd), [PDF](../docs/figure/S10B_C.Rmd/ROC val-3.pdf)
+- S11: [Code](../analysis/S11.Rmd), [PNG](../docs/figure/S11.Rmd/delfiprocorplot-1.png)
+- S12: [Code](../analysis/S12.Rmd), [PDF](../docs/figure/S12.Rmd/unnamed-chunk-2-1.pdf)
+- S13:
+  - A: [Code](../analysis/S13abc.Rmd), [PDF](../docs/figure/S13abc.Rmd/boxplot-1.pdf)
+  - B: [Code](../analysis/S13abc.Rmd), [PDF](../docs/figure/S13abc.Rmd/all_fig-1.pdf)
+  - C: [Code](../analysis/S13abc.Rmd), [PDF](../docs/figure/S13abc.Rmd/valplot2-1.pdf)
+  - D: [Code](../analysis/S13d.Rmd), [PDF](../docs/figure/S13d.Rmd/test-1.pdf)
+- S14: [Code](../analysis/S14.Rmd), [PDF](../docs/figure/S14.Rmd/unnamed-chunk-7-1.pdf)
+- S15:
+  - A: [Code](../analysis/S15a.Rmd), [PDF](../docs/figure/S15a.Rmd/unnamed-chunk-1-1.pdf)
+  - B,C: [Code](../analysis/S15B_C.Rmd), [PDF B](../docs/figure/S15B_C.Rmd/S15B and C-1.pdf), [PDF C](../docs/figure/S15B_C.Rmd/S15B and C-2.pdf)
+- S16: [Code](../analysis/S16.Rmd), [PDF](../docs/figure/S16.Rmd/S16-1.pdf)
+- S17: [Code](../analysis/S17.Rmd), [PDF](../docs/figure/S17.Rmd/correlation-3.pdf)
+
+
+
