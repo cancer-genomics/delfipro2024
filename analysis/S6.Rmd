@@ -1,0 +1,201 @@
+---
+title: "S6"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+```{r background, echo=FALSE, include=FALSE}
+###################################
+# S6
+#####################################
+library(tidyverse)
+library(readxl)
+library(devtools)
+library(pROC)
+library(cowplot)
+library(here)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+#Clean out list section
+rm(list=ls());gc()
+```
+
+```{r, ichor,fig.height= 12, fig.width=18,dev=c("png", "pdf")}
+############
+# Read in dataframe
+samples <- read_excel(here("data","ichor_mfl_excel.xlsx"))
+dxd <- samples %>% filter(`Diagnostic Discovery Set` == "yes")
+screend <- samples %>% filter(`Screening Discovery Set` == "yes")
+#
+############
+
+############
+# ROC analyses for ichor and median frag length for Screening set
+
+screend <- screend %>% mutate(Condition2 = ifelse(Condition == "No cancer", "healthy", "cancer"))
+unique(screend$Condition2)
+screend$type<-factor(screend$Condition2,levels=c("healthy","cancer"))
+screend2<-format_roc(screend$type, screend$ichor,"")
+screend2$model<-"ichor"
+screend2$type<-paste0("ichorCNA AUC: ",round(roc(screend$Condition2,screend$ichor)$auc[1],2)," (95% CI: ",round(roc(screend$Condition2,screend$ichor,ci=T)$ci[1],2) ,"-",round(roc(screend$Condition2,screend$ichor,ci=T)$ci[3],2) ,")")
+
+screend$type<-factor(screend$Condition2,levels=c("healthy","cancer"))
+screend3<-format_roc(screend$type, screend$`Median fragment length`,"")
+screend3$model<-"mfl"
+screend3$type<-paste0("Median cfDNA fragment length AUC: ",round(roc(screend$Condition2,screend$`Median fragment length`)$auc[1],2)," (95% CI: ",round(roc(screend$Condition2,screend$`Median fragment length`,ci=T)$ci[1],2) ,"-",round(roc(screend$Condition2,screend$`Median fragment length`,ci=T)$ci[3],2) ,")")
+
+b2<-rbind(screend2, screend3)
+b3<-b2 %>% group_by(model) %>% arrange(sens)
+
+colors <- c("pink","indianred")
+names(colors) <- c(unique(b3$type))
+
+S6 <- b3 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) +
+  theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+
+  ggtitle("Screening Model")
+
+
+S6B<-ggdraw(S6)
+S6B
+
+
+
+############
+# ROC analyses for ichor and median frag length for Diagnostic set
+dxd <- dxd %>% mutate(Condition2 = ifelse(Condition == "Benign", "healthy", "cancer"))
+dxd$type<-factor(dxd$Condition2,levels=c("healthy","cancer"))
+dxd2<-format_roc(dxd$type, dxd$ichor,"")
+dxd2$model<-"ichor"
+dxd2$type<-paste0("ichorCNA AUC: ",round(roc(dxd$Condition2,dxd$ichor)$auc[1],2)," (95% CI: ",round(roc(dxd$Condition2,dxd$ichor,ci=T)$ci[1],2) ,"-",round(roc(dxd$Condition2,dxd$ichor,ci=T)$ci[3],2) ,")")
+
+dxd <- dxd %>% mutate(Condition2 = ifelse(Condition == "Benign", "healthy", "cancer"))
+dxd$type<-factor(dxd$Condition2,levels=c("healthy","cancer"))
+dxd3<-format_roc(dxd$type, dxd$`Median fragment length`,"")
+dxd3$model<-"mfl"
+dxd3$type<-paste0("Median cfDNA fragment length AUC: ",round(roc(dxd$Condition2,dxd$`Median fragment length`)$auc[1],2)," (95% CI: ",round(roc(dxd$Condition2,dxd$`Median fragment length`,ci=T)$ci[1],2) ,"-",round(roc(dxd$Condition2,dxd$`Median fragment length`,ci=T)$ci[3],2) ,")")
+
+b<-rbind(dxd2, dxd3)
+b1<-b %>% group_by(model) %>% arrange(sens)
+b1
+
+colors <- c("gray50","skyblue")
+names(colors) <- c(unique(b1$type))
+
+S6C <- b1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) +
+  theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+
+  ggtitle("Diagnostic Model")
+
+
+S6D<-ggdraw(S6C)
+S6D
+
+icrocs <- egg::ggarrange(S6B, S6D,nrow =1)
+
+```
+
+```{r D-Pro vs ichorCNA}
+##########
+# For the Diagnostic cohort
+dxd$`Diagnostic DELFI-Pro Score` <- as.numeric(dxd$`Diagnostic DELFI-Pro Score`)
+dxd1 <- dxd %>% mutate(id = PGDXID) %>% select(id, Condition, ichor, `Diagnostic DELFI-Pro Score`)
+
+
+##########
+# For the Screening cohort
+correct_scores <-read_csv(here("data/scores","All_Scores_CV.csv"))
+screend$`Screening DELFI-Pro Score` <- as.numeric(screend$`Screening DELFI-Pro Score`)
+screend$Condition <- factor(screend$Condition, levels = c("No cancer", "Cancer"))
+table(screend$Condition)
+
+screend1 <- screend %>% mutate(id = PGDXID) %>% select(id, Condition, ichor)
+screend2 <- inner_join(screend1, correct_scores, by = c("id"))
+screend2
+screend3 <- screend %>% mutate(id = Individual) %>% select(id, Condition, ichor)
+screend4 <- inner_join(screend3,correct_scores, by = c("id"))
+table(screend4$Condition)
+scr <- rbind(screend2, screend4)
+
+a <- scr %>% filter(Condition != "No cancer") %>%
+  ggplot(aes(x = ichor, y = `Screening ZEUS`)) +
+  geom_jitter(aes(color = Condition)) +
+  scale_color_manual(values = c("red4")) +
+  ggtitle("Screening model") +
+  labs(x = "ichorCNA", y = "DELFI-Pro Score", color = "Status") +
+  ylim(0,1.05) +
+  geom_vline(xintercept = 0.03, linetype = "dashed") +
+  theme_classic() +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+  theme(legend.position = "none", axis.title.x = element_text(face = "bold", color = "black"),
+        plot.title = element_text(hjust = 0.5, face = "bold")) +
+  theme(axis.title.y = element_text(face = "bold", color = "black")) +
+  geom_text(aes(x=0.04, label="\nichorCNA LoD 0.03", y=0.54), colour="red", angle=90)
+a
+
+b <- dxd1 %>% filter(Condition != "Benign") %>%
+  ggplot(aes(x = ichor, y = `Diagnostic DELFI-Pro Score`)) +
+  geom_jitter(aes(color = Condition)) +
+  scale_color_manual(values = c("red4")) +
+  ggtitle("Diagnostic model") +
+  labs(x = "ichorCNA", y = "DELFI-Pro Score", color = "Status") +
+  ylim(0,1.05) +
+  geom_vline(xintercept = 0.03, linetype = "dashed") +
+  theme_classic() +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+  theme(legend.position = "none",
+        axis.title.x = element_text(face = "bold", color = "black"),
+        plot.title = element_text(hjust = 0.5, face = "bold")) +
+  theme(axis.title.y = element_text(face = "bold", color = "black")) +
+  geom_text(aes(x=0.04, label="\nichorCNA LoD 0.03", y=0.54), colour="red", angle=90)
+b
+c <- egg::ggarrange(a,b, nrow = 1)
+c
+```

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Predictive distributions of performance in future studies</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">delfipro2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Predictive distributions of performance in
+future studies</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-08-01
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>delfipro2024/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
+1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong0dea39c"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 0dea39c.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  CITATION.md
+    Untracked:  analysis/2A.Rmd
+    Untracked:  analysis/2B.Rmd
+    Untracked:  analysis/2c.Rmd
+    Untracked:  analysis/2d.Rmd
+    Untracked:  analysis/3abc.Rmd
+    Untracked:  analysis/3d.Rmd
+    Untracked:  analysis/4bcd.Rmd
+    Untracked:  analysis/S1.Rmd
+    Untracked:  analysis/S10B_C.Rmd
+    Untracked:  analysis/S10a.Rmd
+    Untracked:  analysis/S11.Rmd
+    Untracked:  analysis/S12.Rmd
+    Untracked:  analysis/S13abc.Rmd
+    Untracked:  analysis/S13d.Rmd
+    Untracked:  analysis/S14.Rmd
+    Untracked:  analysis/S15B_C.Rmd
+    Untracked:  analysis/S15a.Rmd
+    Untracked:  analysis/S16.Rmd
+    Untracked:  analysis/S17.Rmd
+    Untracked:  analysis/S2.Rmd
+    Untracked:  analysis/S3.Rmd
+    Untracked:  analysis/S4.Rmd
+    Untracked:  analysis/S5.Rmd
+    Untracked:  analysis/S6.Rmd
+    Untracked:  analysis/S7.Rmd
+    Untracked:  analysis/S8.Rmd
+    Untracked:  analysis/S9.Rmd
+    Untracked:  analysis/S_Source.Rmd
+    Untracked:  analysis/SessionInfo.Rmd
+    Untracked:  code/Simulation_setup.Rmd
+    Untracked:  code/allcancer_table_diag.r
+    Untracked:  code/allcancer_table_screen.r
+    Untracked:  code/collect_scores.r
+    Untracked:  code/diagnostic_model.r
+    Untracked:  code/feature_importance.Rmd
+    Untracked:  code/hgsoc_table_diag.r
+    Untracked:  code/hgsoc_table_screen.r
+    Untracked:  code/liver.tools/
+    Untracked:  code/proteins_screening_model.r
+    Untracked:  code/screening_model.r
+    Untracked:  code/useful.stuff.aa/
+    Untracked:  data/06062024_val_tumor_size.xlsx
+    Untracked:  data/2B.csv
+    Untracked:  data/2B_annot.csv
+    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Untracked:  data/Proteins.csv
+    Untracked:  data/S12_data.csv
+    Untracked:  data/S12_data_p2.csv
+    Untracked:  data/S1_data.csv
+    Untracked:  data/S2_data.csv
+    Untracked:  data/S5.csv
+    Untracked:  data/S5_p2.csv
+    Untracked:  data/diag_test_data.csv
+    Untracked:  data/diag_train_data.csv
+    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Untracked:  data/ichor_mfl_excel.xlsx
+    Untracked:  data/long_bins_hiseq.csv
+    Untracked:  data/metadata.csv
+    Untracked:  data/models/
+    Untracked:  data/scores/
+    Untracked:  data/screening_test_data.csv
+    Untracked:  data/screening_train_data.csv
+    Untracked:  data/simulations_metrics.csv
+    Untracked:  data/stability_superscreen.csv
+    Untracked:  data/tables/
+    Untracked:  data/tcga/
+    Untracked:  output/feature_importance.Rmd/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Modified:   .gitattributes
+    Modified:   .gitignore
+    Modified:   README.md
+    Modified:   _workflowr.yml
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   code/README.md
+    Modified:   data/README.md
+    Modified:   delfipro2024.Rproj
+    Modified:   output/README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="goals" class="section level1">
+<h1>Goals</h1>
+<p>In a future study of 100,000 participants, what is our predictive
+distribution for the following: - number individuals screened - liver
+cancers detected by delfi - liver cancers detected by ultrasound (US) +
+alpha fetal protein (AFP) - false positives leading to unnecessary
+follow-up procedures by these approaches - individuals with liver cancer
+not identified ( false negatives )</p>
+<p>The size of the screening study is determined by the number of
+samples collected in a finite period of time. Studies with lower
+adherence to surveillance guidelines have fewer participants.</p>
+</div>
+<div id="best-guesses" class="section level1">
+<h1>Best guesses</h1>
+<div
+id="we-have-a-point-estimate-with-a-confidence-interval-binomial-for-most-things-beta-for-the-adherence-stuff-based-on-the-liver-paper"
+class="section level2">
+<h2>We have a point estimate with a confidence interval – binomial for
+most things, beta for the adherence stuff based on the liver paper</h2>
+<pre class="r"><code>find_params &lt;- function(i, dat){
+    dat &lt;- dat[i, ]
+    params &lt;- epi.betabuster(mode=dat$mode,
+                             conf=0.975,
+                             greaterthan=TRUE,
+                             x=dat$lower,
+                             max.shape1=500,
+                             conf.level=0.95)
+    dat$shape1 &lt;- params$shape1
+    dat$shape2 &lt;- params$shape2
+    dat
+}
+params &lt;- seq_len(nrow(tools)) %&gt;%
+    map_dfr(find_params, dat=tools)</code></pre>
+<pre><code>Warning: The estimated value of shape1 equals max.shape1. Consider increasing
+the value of max.shape1.</code></pre>
+<pre class="r"><code>simulate_performance &lt;- function(i, params, N=1000){
+    p &lt;- params[i, ]
+    x &lt;- rbeta(N, shape1=p$shape1, shape2=p$shape2)
+    x
+}
+simvalues &lt;- seq_len(nrow(tools)) %&gt;%
+    map(simulate_performance, params=params)
+params$simulation &lt;- simvalues
+params2 &lt;- params %&gt;%
+    filter(metric != &quot;adherence&quot;) %&gt;%
+    pivot_wider(id_cols=c(&quot;tool&quot;, &quot;population&quot;),
+                names_from=&quot;metric&quot;,
+                values_from=&quot;simulation&quot;) %&gt;%
+    unnest(c(&quot;sensitivity&quot;, &quot;specificity&quot;))
+adhere &lt;- params %&gt;%
+    filter(metric==&quot;adherence&quot;) %&gt;%
+    unnest(simulation) %&gt;%
+    select(tool, population, simulation) %&gt;%
+    set_colnames(c(&quot;tool&quot;, &quot;population&quot;, &quot;adherence&quot;)) %&gt;%
+    nest(adherence=adherence)
+params3 &lt;- params2 %&gt;%
+    nest(performance=c(sensitivity, specificity))
+params4 &lt;- left_join(params3, adhere,
+                     by=c(&quot;tool&quot;, &quot;population&quot;))
+panelA.data &lt;- params2 #%&gt;%
+   # mutate(population=factor(population,
+                             #rev(c(&quot;High risk&quot;, &quot;Early stage&quot;))))</code></pre>
+<pre class="r"><code>panelA.data&lt;-panelA.data #%&gt;% filter(tool %in% c(&quot;DELFI&quot;, &quot;US + AFP&quot;)) 
+#panelA.data$tool&lt;-factor(panelA.data$tool,levels=c(&quot;US + AFP&quot;,&quot;DELFI&quot;))
+pt_esti&lt;-tools %&gt;% select(tool,mode,metric) %&gt;% filter(metric %in% c(&quot;sensitivity&quot;,&quot;specificity&quot;))%&gt;%spread(key=metric,value=mode)
+panelA.data$tool&lt;-factor(panelA.data$tool,levels=c(&quot;HE4_70_Jacob&quot;,&quot;HE4_70_jhu&quot;,&quot;CA125_30_ukctocs&quot;,&quot;CA125_30_jhu&quot;,&quot;DELFI-Pro&quot;))
+panelA &lt;- panelA.data %&gt;% 
+    ggplot(aes(specificity, sensitivity)) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank()) +
+    geom_density2d(aes(color=tool),bins=25, size=.5) +
+    scale_y_continuous(expand=c(0, 0), limits=c(0, 1)) +
+    scale_x_continuous(expand=c(0, 0), limits=c(0, 1)) +
+    geom_point(data=pt_esti,aes(specificity, sensitivity), size=3) +
+    ##xlim(c(0.15, 1)) +
+    ##ylim(c(0.15, 1)) +
+    ##facet_wrap(~population, ncol=1) +
+    theme(strip.background=element_blank(),
+          legend.position=c(0.2, 0.25)) +
+    guides(color=guide_legend(title=&quot;&quot;,
+                              override.aes=list(size=1.5))) +
+    xlab(&quot;Specificity&quot;) +
+    ylab(&quot;Sensitivity&quot;)+theme(legend.position=&quot;left&quot;)+
+  scale_color_manual(values=c(&quot;steelblue&quot;,&quot;steelblue1&quot;,&quot;lightpink1&quot;,&quot;deeppink&quot;,&quot;darkmagenta&quot;),
+                     labels=c(&quot;HE4 - 70 pM - Jacob et al., 2011&quot;,&quot;HE4 - 70 pM - JHU&quot;,&quot;CA125 - 30 U/mL - Menon et al., 2015&quot;,&quot;CA125 - 30 U/mL - JHU&quot;, &quot;DELFI-Pro - &gt;99% Specificity&quot;))+coord_fixed()</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+
+Warning: Please use `linewidth` instead.</code></pre>
+<pre><code>Warning: A numeric `legend.position` argument in `theme()` was deprecated in
+ggplot2 3.5.0.
+
+Warning: Please use the `legend.position.inside` argument of `theme()` instead.</code></pre>
+<pre class="r"><code>panelA</code></pre>
+<p><img src="figure/4bcd.Rmd/panelA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#panelA &lt;- ggplotGrob(panelA)</code></pre>
+<pre class="r"><code>#panelA.data$tool&lt;-factor(panelA.data$tool,levels=c(&quot;US + AFP&quot;,&quot;DELFI&quot;))
+panelA2 &lt;- panelA.data %&gt;% 
+    ggplot(aes(specificity, sensitivity)) +
+    theme(panel.grid=element_blank()) +
+    geom_density2d(aes(color=tool),bins=25, size=.5) +
+    scale_y_continuous(expand=c(0, 0), limits=c(0.3, 1.01)) +
+    scale_x_continuous(expand=c(0, 0), limits=c(0.7, 1.01)) +
+    geom_point(data=pt_esti,aes(specificity, sensitivity), size=3) +
+    ##xlim(c(0.15, 1)) +
+    ##ylim(c(0.15, 1)) +
+    ##facet_wrap(~population, ncol=1) +
+    theme(strip.background=element_blank(),
+          legend.position=c(0.2, 0.25),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.text.x=element_text(size=15),
+          axis.text.y=element_text(size=15),
+          axis.title.x=element_text(size=20),
+          axis.title.y=element_text(size=20)
+
+          ) +
+    guides(color=guide_legend(title=&quot;&quot;,
+                              override.aes=list(size=1.5))) +
+    xlab(&quot;Specificity&quot;) +
+    ylab(&quot;Sensitivity&quot;)+theme(legend.position=&quot;none&quot;)+
+  scale_color_manual(values=c(&quot;steelblue&quot;,&quot;steelblue1&quot;,&quot;lightpink1&quot;,&quot;deeppink&quot;,&quot;darkmagenta&quot;),
+                     labels=c(&quot;HE4 - 70 pM - Jacob et al., 2011&quot;,&quot;HE4 - 70 pM - JHU&quot;,&quot;CA125 - 30 U/mL - Menon et al., 2015&quot;,&quot;CA125 - 30 U/mL - JHU&quot;, &quot;DELFI-Pro - &gt;99% Specificity&quot;))+theme(axis.title = element_text(face = &quot;bold&quot;),
+        axis.text.x=element_text(face = &quot;bold&quot;), 
+        axis.text.y=element_text(face = &quot;bold&quot;))
+panelA2</code></pre>
+<pre><code>Warning: Removed 90 rows containing non-finite outside the scale range
+(`stat_density2d()`).</code></pre>
+<p><img src="figure/4bcd.Rmd/panelA2-1.png" width="384" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#panelA2 &lt;- ggplotGrob(panelA2)</code></pre>
+<pre class="r"><code>set1&lt;-panelA+theme(legend.position=&quot;none&quot;)#+patchwork::inset_element(panelA2,.1,.1,.6,.6)
+
+l&lt;-get_legend(panelA)</code></pre>
+<pre><code>Warning in get_plot_component(plot, &quot;guide-box&quot;): Multiple components found;
+returning the first one. To return all, use `return_all = TRUE`.</code></pre>
+<pre class="r"><code>set1</code></pre>
+<p><img src="figure/4bcd.Rmd/contours-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>l</code></pre>
+<pre><code>zeroGrob[NULL] </code></pre>
+<pre class="r"><code>panelA2</code></pre>
+<pre><code>Warning: Removed 90 rows containing non-finite outside the scale range
+(`stat_density2d()`).</code></pre>
+<p><img src="figure/4bcd.Rmd/contours-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>#I CHANGED THIS SECTION – ASK ROB</p>
+<pre class="r"><code>#prev.wide &lt;- rdirichlet(1000, cohorts$prevalence*1000) %&gt;%
+#    as_tibble() %&gt;%
+#    set_colnames(cohorts$disease)
+
+#prev &lt;- epi.betabuster(mode=cohorts$prevalence[1],
+#                             conf=0.975,
+#                             greaterthan=TRUE,
+#                             x=cohorts$prevalence[1]/10,
+#                             max.shape1=500,
+#                             conf.level=0.95)
+s1&lt;-236511
+#s1&lt;-19680
+#s1&lt;-2055
+#s2&lt;-(274633642/2)-s1
+s2&lt;-63757324-s1
+#s2&lt;-202562-s1
+#prev &lt;- rbeta(1000, shape1=prev$shape1, shape2=prev$shape2)
+prev &lt;- rbeta(1000, shape1=s1, shape2=s2)
+
+#prev.long &lt;- prev.wide %&gt;%
+#    pivot_longer(cols=all_of(cohorts$disease), names_to=&quot;Disease&quot;,
+#                 values_to=&quot;Prevalence&quot;)
+
+prev.long&lt;-tibble(Disease=&quot;Ovarian Cancer&quot;,Prevalence=prev)
+prev.long %&gt;%
+    ggplot(aes(Prevalence)) +
+    geom_density(color=&quot;gray&quot;, fill=&quot;gray&quot;) +
+    theme_bw(base_size=15) +
+    facet_wrap(~Disease, scales=&quot;free_y&quot;) +
+    theme(panel.grid=element_blank()) +
+    xlim(c(0, 1))</code></pre>
+<p><img src="figure/4bcd.Rmd/prevalence-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>prev3 &lt;- tibble(prevalence=prev)
+params4$prevalence &lt;- rep(prev3, 5)</code></pre>
+</div>
+<div id="simulations" class="section level2">
+<h2>Simulations</h2>
+<ol style="list-style-type: decimal">
+<li><p>sample 100,000 people from high risk population
+(multinomial)</p></li>
+<li><p>subsample based on adherence</p></li>
+<li><p>calculate performance statistics</p></li>
+<li><p>repeat 1-3 1000 times</p></li>
+</ol>
+<pre class="r"><code>perf &lt;- function(i, object, N=100e3){
+    dat &lt;- unnest(object[i, ], c(&quot;performance&quot;,
+                                 &quot;adherence&quot;,
+                                 &quot;prevalence&quot;))
+    L &lt;- nrow(dat)
+    set.seed(149491) ## use same random number seed to capture differences in parameters
+    screened &lt;- rbinom(L, size=N, prob=dat$adherence)
+    ## prevalence
+    P &lt;- rbinom(L, size=screened, prob=dat$prevalence) ## P = FN + TP
+    N &lt;- screened - P  ## N = TN + FP
+    TP &lt;- rbinom(L, size=P, prob=dat$sensitivity)
+    FP &lt;- rbinom(L, size=N, prob=(1-dat$specificity))
+    TN &lt;- N - FP  ## N = FP + TN
+    FN &lt;- P - TP
+    fpr &lt;- FP/N
+    fnr &lt;- FN/P
+    tnr &lt;- TN/N
+    tpr &lt;- TP/P ## sensitivity
+    acc &lt;- (TP+TN)/(P+N)
+    err &lt;- (FP+FN)/(P+N)
+    ppv &lt;- TP/(TP+FP)
+    npv &lt;- TN/(TN+FN)
+    stats &lt;- tibble(&quot;P&quot;=P, &quot;N&quot;=N, &quot;TP&quot;=TP, &quot;FP&quot;=FP, &quot;TN&quot;=TN,
+                    &quot;FN&quot;=FN, &quot;acc&quot;=acc, &quot;err&quot;=err,
+                    &quot;fpr&quot;=fpr, &quot;fnr&quot;=fnr, &quot;tnr&quot;=tnr,
+                    &quot;tpr&quot;=tpr, &quot;ppv&quot;=ppv, &quot;npv&quot;=npv,
+                    &quot;number_screened&quot;=screened)
+    stats2 &lt;- bind_cols(dat, stats)
+    stats2
+}</code></pre>
+<pre class="r"><code>## for now, we only care about HCC versus not HCC
+params5 &lt;- seq_len(nrow(params4)) %&gt;%
+    map_dfr(perf, params4) #%&gt;%
+    #filter(tool %in% c(&quot;DELFI&quot;, &quot;US + AFP&quot;))
+#There are 10 simulations in which there were 0 cases of ovarian cancer, so FNR and TPR end up NaN but should be 0
+params5 &lt;- params5 %&gt;% mutate(fnr=if_else(is.na(fnr),0,fnr))
+params5 &lt;- params5 %&gt;% mutate(tpr=if_else(is.na(tpr),0,tpr))
+
+montecarlo &lt;- params5</code></pre>
+<p>I want to plot all metrics</p>
+<pre class="r"><code>dat&lt;-montecarlo %&gt;% select(fpr,tool)
+
+dat&lt;-dat %&gt;% gather(key=metric,value=score,-tool)
+
+#dat&lt;-dat %&gt;% filter(tool %in% c(&quot;CA125_30_ukctocs&quot;,&quot;CA125_30_jhu&quot;,&quot;HE4_70_Jacob&quot;,&quot;HE4_70_jhu&quot;,&quot;DELFI-Pro&quot;))
+dat$tool&lt;-factor(dat$tool,levels=c(&quot;HE4_70_Jacob&quot;,&quot;HE4_70_jhu&quot;,&quot;CA125_30_ukctocs&quot;,&quot;CA125_30_jhu&quot;,&quot;DELFI-Pro&quot;))
+
+#colors=c(&quot;goldenrod1&quot;,&quot;darkorange&quot;,&quot;goldenrod3&quot;,&quot;darkorange2&quot;,&quot;goldenrod4&quot;,&quot;darkorange3&quot;,&quot;dodgerblue&quot;,&quot;cyan2&quot;,&quot;cyan4&quot;,&quot;violetred4&quot;)
+
+set2&lt;-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA)+theme_classic(base_size=20)+ylim(0,.5)+
+  scale_fill_manual(values=c(&quot;steelblue&quot;,&quot;steelblue1&quot;,&quot;lightpink1&quot;,&quot;deeppink&quot;,&quot;darkmagenta&quot;),
+                     labels=c(&quot;HE4 - 70 pM - Jacob et al., 2011&quot;,&quot;HE4 - 70 pM - JHU&quot;,&quot;CA125 - 30 U/mL - Menon et al., 2015&quot;,&quot;CA125 - 30 U/mL - JHU&quot;, &quot;DELFI-Pro - &gt;99% Specificity&quot;))+theme(axis.text.x=element_text(angle=60,vjust = 1, hjust=1))+xlab(&quot;&quot;)+ylab(&quot;Predicted FPR&quot;)+theme(legend.position=&quot;none&quot;)+
+  scale_x_discrete(labels=c(&quot;HE4-Jacob&quot;,&quot;HE4-JHU&quot;,&quot;CA125-Menon&quot;,&quot;CA125-JHU&quot;,&quot;DELFI-Pro&quot;))+theme(axis.title = element_text(face = &quot;bold&quot;),
+        axis.text.x=element_text(face = &quot;bold&quot;), 
+        axis.text.y=element_text(face = &quot;bold&quot;))
+set2</code></pre>
+<p><img src="figure/4bcd.Rmd/fpr-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(mean(score))</code></pre>
+<pre><code># A tibble: 5 × 2
+  tool             `mean(score)`
+  &lt;fct&gt;                    &lt;dbl&gt;
+1 HE4_70_Jacob            0.205 
+2 HE4_70_jhu              0.206 
+3 CA125_30_ukctocs        0.0431
+4 CA125_30_jhu            0.0326
+5 DELFI-Pro               0.0113</code></pre>
+<pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(med=median(score),perc_fpr=med*100,ci_low=round(quantile(score, 0.025), 4)*100,ci_high=round(quantile(score, 0.975), 4)*100)#,sd=sd(score)*100)</code></pre>
+<pre><code># A tibble: 5 × 5
+  tool                 med perc_fpr ci_low ci_high
+  &lt;fct&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 HE4_70_Jacob     0.198     19.8     9.75   35.0 
+2 HE4_70_jhu       0.206     20.6    14.9    26.7 
+3 CA125_30_ukctocs 0.0426     4.26    2.7     6.25
+4 CA125_30_jhu     0.0312     3.12    1.19    6.15
+5 DELFI-Pro        0.00953    0.953   0.14    3.1 </code></pre>
+<pre class="r"><code>dat&lt;-montecarlo %&gt;% select(ppv,tool)
+
+dat&lt;-dat %&gt;% gather(key=metric,value=score,-tool)
+
+#dat&lt;-dat %&gt;% filter(tool %in% c(&quot;CA125_30_ukctocs&quot;,&quot;CA125_30_jhu&quot;,&quot;HE4_70_Jacob&quot;,&quot;HE4_70_jhu&quot;,&quot;DELFI-Pro&quot;))
+dat$tool&lt;-factor(dat$tool,levels=c(&quot;HE4_70_Jacob&quot;,&quot;HE4_70_jhu&quot;,&quot;CA125_30_ukctocs&quot;,&quot;CA125_30_jhu&quot;,&quot;DELFI-Pro&quot;))
+
+#colors=c(&quot;goldenrod1&quot;,&quot;darkorange&quot;,&quot;goldenrod3&quot;,&quot;darkorange2&quot;,&quot;goldenrod4&quot;,&quot;darkorange3&quot;,&quot;dodgerblue&quot;,&quot;cyan2&quot;,&quot;cyan4&quot;,&quot;violetred4&quot;)
+
+set3&lt;-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA)+theme_classic(base_size=20)+ylim(0,.9)+
+  scale_fill_manual(values=c(&quot;steelblue&quot;,&quot;steelblue1&quot;,&quot;lightpink1&quot;,&quot;deeppink&quot;,&quot;darkmagenta&quot;),
+                     labels=c(&quot;HE4 - 70 pM - Jacob et al., 2011&quot;,&quot;HE4 - 70 pM - JHU&quot;,&quot;CA125 - 30 U/mL - Menon et al., 2015&quot;,&quot;CA125 - 30 U/mL - JHU&quot;, &quot;DELFI-Pro - &gt;99% Specificity&quot;))+theme(axis.text.x=element_text(angle=60,vjust = 1, hjust=1))+xlab(&quot;&quot;)+ylab(&quot;Predicted PPV&quot;)+theme(legend.position=&quot;none&quot;)+
+    scale_x_discrete(labels=c(&quot;HE4-Jacob&quot;,&quot;HE4-JHU&quot;,&quot;CA125-Menon&quot;,&quot;CA125-JHU&quot;,&quot;DELFI-Pro&quot;))+theme(axis.title = element_text(face = &quot;bold&quot;),
+        axis.text.x=element_text(face = &quot;bold&quot;), 
+        axis.text.y=element_text(face = &quot;bold&quot;))
+
+
+set3</code></pre>
+<p><img src="figure/4bcd.Rmd/ppv-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(mean(score))</code></pre>
+<pre><code># A tibble: 5 × 2
+  tool             `mean(score)`
+  &lt;fct&gt;                    &lt;dbl&gt;
+1 HE4_70_Jacob            0.0167
+2 HE4_70_jhu              0.0159
+3 CA125_30_ukctocs        0.0417
+4 CA125_30_jhu            0.101 
+5 DELFI-Pro               0.278 </code></pre>
+<pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(med=median(score),perc_ppv=med*100,ci_low=round(quantile(score, 0.025), 4)*100,ci_high=round(quantile(score, 0.975), 4)*100)#,sd=sd(score)*100)</code></pre>
+<pre><code># A tibble: 5 × 5
+  tool                med perc_ppv ci_low ci_high
+  &lt;fct&gt;             &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 HE4_70_Jacob     0.0153     1.53   0.87    3.25
+2 HE4_70_jhu       0.0156     1.56   1.15    2.21
+3 CA125_30_ukctocs 0.0407     4.07   2.61    6.63
+4 CA125_30_jhu     0.0917     9.17   4.92   20.6 
+5 DELFI-Pro        0.236     23.6    8.73   68.5 </code></pre>
+<pre class="r"><code>plot_grid(set1,set3,set2,ncol=3,rel_widths = c(1,.75,.75),align=&quot;h&quot;,axis=&quot;b&quot;)</code></pre>
+<p><img src="figure/4bcd.Rmd/full-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#mc &lt;- filter(montecarlo, population==&quot;Early stage&quot;,
+#             tool %in% c(&quot;DELFI&quot;, &quot;US + AFP&quot;))
+mc&lt;-montecarlo
+
+ppv &lt;- mc %&gt;%
+    group_by(tool) %&gt;%
+    summarize(mu=mean(ppv),
+              `0.025`=quantile(ppv, prob=0.025),
+              `0.975`=quantile(ppv, prob=0.975)) %&gt;%
+    mutate_at(2:4, round, 3) %&gt;%
+    mutate_at(2:4, scales::percent) %&gt;%
+    set_colnames(c(&quot;tool&quot;, &quot;mu&quot;, &quot;q2.5&quot;, &quot;q97.5&quot;)) %&gt;%
+    unite(&quot;ci&quot;, c(&quot;q2.5&quot;, &quot;q97.5&quot;), sep=&quot;-&quot;)
+
+fpr &lt;- mc %&gt;%
+    group_by(tool) %&gt;%
+    summarize(mu=mean(fpr),
+              `0.025`=quantile(fpr, prob=0.025),
+              `0.975`=quantile(fpr, prob=0.975)) %&gt;%
+    mutate_at(2:4, round, 3) %&gt;%
+    mutate_at(2:4, scales::percent) %&gt;%
+    set_colnames(c(&quot;tool&quot;, &quot;mu&quot;, &quot;q2.5&quot;, &quot;q97.5&quot;)) %&gt;%
+    unite(&quot;ci&quot;, c(&quot;q2.5&quot;, &quot;q97.5&quot;), sep=&quot;-&quot;)
+
+ppv</code></pre>
+<pre><code># A tibble: 5 × 3
+  tool             mu    ci        
+  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;     
+1 CA125_30_jhu     10.1% 4.9%-20.6%
+2 CA125_30_ukctocs 4.2%  2.6%-6.6% 
+3 DELFI-Pro        27.8% 8.7%-68.5%
+4 HE4_70_Jacob     1.7%  0.9%-3.2% 
+5 HE4_70_jhu       1.6%  1.1%-2.2% </code></pre>
+<pre class="r"><code>fpr</code></pre>
+<pre><code># A tibble: 5 × 3
+  tool             mu     ci          
+  &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;       
+1 CA125_30_jhu     3.30%  1.2%-6.20%  
+2 CA125_30_ukctocs 4.30%  2.7%-6.30%  
+3 DELFI-Pro        1.10%  0.1%-3.10%  
+4 HE4_70_Jacob     20.50% 9.7%-35.00% 
+5 HE4_70_jhu       20.60% 14.9%-26.70%</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] cowplot_1.1.1          patchwork_1.1.1        data.table_1.14.0     
+ [4] readxl_1.3.1           epiR_2.0.73            survival_3.2-13       
+ [7] magrittr_2.0.1         mvtnorm_1.1-2          forcats_0.5.1         
+[10] stringr_1.5.1          dplyr_1.1.4            purrr_1.0.2           
+[13] readr_2.0.1            tidyr_1.3.1            tibble_3.2.1          
+[16] ggplot2_3.5.0          tidyverse_1.3.1        gtools_3.9.2          
+[19] gridExtra_2.3          liver.tools_0.0.0.9000 devtools_2.4.2        
+[22] usethis_2.0.1          here_1.0.1             workflowr_1.6.2       
+
+loaded via a namespace (and not attached):
+  [1] colorspace_2.0-2        ellipsis_0.3.2          class_7.3-19           
+  [4] rprojroot_2.0.2         flextable_0.9.5         fs_1.5.0               
+  [7] httpcode_0.3.0          rstudioapi_0.13         proxy_0.4-26           
+ [10] farver_2.1.0            remotes_2.4.0           fansi_0.5.0            
+ [13] lubridate_1.7.10        xml2_1.3.2              splines_4.0.5          
+ [16] cachem_1.0.6            knitr_1.33              pkgload_1.2.1          
+ [19] jsonlite_1.7.2          broom_0.7.9             dbplyr_2.1.1           
+ [22] shiny_1.6.0             compiler_4.0.5          httr_1.4.2             
+ [25] backports_1.2.1         assertthat_0.2.1        Matrix_1.3-4           
+ [28] fastmap_1.1.0           cli_3.6.2               later_1.3.0            
+ [31] htmltools_0.5.2         prettyunits_1.1.1       tools_4.0.5            
+ [34] gtable_0.3.0            glue_1.7.0              Rcpp_1.0.7             
+ [37] cellranger_1.1.0        jquerylib_0.1.4         fontquiver_0.2.1       
+ [40] vctrs_0.6.5             crul_1.4.2              xfun_0.25              
+ [43] ps_1.6.0                testthat_3.0.4          rvest_1.0.1            
+ [46] mime_0.11               lifecycle_1.0.4         MASS_7.3-54            
+ [49] zoo_1.8-9               scales_1.3.0            ragg_1.3.0             
+ [52] hms_1.1.0               promises_1.2.0.1        fontLiberation_0.1.0   
+ [55] yaml_2.2.1              curl_4.3.2              memoise_2.0.0          
+ [58] pander_0.6.5            gdtools_0.3.7           sass_0.4.0             
+ [61] stringi_1.7.4           fontBitstreamVera_0.1.1 highr_0.9              
+ [64] desc_1.3.0              e1071_1.7-8             zip_2.2.0              
+ [67] pkgbuild_1.2.0          systemfonts_1.0.6       rlang_1.1.3            
+ [70] pkgconfig_2.0.3         evaluate_0.14           lattice_0.20-44        
+ [73] sf_1.0-7                labeling_0.4.2          processx_3.5.2         
+ [76] tidyselect_1.2.1        R6_2.5.1                generics_0.1.3         
+ [79] DBI_1.1.1               pillar_1.9.0            haven_2.4.3            
+ [82] withr_3.0.0             units_0.8-0             modelr_0.1.8           
+ [85] crayon_1.4.1            gfonts_0.2.0            uuid_0.1-4             
+ [88] KernSmooth_2.23-20      utf8_1.2.2              officer_0.6.5          
+ [91] tzdb_0.1.2              rmarkdown_2.10          isoband_0.2.5          
+ [94] callr_3.7.0             git2r_0.28.0            reprex_2.0.1           
+ [97] digest_0.6.27           classInt_0.4-3          xtable_1.8-4           
+[100] httpuv_1.6.2            textshaping_0.3.7       openssl_1.4.5          
+[103] munsell_0.5.0           BiasedUrn_2.0.11        bslib_0.3.0            
+[106] askpass_1.1             sessioninfo_1.1.1      </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

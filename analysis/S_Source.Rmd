@@ -1,0 +1,86 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+```{r, source,fig.height= 12, fig.width=12,dev=c("png", "pdf")}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(ggpubr)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes")
+dat<-dat %>% select(id,classifier_type,`Screening ZEUS`,subtype_simple,stage,cohort)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id,-cohort) %>% filter(!is.na(score))
+dat<-dat %>% mutate(cohort=if_else(cohort=="Danish","Danish Endoscopy III",cohort))
+dat<-dat %>% mutate(cohort=if_else(cohort=="NKI2"|cohort=="NKI"|cohort=="NKI-HE4_study","NKI",cohort))
+
+dat$classifier_type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+p1<-ggplot(dat,aes(x=cohort,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="indianred",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~classifier_type,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")+ggtitle("Screening Discovery Cohort")
+
+
+dat<-read_csv(here("data/scores","All_Scores_Val.csv"))
+dat<-dat %>% filter(screen_val=="yes")
+dat<-dat %>% select(id,classifier_type,`Screening ZEUS`,subtype_simple,stage,cohort)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id,-cohort) %>% filter(!is.na(score))
+dat<-dat %>% mutate(cohort=if_else(cohort=="ILS-Healthy"|cohort=="ILS-Ovarian","ILS/BioIVT","Penn"))
+
+dat$classifier_type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+p2<-ggplot(dat,aes(x=cohort,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="indianred",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~classifier_type,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")+ggtitle("Screening Validation Cohort")
+
+
+
+
+
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_diag=="yes")
+dat<-dat %>% select(id,classifier_type,`Diagnostic ZEUS`,subtype_simple,stage,cohort)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id,-cohort) %>% filter(!is.na(score))
+dat<-dat %>% mutate(cohort=if_else(cohort=="NKI2"|cohort=="NKI"|cohort=="NKI-HE4_study","NKI",cohort))
+
+dat$classifier_type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+p3<-ggplot(dat,aes(x=cohort,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="darkblue",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~classifier_type,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")+ggtitle("Diagnostic Discovery Cohort")
+
+
+dat<-read_csv(here("data/scores","All_Scores_Val.csv"))
+dat<-dat %>% filter(diag_val=="yes")
+dat<-dat %>% select(id,classifier_type,`Diagnostic ZEUS`,subtype_simple,stage,cohort)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id,-cohort) %>% filter(!is.na(score))
+dat<-dat %>% mutate(cohort=if_else(cohort=="ILS-Ovarian","ILS/BioIVT","Penn"))
+
+dat$classifier_type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+p4<-ggplot(dat,aes(x=cohort,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="darkblue",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~classifier_type,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")+ggtitle("Diagnostic Validation Cohort")
+
+
+
+plot_grid(p1,p2,p3,p4)
+```
+
+
+
+

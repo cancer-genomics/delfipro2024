@@ -1,0 +1,74 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+# DELFI score distribution
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+#dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_screening=="yes")
+
+#meta<-read_xlsx(here("data","100722_Danish_healthy_clinical_data.xlsx"))
+#dat<-inner_join(dat,meta,by=c("id"="Lab ID"))
+
+#write.csv(dat,here("data","S1_data.csv"))
+dat<-fread(here("data","S1_data.csv"))
+```
+
+All cancers
+
+```{r, all_cancer,echo=FALSE,fig.width = 10, fig.height = 6, dev=c("png", "pdf")}
+library(ggpubr)
+
+dat<-dat %>% mutate(`Diabetes Mellitus, Diabetes Type I and II`=if_else(`Diabetes Mellitus, Diabetes Type I and II`==1,"Diabetes Mellitus","None"))
+dat$`Diabetes Mellitus, Diabetes Type I and II`<-factor(dat$`Diabetes Mellitus, Diabetes Type I and II`,levels=c("None","Diabetes Mellitus"))
+p1<-ggplot(dat,aes(x=`Diabetes Mellitus, Diabetes Type I and II`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=151)","Diabetes Mellitus\n(n=7)"))
+
+dat<-dat %>% mutate(`Arteriosclerosis`=if_else(`Arteriosclerosis`==1,"Arteriosclerosis","None"))
+dat$`Arteriosclerosis`<-factor(dat$`Arteriosclerosis`,levels=c("None","Arteriosclerosis"))
+
+p2<-ggplot(dat,aes(x=`Arteriosclerosis`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=152)","Arteriosclerosis\n(n=6)"))
+
+#dat<-dat %>% mutate(`Arthritis`=if_else(`Arthritis`==1,"TRUE","FALSE"))
+#ggplot(dat,aes(x=`Arthritis`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means()+geom_boxplot(outlier.shape=NA)+geom_jitter()
+
+dat<-dat %>% mutate(`Hypertension`=if_else(`Hypertension`==1,"Hypertension","None"))
+dat$`Hypertension`<-factor(dat$`Hypertension`,levels=c("None","Hypertension"))
+
+p3<-ggplot(dat,aes(x=`Hypertension`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=107)","Hypertension\n(n=51)"))
+
+library(cowplot)
+plot_grid(p1,p2,p3,ncol=3)
+
+```
+
+
+
+

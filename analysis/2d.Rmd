@@ -1,0 +1,147 @@
+---
+title: "Fig 4 feature importance"
+output: html_document
+---
+
+```{r packages}
+library(tidyverse)
+library(caret)
+library(recipes)
+library(pROC)
+library(devtools)
+library(reshape2)
+library(plyr)
+library(here)
+library(readxl)
+library(data.table)
+here <- here::here
+outdir <- here("output", "feature_importance.Rmd")
+fs::dir_create(outdir)
+```
+
+```{r data}
+
+meta<-fread(here("data","metadata.csv")) %>% select(-V1)
+
+
+data<-fread(here("data","screening_train_data.csv")) %>% select(-type)
+data2<-fread(here("data","diag_train_data.csv")) %>% filter(type=="healthy") %>% select(-type)
+data<-rbind(data,data2)
+
+data<-inner_join(data,meta %>% select(id,classifier_type),by="id") %>% dplyr::rename(type=classifier_type)
+
+
+screen<-meta %>% filter(training_set_include_screening=="yes")
+screen_val<-meta %>% filter(screen_val=="yes")
+
+
+######
+#Do the diag model
+
+train<-data %>% filter(id %in% screen$id)
+test<-data %>% filter(id %in% screen_val$id)
+
+#train<-train %>% filter(!is.na(`ca125`) & !is.na(he4))
+#test<-test %>% filter(!is.na(`ca125`) & !is.na(he4) )
+
+train<-train %>% select(-ca125,-he4)
+test<-test %>% select(-ca125,-he4)
+
+features<-train
+
+model_seq <- readRDS(here("data/models","Screening.rds"))
+
+
+
+```
+
+```{r labels}
+features <- features  %>% select(-starts_with("cov_"))
+```
+
+```{r model}
+model_seq$levels
+# [1] "cancer"  "healthy"
+# this indicates that the higher level is healthy and that's coded as 1 in logistic regression
+# need to flip the coefficient signs
+orig_coefs <- coef(model_seq$finalModel, s = model_seq$bestTune$lambda) * (-1)
+pr <- prep(model_seq$recipe)
+model_input <- suppressWarnings(bake(pr, new_data = model_seq$trainingData))
+```
+
+```{r feature_wrangling}
+feature_means <- model_input  %>%
+    select(-c(id, type)) %>%
+    colMeans()
+feature_sds <- model_input %>%
+    select(-c(id, type)) %>%
+    as.data.frame() %>%
+    summarise_all(sd)
+feature_coefs <- data.frame(features = names(feature_sds),
+                            sd = as.numeric(feature_sds))
+feature_coefs <- merge(feature_coefs,
+	                   data.frame(features = rownames(orig_coefs),
+	                   	          orig_coefs = as.numeric(orig_coefs)),
+	                   by = 'features', all.x = TRUE)
+feature_coefs$scaled_coefs <- feature_coefs$orig_coefs * feature_coefs$sd
+```
+
+```{r circle, echo=FALSE, fig.width=4, fig.height=4, dev=c("png", "pdf")}
+c<-feature_coefs %>% filter(scaled_coefs != 0)
+
+c<-c %>% mutate(set=if_else(!features %in% c("ca125","he4","ratio_pc_2","ratio_pc_3"),"Chromosomal Changes",features))
+c<-c %>% mutate(set=if_else(features %in% c("ratio_pc_2","ratio_pc_3"),"Fragmentation",set))
+c<-c %>% mutate(group=if_else(set %in% c("ca125","he4"),"Protein\nFeatures","DELFI\nFeatures"))
+c$group<-factor(c$group,levels=c("Protein\nFeatures","DELFI\nFeatures"))
+c$cont<-abs(c$scaled_coefs)
+c$sign<-sign(c$scaled_coefs)
+c<-c %>% mutate(sign=if_else(sign==-1,"Reduce Likelihood of Cancer","Increase Likelihood of Cancer"))
+c<-c %>% mutate(color=if_else(sign=="Reduce Likelihood of Cancer","#18468B","red3"))
+
+l<-(c %>% arrange(-cont))$features
+cs<-(c %>% arrange(-cont))$color
+
+c$features<-factor(c$features,levels=l)
+
+
+
+ggplot(c,aes(x=group,y=cont,fill=features))+geom_bar(stat="identity",color="black")+theme_classic(base_size=20)+theme(legend.position="none")+labs(fill="")+ylab("Absolute Value of Scaled Coefficient")+xlab("")+scale_fill_manual(values=cs)
+
+tot<-sum(abs(c$scaled_coefs))
+
+c2<-c %>% dplyr::group_by(set) %>% dplyr::summarize(perc=sum(abs(scaled_coefs))/tot)
+
+c2$ymax = cumsum(c2$perc)
+c2$ymin = c(0, head(c2$ymax, n=-1))
+
+c2$set<-factor(c2$set,levels=c("ca125","he4","Fragmentation","Chromosomal Changes"))
+ggplot(c2, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=set)) +
+     geom_rect() +
+     coord_polar(theta="y") + 
+     xlim(c(2, 4)) +theme_void()+scale_fill_manual(values=c("red3","#18468B","palevioletred3","darkorchid3"))+theme(legend.position="none")
+
+
+```
+
+```{r coefs, echo=FALSE, fig.width=8, fig.height=8, dev=c("png", "pdf")}
+coefs<-c #%>% filter(group=="DELFI\nFeatures")
+coefs<-coefs %>% mutate(f=gsub("zscore_","Chromosomal Changes ",coefs$features))
+coefs<-coefs %>% mutate(f=gsub("ratio_pc_","Fragmentation PC ",coefs$f))
+
+coefs<-coefs %>% mutate(f=if_else(f=="ca125","CA-125",f))
+coefs<-coefs %>% mutate(f=if_else(f=="he4","HE-4",f))
+l<-as.character((coefs %>% arrange(-cont))$f)
+
+coefs$f<-factor(coefs$f,levels=rev(l))
+coefs<-coefs %>% mutate(set=if_else(set=="ca125","CA-125",set))
+coefs<-coefs %>% mutate(set=if_else(set=="he4","HE-4",set))
+
+coefs$set<-factor(coefs$set,levels=c("CA-125","HE-4","Fragmentation","Chromosomal Changes"))
+
+ggplot(coefs,aes(x=f,y=scaled_coefs,color=set))+geom_segment(aes(x=f,xend=f,y=0,yend=scaled_coefs))+geom_point()+scale_color_manual(values=c("red3","#18468B","palevioletred3","darkorchid3"))+coord_flip()+theme_classic(base_size=12)+theme(legend.position="right")+labs(color="")+ylab("Scaled Logistic Regression Coefficient")+xlab("")
+
+
+
+```
+
+

@@ -1,0 +1,200 @@
+---
+title: "S5"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r asymp AUC, echo = FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+#Clean out list section
+rm(list=ls());gc()
+
+rename <- dplyr::rename
+
+
+#dat<-read.csv(here("data","scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_diag=="yes")
+#dat<-dat %>% select(id,classifier_type,ca125,`Diagnostic.ZEUS`,subtype_simple,stage)
+#dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+#dat<-dat %>% filter(model=="Diagnostic.ZEUS")
+#meta<-read_xlsx("../data/20220620_ Clinical_Data_Ovarian_Cancer_june2022_cgid_CBCs.xlsx")
+
+#dat1<-inner_join(dat,meta %>% select(cgid,`Symptomatic/Asymptomatic`),by=c("id"="cgid"))
+
+#dat2<-inner_join(dat,meta%>% select(PGDXID,`Symptomatic/Asymptomatic`),by=c("id"="PGDXID"))
+
+#data<-rbind(dat1,dat2)
+
+#head(data)
+#write.csv(data,here("S5.csv"))
+data<-fread(here("data","S5.csv"))
+##########
+library(ggpubr)
+
+
+ds<-data %>% filter(!is.na(`Symptomatic/Asymptomatic`)) %>% filter(`Symptomatic/Asymptomatic` != "Unknown")
+b<-ggplot(ds,aes(x=`Symptomatic/Asymptomatic`,y=score))+theme_classic()+stat_compare_means()+geom_boxplot(outlier.shape=NA,fill="darkblue",alpha=.5,width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("Asymptomatic\n(n=17)","Symptomatic\n(n=164)"))
+
+b
+head(ds)
+#Asymptomatic non-cancers diagnostic vs cancers diagnostic
+#select non-cancers
+df <- ds %>% filter(!is.na(`Symptomatic/Asymptomatic`)) %>% filter(`Symptomatic/Asymptomatic` != "Unknown") %>% filter(classifier_type == "healthy") %>% filter(`Symptomatic/Asymptomatic` == "Asymptomatic") %>% select(id, classifier_type, model, score)
+df$score
+df
+names(df)
+unique(df$`Symptomatic/Asymptomatic`)
+unique(df$classifier_type)
+length(unique(df$id))
+
+#select cancers
+df2 <- ds %>% filter(!is.na(`Symptomatic/Asymptomatic`)) %>% filter(`Symptomatic/Asymptomatic` != "Unknown") %>% filter(classifier_type == "cancer") %>% filter(`Symptomatic/Asymptomatic` == "Asymptomatic") %>% select(id, classifier_type, model, score)
+df2
+
+dx_asymps <- rbind(df, df2)
+table(dx_asymps$classifier_type)
+
+plot.roc(roc(dx_asymps$classifier_type, dx_asymps$score, levels=c("healthy", "cancer"),  ci=TRUE, auc.polygon=TRUE), ci=TRUE,  main = "Asymptomatic Diagnostic Cohort", print.auc=TRUE, print.auc.x=0.48, print.auc.y=0.15, identity.col="grey", col= "red4", grid.v = c(0.95, 0.9, 0.8), print.auc.col = "red4", print.auc.pattern = "AUC: %.2f (%.2f-%.2f)", add = FALSE, asp=NA)
+
+dx_asymps$type<-factor(dx_asymps$classifier_type,levels=c("healthy","cancer"))
+dxa<-format_roc(dx_asymps$type,dx_asymps$score,"")
+dxa$model<-"DELFI+CA125+HE4"
+dxa$type<-paste0("AUC: ",round(roc(dx_asymps$type,dx_asymps$score)$auc[1],2)," (95% CI: ",round(roc(dx_asymps$type,dx_asymps$score,ci=T)$ci[1],2) ,"-",round(roc(dx_asymps$type,dx_asymps$score,ci=T)$ci[3],2) ,")")
+
+r2<-dxa %>% group_by(model) %>% arrange(sens)
+r2
+
+colors <- c("gray50","skyblue","pink","indianred")
+colors <- c("skyblue")
+names(colors) <- c(unique(r2$type))
+
+A2 <- r2 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) +
+  theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+
+  ggtitle("Asymptomatic Diagnostic Model")
+
+
+C2<-ggdraw(A2)#+draw_plot(B,.5,.2,.4,.4)
+C2
+
+#screening cohort
+#dat<-read.csv(here("data","scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_screening=="yes")
+#dat<-dat %>% select(id,classifier_type,ca125,`Screening.ZEUS`,subtype_simple,stage)
+#dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+#dat<-dat %>% filter(model=="Screening.ZEUS")
+#meta<-read_xlsx("../data/20220620_ Clinical_Data_Ovarian_Cancer_june2022_cgid_CBCs.xlsx")
+
+#dat1<-inner_join(dat,meta %>% select(cgid,`Symptomatic/Asymptomatic`),by=c("id"="cgid"))
+
+#dat2<-inner_join(dat,meta%>% select(PGDXID,`Symptomatic/Asymptomatic`),by=c("id"="PGDXID"))
+
+#data<-rbind(dat1,dat2)
+
+#head(data)
+
+#write.csv(data,here("S5_p2.csv"))
+data<-fread(here("data","S5_p2.csv"))
+
+
+ds3<-data %>% filter(!is.na(`Symptomatic/Asymptomatic`)) %>% filter(`Symptomatic/Asymptomatic` != "Unknown")
+b<-ggplot(ds3,aes(x=`Symptomatic/Asymptomatic`,y=score))+theme_classic()+stat_compare_means()+geom_boxplot(outlier.shape=NA,fill="darkblue",alpha=.5,width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("Asymptomatic\n(n=5)","Symptomatic\n(n=84)"))
+
+df3 <- ds3 %>% filter(classifier_type == "cancer") %>% filter(`Symptomatic/Asymptomatic` == "Asymptomatic") %>% select(id, classifier_type, model, score)
+
+
+#select the non-cancers
+dat<-read.csv(here("data","scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes")
+dat<-dat %>% select(id,classifier_type,ca125,`Screening.ZEUS`,subtype_simple,stage)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+dat<-dat %>% filter(model=="Screening.ZEUS")
+h <- dat %>% filter(classifier_type == "healthy") %>% select(id, classifier_type, model, score)
+
+sc_asymps <- rbind(df3, h)
+
+plot.roc(roc(sc_asymps$classifier_type, sc_asymps$score, levels=c("healthy", "cancer"),  ci=TRUE, auc.polygon=TRUE), ci=TRUE,  main = "Asymptomatic Screening Cohort", print.auc=TRUE, print.auc.x=0.48, print.auc.y=0.15, identity.col="grey", col= "steelblue", grid.v = c(0.95, 0.9, 0.8), print.auc.col = "steelblue", print.auc.pattern = "AUC: %.2f (%.2f-%.2f)", add = FALSE, asp=NA)
+
+sc_asymps$type<-factor(sc_asymps$classifier_type,levels=c("healthy","cancer"))
+sca<-format_roc(sc_asymps$type,sc_asymps$score,"")
+sca$model<-"DELFI+CA125+HE4"
+sca$type<-paste0("AUC: ",round(roc(sc_asymps$type,sc_asymps$score)$auc[1],2)," (95% CI: ",round(roc(sc_asymps$type,sc_asymps$score,ci=T)$ci[1],2) ,"-",round(roc(sc_asymps$type,sc_asymps$score,ci=T)$ci[3],2) ,")")
+
+r1<-sca %>% group_by(model) %>% arrange(sens)
+r1
+
+colors <- c("gray50","skyblue","pink","indianred")
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) +
+  theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+
+  ggtitle("Asymptomatic Screening Model")
+
+
+C<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+C
+
+
+#ggsave("./docs/asymp_rocs_061224.png", plot = procs, width = 12, height = 5)
+```
+
+```{r, combo,fig.height= 5, fig.width=12,dev=c("png", "pdf")}
+procs <- egg::ggarrange(C, C2, nrow =1)
+
+```
+

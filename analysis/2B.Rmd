@@ -1,0 +1,188 @@
+---
+title: "2B"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+Figure 2B.
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(openxlsx)
+library(devtools)
+library(ComplexHeatmap)
+library(circlize)
+library(data.table)
+library(here)
+selected_model = 'seq'
+
+data_iteration = 1
+
+include_cov = FALSE
+```
+
+```{r sample.set.annotation, echo=FALSE}
+library(readxl)
+#meta<-read_csv(here("data","metadata.csv"))
+
+
+#data<-fread(here("data","allfeatures.5mb.hg19.csv"))
+#data$arm<-paste0("zscore_",data$arm)
+#data<-data %>% spread(key=arm,value=zscore)
+
+#meta<-meta %>% mutate(id=if_else(id %in% data$id,id,id2))
+#meta <- meta %>% mutate(classifier_type=if_else(type=="cancer"|type=="Krukenberg tumor","cancer","healthy"))
+#meta <- meta %>% mutate(classifier_type2=if_else(type2=="Benign"|type=="benign","Benign",type))
+
+#features<-data
+
+#features <- features %>% select(id,starts_with("z"),starts_with("ratio"))
+
+#datx<-read_csv(here("data/scores/All_Scores_CV.csv"))
+
+#datx<-datx %>% filter(training_set_include_screening=="yes"|training_set_include_diag=="yes")
+
+#features<-features %>% filter(id %in% datx$id)
+
+#meta<-datx
+
+#meta<-meta %>% mutate(score=if_else(training_set_include_screening=="no",`Diagnostic ZEUS`,`Screening ZEUS`))
+
+```
+
+```{r heatmap.body, echo=FALSE,dev=c("png", "pdf")}
+
+#--------------------------------construct the feature table-------------------------------#
+#--------------------------------------- Heatmap Body  ------------------------------------#
+library(data.table)
+#dm.meta<-meta
+#dm.meta<-dm.meta %>% mutate(classifier_type=if_else(training_set_include_diag=="yes" & classifier_type=="healthy","Benign Adnexal Mass",classifier_type))
+
+#dm.meta<-dm.meta %>% mutate(subtype_simple=if_else(subtype_simple %in% c("LGSOC"),"LGSOC",subtype_simple))
+#dm.meta<-dm.meta %>% mutate(subtype_simple=if_else(subtype_simple %in% c("Germ Cell","Poorly Diff.","Granulosa","Clear Cell","Other","Mixed","Sarcoma","Giant Cell"),"Other Subtypes",subtype_simple))
+#dm.meta<-dm.meta %>% mutate(subtype_simple=if_else(is.na(subtype_simple) & classifier_type=="cancer","Other Subtypes",subtype_simple))
+
+#dm.meta<-dm.meta %>% mutate(subtype_simple=if_else(subtype_simple=="non-cancer","NA",subtype_simple))
+
+#dm.meta<-dm.meta %>% mutate(stage=if_else(stage=="Non-cancer","NA",stage))
+
+#dm.meta$Disease<-dm.meta$classifier_type
+#dm.meta<-dm.meta %>% mutate(Disease=if_else(Disease=="healthy","Non-Cancer",Disease))
+#dm.meta<-dm.meta %>% mutate(Disease=if_else(Disease=="cancer","Ovarian Cancer",Disease))
+
+#labels <- dm.meta %>%
+#          select(id,Disease,ca125,he4,stage,subtype_simple,score)
+
+#features <- inner_join(features,labels, by=c("id"="id"))
+
+#features <- features %>% mutate(clinical_Disease_Status=factor(Disease,
+ #                                                             c("Non-Cancer", "Benign Adnexal Mass", "Ovarian Cancer")),
+#                                clinical_ca125=as.integer(ca125),clinical_he4=as.integer(he4),clinical_stage=factor(stage,
+  #                                                            c("I", "II", #"III","IV","Unknown")),clinical_subtype=factor(subtype_simple,c("HGSOC","LGSOC","Endometrioid","Mucinous","Other Subtypes")),delfi_score=score)
+
+
+#if (include_cov == TRUE){
+#  dna_features <- features %>% select(starts_with('zscore_') | starts_with('ratio_') | starts_with('cov_'))
+#}else{
+#  dna_features <- features %>% select(starts_with('zscore_') | starts_with('ratio_'))
+#}
+
+#dna_features <- as.matrix(dna_features)
+#dna_features <- apply(dna_features, 2, scale)
+#rownames(dna_features) <- features$id
+
+#dna_features2<-dna_features
+#write.table(dna_features,"2B.csv",quote=FALSE)
+dna_features<-as.matrix(read.table(here("data/2B.csv")))
+
+
+```
+
+```{r sample.annotation, echo=FALSE}
+#--------------------------------construct annotation object -------------------------------#
+#sample_annot <- features %>% select(id, clinical_Disease_Status, clinical_ca125,clinical_he4,clinical_stage,clinical_subtype,delfi_score)
+#write.csv(sample_annot2,"2B_annot.csv")
+sample_annot<-fread(here("data/2B_annot.csv"))
+
+sample_annot <- data.frame(sample_annot)
+rownames(sample_annot) <- sample_annot$id
+sample_annot$id <- NULL
+
+sample_annot$ca125 <- as.numeric(sample_annot$clinical_ca125)
+sample_annot$he4 <- as.numeric(sample_annot$clinical_he4)
+sample_annot$`Disease` = sample_annot$clinical_Disease_Status
+sample_annot$`Stage` = sample_annot$clinical_stage
+sample_annot$`Subtype` = sample_annot$clinical_subtype
+sample_annot$`DELFI-Pro Score`=sample_annot$delfi_score
+
+
+sample_annot[,c('clinical_Disease_Status', 'clinical_ca125', 'clinical_he4','clinical_subtype','clinical_stage','delfi_score')] <- NULL
+sample_annot  = sample_annot[,c( 'Disease','ca125','he4','Stage','Subtype','DELFI-Pro Score')]
+sample_annot<-sample_annot %>% arrange(Disease)
+sample_annot
+sample_annot <- rename(sample_annot, `CA-125`=ca125)
+sample_annot <- rename(sample_annot, HE4=he4)
+
+```
+
+```{r feature.annotation, echo=FALSE}
+#--------------------------------construct feature annotation object ----------------------------#
+features_annot <- data.frame(Family = sapply(colnames(dna_features), function(x) str_split(x, '_')[[1]][1]))
+rownames(features_annot) <- colnames(dna_features)
+
+```
+
+
+```{r data.setup, echo=FALSE}
+sample_annot <- sample_annot[with(sample_annot, order(Disease, -`DELFI-Pro Score`,-`CA-125`,-HE4,Subtype, Stage)),]
+sample_annot<-sample_annot %>% select(Disease,`DELFI-Pro Score`,`CA-125`,HE4,Subtype,Stage)
+split <- sample_annot$Disease
+split_col <- features_annot$Family
+
+```
+
+```{r heatmap, echo=FALSE, fig.width = 24, fig.height = 12, message=FALSE, warning=FALSE,dev=c("png", "pdf")}
+col_fun_body = colorRamp2(c(-2, -1, 0, 1, 2), rev(c('#d7191c', '#fdae61', 'white', '#abd9e9', '#2c7bb6')))
+
+col_fun_row = list(`DELFI-Pro Score` = colorRamp2(c(0,1), c('white', 'black')),
+                   `CA-125` = colorRamp2(c(1000,5000), c('white', 'aquamarine')) ,
+                   Disease= structure(c('gray50', 'darkblue', 'indianred'), names = c('Non-Cancer','Benign Adnexal Mass', 'Ovarian Cancer')),
+                   HE4 = colorRamp2(c(500,2500),c('white','coral')),
+                   Stage=structure(c("hotpink","plum1","forestgreen","slateblue1","darkorange2"),names=c("I","II","III","IV","Unknown")),
+                   Subtype=structure(c("violetred2","skyblue1","goldenrod1","darkseagreen2","mediumpurple"),names=c("HGSOC","LGSOC","Endometrioid","Mucinous","Other Subtypes")))
+
+col_fun_column = list(Family = structure(c('#66c2a5', '#8da0cb'), names = c('zscore', 'ratio')))
+
+col_fun_column
+
+ht <- Heatmap(dna_features, name = "Values",
+              col = col_fun_body,
+              show_row_dend =  FALSE,
+              show_column_dend = FALSE,
+              show_row_names = FALSE,
+              show_column_names = FALSE,
+              row_title = 'Samples',
+              column_title = 'Features',
+              left_annotation = rowAnnotation(df = sample_annot, col = col_fun_row, annotation_name_side= 'top', annotation_name_gp= gpar(fontsize = 16)),
+              row_title_gp = gpar(fontsize = 30, fontface = "bold"),
+              column_title_gp = gpar(fontsize = 30, fontface = "bold"),
+              column_names_gp = gpar(fontsize =5),
+              row_names_gp = gpar(fontsize = 30, fontface = "bold"),
+              top_annotation = columnAnnotation(df = features_annot, col = col_fun_column, annotation_name_gp= gpar(fontsize = 20)),
+              row_split = split,cluster_row_slices = FALSE,
+              cluster_rows = FALSE,
+              cluster_columns=TRUE)
+
+
+#pdf("Fig2B.pdf", width=28, height=12)
+draw(ht)
+#dev.off()
+
+
+#svg("Fig2B.svg", width=28, height=12)
+ht
+#dev.off()
+
+
+```
+
+

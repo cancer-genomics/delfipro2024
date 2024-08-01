@@ -1,0 +1,56 @@
+---
+title: "S16"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r S16, fig.height= 12, fig.width=18,dev=c("png", "pdf")}
+###################################
+# S16
+#####################################
+library(tidyverse)
+library(readxl)
+library(egg)
+library(ggpubr)
+library(here)
+
+#Clean out list section
+rm(list=ls());gc()
+
+#### tumor size in validation set again
+dat<-read_xlsx(here("data/06062024_val_tumor_size.xlsx"))
+dat$`LARGESTTMSIZE(CM)` <- as.numeric(dat$`LARGESTTMSIZE(CM)`)
+dat2 <- dat %>% drop_na(`LARGESTTMSIZE(CM)`) %>% select(`LARGESTTMSIZE(CM)`, `ADDTOTAL(CM)`, TUMQUANT, SCRNDELFIPRO, DIAGDELFIPRO)
+
+p1 <- dat2 %>% 
+  ggplot(aes(x = SCRNDELFIPRO, y = `ADDTOTAL(CM)`)) +
+  geom_point() +
+  theme_classic()+ 
+  geom_smooth(method='lm') +
+  coord_cartesian(ylim=c(0,40)) +
+  labs(y = "Sum of diameters (cm)", x = "Screening model DELFI-Pro score") +
+  theme_classic()+
+  theme(axis.title = element_text(face = "bold", size = 10),
+        axis.text.x=element_text(face = "bold", size = 10), 
+        axis.text.y=element_text(face = "bold", size = 10))+ 
+  stat_cor(method = "pearson", label.x = .15, label.y = 35)
+
+p1.5 <- dat2 %>% 
+  ggplot(aes(x = DIAGDELFIPRO, y = `ADDTOTAL(CM)`)) +
+  geom_point() +
+  theme_classic()+ 
+  scale_y_continuous(limits = c(-10, 40), breaks = c(0, 20, 40)) +
+  xlim(0,1)+
+  geom_smooth(method='lm') +
+  coord_cartesian(ylim=c(0,40)) +
+  labs(y = "Sum of diameters (cm)", x = "Diagnostic model DELFI-Pro score") +
+  theme_classic()+
+  theme(axis.title = element_text(face = "bold", size = 10),
+        axis.text.x=element_text(face = "bold", size = 10), 
+        axis.text.y=element_text(face = "bold", size = 10))+ 
+  stat_cor(method = "pearson", label.x = .15, label.y = 35)
+plot2 <- egg::ggarrange(p1, p1.5, nrow =1)
+#ggsave("./docs/lesiondiameter_vs_DELFI-Pro_06132024.png", plot = plot2, height = 5, width = 10)
+
+```

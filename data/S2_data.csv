@@ -1,0 +1,95 @@
+"","id","classifier_type","subtype_simple","stage","model","score","Symptomatic/Asymptomatic","Menopause status","Age at diagnosis (ultrasound date)"
+"1","CGPLOV459P","cancer","HGSOC","III","Screening ZEUS",0.999973082741928,"Symptomatic","Postmenopausal",76
+"2","CGPLOV320P","cancer","HGSOC","IV","Screening ZEUS",1,NA,"Postmenopausal",60
+"3","CGPLOV326P","cancer","Endometrioid","I","Screening ZEUS",0.244083081581628,NA,"Postmenopausal",73
+"4","CGPLOV556P","cancer","HGSOC","III","Screening ZEUS",0.77452600379653,"Symptomatic","Postmenopausal",72
+"5","CGPLOV566P","cancer","Clear Cell","II","Screening ZEUS",0.104363725360228,NA,"Postmenopausal",56
+"6","CGPLOV565P","cancer","HGSOC","III","Screening ZEUS",0.999040566275685,"Symptomatic","Postmenopausal",66
+"7","CGPLOV561P","cancer","HGSOC","I","Screening ZEUS",0.674705909598876,"Symptomatic","Postmenopausal",61
+"8","CGPLOV592P","cancer","Clear Cell","II","Screening ZEUS",0.861818768965063,"Symptomatic","Postmenopausal",71
+"9","CGPLOV497P","cancer","HGSOC","III","Screening ZEUS",0.999981593855818,"Symptomatic","Postmenopausal",57
+"10","CGPLOV606P","cancer","Endometrioid","I","Screening ZEUS",0.133682638840399,"Symptomatic","Postmenopausal",82
+"11","CGPLOV569P","cancer","HGSOC","III","Screening ZEUS",0.999999951801935,"Asymptomatic","Postmenopausal",59
+"12","CGPLOV578P","cancer","HGSOC","III","Screening ZEUS",0.793968582602605,"Symptomatic","Postmenopausal",73
+"13","CGPLOV574P","cancer","HGSOC","III","Screening ZEUS",0.17346860739706,"Symptomatic","Postmenopausal",72
+"14","CGPLOV392P","cancer","HGSOC","I","Screening ZEUS",0.338763384029446,"Symptomatic","Postmenopausal",66
+"15","CGPLOV573P","cancer","Endometrioid","Unknown","Screening ZEUS",1,"Symptomatic","Postmenopausal",73
+"16","CGPLOV331P","cancer","Mucinous","I","Screening ZEUS",0.202408273910474,"Symptomatic","Premenopausal",37
+"17","CGPLOV597P","cancer","LGSOC","III","Screening ZEUS",0.999719463929653,"Symptomatic","Premenopausal",54
+"18","CGPLOV372P","cancer","HGSOC","II","Screening ZEUS",0.99999999999788,"Symptomatic","Premenopausal",48
+"19","CGPLOV374P","cancer","HGSOC","III","Screening ZEUS",0.974981993929564,NA,"Postmenopausal",59
+"20","CGPLOV332P","cancer","Endometrioid","I","Screening ZEUS",0.89423391505628,"Symptomatic","Postmenopausal",55
+"21","CGPLOV462P","cancer","Clear Cell","I","Screening ZEUS",0.0714014379744018,"Symptomatic","Premenopausal",49
+"22","CGPLOV444P","cancer","HGSOC","II","Screening ZEUS",0.629812627719296,"Symptomatic","Postmenopausal",56
+"23","CGPLOV377P","cancer","HGSOC","III","Screening ZEUS",0.999048598953488,"Symptomatic","Postmenopausal",64
+"24","CGPLOV355P","cancer","Endometrioid","III","Screening ZEUS",0.992065988420624,"Symptomatic","Unknown",53
+"25","CGPLOV357P","cancer","Clear Cell","I","Screening ZEUS",0.63495553328156,NA,"Postmenopausal",60
+"26","CGPLOV370P","cancer","Mucinous","I","Screening ZEUS",0.716860236642815,"Symptomatic","Postmenopausal",63
+"27","CGPLOV496P","cancer","LGSOC","II","Screening ZEUS",0.497850361467624,"Symptomatic","Premenopausal",46
+"28","CGPLOV470P","cancer","Mucinous","I","Screening ZEUS",0.152593274448981,"Symptomatic","Postmenopausal",59
+"29","CGPLOV516P","cancer","HGSOC","II","Screening ZEUS",0.999999981517902,"Symptomatic","Postmenopausal",83
+"30","CGPLOV580P","cancer","Endometrioid","II","Screening ZEUS",0.212033413535178,"Symptomatic","Postmenopausal",70
+"31","CGPLOV379P","cancer","Endometrioid","I","Screening ZEUS",0.999999872325993,"Symptomatic","Postmenopausal",59
+"32","CGPLOV449P","cancer","Mucinous","I","Screening ZEUS",0.215180186620379,"Symptomatic","Postmenopausal",84
+"33","CGPLOV584P","cancer","HGSOC","Unknown","Screening ZEUS",0.92313301788551,"Symptomatic","Postmenopausal",85
+"34","CGPLOV398P","cancer","HGSOC","III","Screening ZEUS",0.189766695939538,"Symptomatic","Postmenopausal",67
+"35","CGPLOV384P","cancer","LGSOC","III","Screening ZEUS",0.342612351028269,"Asymptomatic","Postmenopausal",63
+"36","CGPLOV336P","cancer","HGSOC","III","Screening ZEUS",0.999999513186376,"Symptomatic","Postmenopausal",68
+"37","CGPLOV383P","cancer","Mucinous","III","Screening ZEUS",0.51349183079622,"Symptomatic","Postmenopausal",75
+"38","CGPLOV589P","cancer","Mucinous","I","Screening ZEUS",0.0845763069481987,"Symptomatic","Postmenopausal",66
+"39","CGPLOV402P","cancer","HGSOC","III","Screening ZEUS",0.99999999999997,"Symptomatic","Postmenopausal",62
+"40","CGPLOV401P","cancer","Clear Cell","II","Screening ZEUS",0.0205249465489545,"Symptomatic","Postmenopausal",59
+"41","CGPLOV520P","cancer","Endometrioid","II","Screening ZEUS",0.833951696327871,"Symptomatic","Premenopausal",42
+"42","CGPLOV482P","cancer","Other","IV","Screening ZEUS",0.999998876667637,"Symptomatic","Postmenopausal",73
+"43","CGPLOV408P","cancer","Clear Cell","II","Screening ZEUS",0.51641569124459,"Symptomatic","Postmenopausal",57
+"44","CGPLOV410P","cancer","HGSOC","III","Screening ZEUS",1,"Symptomatic","Postmenopausal",65
+"45","CGPLOV340P","cancer","HGSOC","III","Screening ZEUS",0.999999999995541,"Symptomatic","Postmenopausal",58
+"46","CGPLOV484P","cancer",NA,"Unknown","Screening ZEUS",0.0722614320538922,"Symptomatic","Postmenopausal",60
+"47","CGPLOV489P","cancer","Endometrioid","Unknown","Screening ZEUS",0.999999428539365,"Symptomatic","Postmenopausal",69
+"48","CGPLOV414P","cancer","Mixed","II","Screening ZEUS",0.803309030685004,"Symptomatic","Postmenopausal",65
+"49","CGPLOV339P","cancer","HGSOC","III","Screening ZEUS",0.857592812884369,"Symptomatic","Postmenopausal",58
+"50","CGPLOV343P","cancer","Endometrioid","II","Screening ZEUS",0.173997386369695,"Symptomatic","Postmenopausal",62
+"51","CGPLOV345P","cancer","Other","II","Screening ZEUS",0.76207991452098,"Symptomatic","Postmenopausal",71
+"52","CGPLOV418P","cancer","Mucinous","I","Screening ZEUS",0.676911299045552,"Symptomatic","Postmenopausal",59
+"53","PGDX25857P","cancer","Mucinous","I","Screening ZEUS",0.923645644980652,"Symptomatic","Postmenopausal",48
+"54","PGDX25830P","cancer","Endometrioid","II","Screening ZEUS",0.999777569480638,"Asymptomatic","Postmenopausal",55
+"55","PGDX25829P","cancer","Clear Cell","II","Screening ZEUS",0.968145153319553,"Symptomatic","Postmenopausal",59
+"56","PGDX25827P","cancer","Sarcoma","III","Screening ZEUS",0.917428135276616,"Symptomatic","Postmenopausal",57
+"57","PGDX25809P","cancer","HGSOC","II","Screening ZEUS",0.999999626431979,"Symptomatic","Postmenopausal",53
+"58","PGDX25801P","cancer","Granulosa","II","Screening ZEUS",0.887573127992722,"Symptomatic","Premenopausal",47
+"59","PGDX25800P","cancer","Endometrioid","I","Screening ZEUS",0.998310140163872,"Symptomatic","Postmenopausal",58
+"60","PGDX25799P","cancer","HGSOC","III","Screening ZEUS",0.999889170534113,"Symptomatic","Postmenopausal",66
+"61","PGDX25796P","cancer","HGSOC","III","Screening ZEUS",0.99999998026645,"Symptomatic","Postmenopausal",68
+"62","PGDX25795P","cancer","HGSOC","III","Screening ZEUS",0.997157550398551,"Symptomatic","Premenopausal",45
+"63","PGDX25793P","cancer","HGSOC","III","Screening ZEUS",0.813868929651235,"Symptomatic","Postmenopausal",53
+"64","PGDX25772P","cancer","HGSOC","I","Screening ZEUS",0.99999991606637,"Symptomatic","Postmenopausal",61
+"65","PGDX25771P","cancer","Endometrioid","I","Screening ZEUS",0.999991933779058,"Symptomatic","Postmenopausal",75
+"66","PGDX25770P","cancer","Clear Cell","I","Screening ZEUS",0.942723625426351,"Symptomatic","Postmenopausal",55
+"67","PGDX25769P","cancer","LGSOC","I","Screening ZEUS",0.999932471313663,"Symptomatic","Postmenopausal",52
+"68","PGDX25768P","cancer","LGSOC","III","Screening ZEUS",0.977474765740624,"Symptomatic","Postmenopausal",65
+"69","PGDX25767P","cancer","HGSOC","I","Screening ZEUS",0.998440006684603,"Symptomatic","Postmenopausal",55
+"70","PGDX25765P","cancer","Granulosa","I","Screening ZEUS",0.950585478322394,"Symptomatic","Postmenopausal",65
+"71","PGDX25707P","cancer","HGSOC","I","Screening ZEUS",0.999748059743404,"Symptomatic","Postmenopausal",54
+"72","PGDX25706P","cancer","LGSOC","II","Screening ZEUS",0.999987793359851,"Symptomatic","Postmenopausal",49
+"73","PGDX25705P","cancer","Poorly Diff.","I","Screening ZEUS",0.999906189929059,"Symptomatic","Postmenopausal",72
+"74","PGDX25704P","cancer","Endometrioid","I","Screening ZEUS",0.999830807391919,"Asymptomatic","Postmenopausal",68
+"75","PGDX25698P","cancer","Clear Cell","II","Screening ZEUS",0.999872148316244,"Symptomatic","Postmenopausal",81
+"76","PGDX25684P","cancer","HGSOC","III","Screening ZEUS",0.999999999999988,"Symptomatic","Postmenopausal",68
+"77","PGDX25683P","cancer","HGSOC","II","Screening ZEUS",0.999999999999933,"Symptomatic","Postmenopausal",67
+"78","PGDX25682P","cancer","Clear Cell","I","Screening ZEUS",0.840621515824968,"Symptomatic","Postmenopausal",65
+"79","PGDX25577P","cancer","Mucinous","I","Screening ZEUS",0.925769691967163,"Symptomatic","Postmenopausal",54
+"80","PGDX25573P","cancer","LGSOC","III","Screening ZEUS",0.999341303149338,"Symptomatic","Premenopausal",45
+"81","PGDX25703P","cancer","Mucinous","II","Screening ZEUS",0.98545150245559,"Asymptomatic","Postmenopausal",56
+"82","PGDX25798P","cancer","Other","I","Screening ZEUS",0.957881329437355,"Symptomatic","Unknown",50
+"83","PGDX25693P","cancer","HGSOC","I","Screening ZEUS",0.999999933610029,"Symptomatic","Postmenopausal",76
+"84","PGDX25824P","cancer","Other","I","Screening ZEUS",1,"Symptomatic","Postmenopausal",61
+"85","PGDX25797P","cancer","Clear Cell","II","Screening ZEUS",0.464667380270207,"Symptomatic","Postmenopausal",58
+"86","PGDX25574P","cancer","Mucinous","I","Screening ZEUS",0.794445160235603,"Symptomatic","Postmenopausal",70
+"87","PGDX25766P","cancer","HGSOC","II","Screening ZEUS",0.998594125327787,"Symptomatic","Postmenopausal",61
+"88","PGDX25696P","cancer","HGSOC","II","Screening ZEUS",0.999532260531624,"Symptomatic","Postmenopausal",66
+"89","PGDX25576P","cancer","Giant Cell","I","Screening ZEUS",0.999999995623806,"Symptomatic","Postmenopausal",84
+"90","PGDX25695P","cancer","Mucinous","II","Screening ZEUS",0.97469715256054,"Symptomatic","Postmenopausal",59
+"91","PGDX25825P","cancer","HGSOC","II","Screening ZEUS",0.999999999989813,"Symptomatic","Postmenopausal",77
+"92","PGDX25692P","cancer","HGSOC","III","Screening ZEUS",1,"Symptomatic","Postmenopausal",69
+"93","PGDX25794P","cancer","HGSOC","III","Screening ZEUS",0.998412370443506,"Symptomatic","Postmenopausal",66
+"94","PGDX25697P","cancer","HGSOC","III","Screening ZEUS",0.998698922537586,"Symptomatic","Unknown",76

@@ -1,0 +1,169 @@
+---
+title: "2A"
+author: "Jamie Medina"
+date: '2024-07-17'
+output: html_document
+---
+
+Code for Figure 2A.
+```{r background, echo=FALSE, include=FALSE}
+###################################
+# 2A
+#####################################
+library(tidyverse)
+library(readxl)
+library(here)
+
+#Clean out list section
+rm(list=ls());gc()
+```
+
+
+```{r fig 2a, echo = FALSE}
+#data
+diag<-read.csv(here("data","scores","All_Scores_CV.csv"))
+frags <- read.csv(here("data","long_bins_hiseq.csv")) 
+
+#meta<-fread(here("data","metadata.csv"))
+#frags<-frags %>% filter(id %in% meta$id|id %in% meta$id2)
+#frags<-write.csv(frags,here("data","long_bins_hiseq.csv"))
+#data organization
+screen <- diag %>% filter(training_set_include_screening == "yes")
+diag <- diag %>% filter(training_set_include_diag == "yes" & classifier_type != "cancer")
+diag$classifier_type <- gsub("healthy", "benign", diag$classifier_type)
+fragplot <-rbind(screen, diag)
+
+#Extract Fragmentation Features
+frags <- frags %>% filter(id %in% fragplot$id)
+frag1 <- frags %>% group_by(id) %>%
+  mutate(ratio.cor = short.cor/ long.cor,
+    ratio.scaled = scale(ratio.cor),
+    ratiovar = factor(paste0("ratio_", bin), paste0("ratio_",1:496)))
+frag2 <- frag1 %>% select(id, bin, arm, contains("ratio"))
+
+#Join metadata
+b <- inner_join(frag2,fragplot, by = c("id"="id"))
+
+#calculate median non-cancer ratios
+med.df <-
+    b %>% filter(classifier_type == "healthy") %>%
+    group_by(bin) %>%
+    mutate(healthy.ratio.med = median(ratio.scaled[classifier_type %in% c("healthy", "Healthy")]))
+#calculate the correlation
+summary.df <- b %>% group_by(id) %>% #filter(CGID != "NA") %>%
+    mutate(ratio.hmedian = cor(unique(med.df$healthy.ratio.med), ratio.scaled,  method="pearson", use="complete.obs"))
+b2 <- summary.df
+```
+
+```{r, fragplot generation,fig.height= 10, fig.width=30,dev=c("png", "pdf")}
+arm <-  b2 %>% group_by(arm) %>% summarize(n=n()) %>%
+  mutate(arm = as.character(arm))
+
+small.arms <- setNames(c("", "", "12q", "", "16q",
+                         "", "17q", "", "18q",
+                         "", "19", "", "20",
+                         "21", "22"),
+                       c("10p", "12p", "12q", "16p", "16q",
+                         "17p", "17q", "18p", "18q",
+                         "19p", "19q", "20p", "20q",
+                         "21q", "22q"))
+arm.labels <- setNames(arm$arm, arm$arm)
+arm.labels[names(small.arms)] <- small.arms
+
+fragment.theme2 <- theme(panel.background=element_rect(fill="white", color="white"),
+                         plot.background=element_rect(fill="white", color="white"),
+                         axis.line.y.left=element_line(color="black"),
+                         axis.line.y.right=element_line(color="black"),
+                         panel.grid.major = element_blank(),
+                         panel.grid.minor = element_blank(),
+                         #strip.background=element_rect(fill="red", color="yellow"),
+                         strip.background=element_blank(),
+                         axis.text.x=element_blank(),
+                         axis.text.y=element_text(face = "bold", size=25, color = "black"),
+                         axis.ticks.x=element_blank(),
+                         axis.title.x=element_blank(),
+                         axis.title.y=element_text(face = "bold", size=25, color = "black"),
+                         #strip.text=element_blank(),
+                         strip.text.x = element_text(face = "bold", size = 25),
+                         strip.placement = "top",
+                         #strip.position="top",
+                         #strip.text.y = element_text(size = 12, angle = 0),
+                         strip.text.y = element_blank(),
+                         #strip.text.y.left = element_text(angle = 0),
+                         panel.spacing=unit(0, "lines"),
+                         legend.position = "bottom",
+                         #legend.position = c(1.1, 0.7),
+                         legend.key=element_rect(fill="white", color = "white"),
+                         legend.key.size=unit(3, "line"),
+                         legend.text=element_text(size=35),
+                         legend.title=element_text(size=40),
+                         legend.title.align=0.5)
+
+size <- 1
+cor.lim <- range(b2$ratio.hmedian)
+fgrid <- facet_grid(classifier_type ~ arm, #switch="x",
+                    space="free_x",
+                    scales="free_x",
+                    labeller=labeller(arm=arm.labels),
+                    switch = "x")
+
+b2$arm <- factor(b2$arm,levels = c("1p","1q","2p","2q","3p","3q","4p","4q","5p","5q","6p",
+                                     "6q","7p", "7q","8p","8q","9p","9q","10p","10q","11p","11q",
+                                     "12p", "12q", "13q","14q","15q","16p","16q","17p","17q","18p",
+                                     "18q","19p","19q","20p","20q","21q","22q","Xp","Xq"))
+b2$classifier_type <- factor(b2$classifier_type, levels = c("healthy", "benign" ,"cancer"))
+b3 <- b2 %>% group_by(id) %>% mutate(ratio.centered = scale(ratio.cor, scale = FALSE))
+fig <- ggplot(b3, aes(x=bin, y=ratio.centered, group=reorder(id, -ratio.hmedian), color = classifier_type)) +
+  geom_line(aes(color = ratio.hmedian), size=size) +
+  scale_color_gradient(low="#18468B", high="gray85", limits=c(0,1)) +
+  ylim(-0.1,0.3) +
+  fgrid +
+  fragment.theme2 +
+  labs(x="", y="Fragmentation profile", color="Correlation to women without cancer median") +
+  guides(color=guide_legend(override.aes = list(shape = 21, size = 5, face = "bold")))
+fig
+panel.labels <- b3 %>%
+  #filter(category != "non-cancer") %>%
+  group_by(classifier_type) %>%
+  summarize(n=length(unique(id)),
+            .groups="drop") %>%
+  mutate(labels=paste0(c("Women without cancer (n=",
+                         "Women with benign lesions (n=",
+                         "Women with cancer (n="),
+                       n, ")"),
+         arm="1p") %>%
+  mutate(x=rep(3, 3), y=rep(0.2, 3))
+
+panel.labels
+library("cowplot"); library(grid)
+fig <- ggdraw(fig) + draw_grob(textGrob(
+  label=panel.labels$labels[1],
+  x = unit(0.15, "npc"),
+  y = unit(0.95, "npc"),
+  hjust = 0,
+  gp = gpar(fontface="bold", cex=2.5)
+))  +
+  draw_grob(textGrob(
+    label=panel.labels$labels[2],
+    x = unit(0.15, "npc"),
+    y = unit(0.67, "npc"),
+    hjust = 0,
+    gp = gpar(fontface="bold", cex=2.5)
+  )) +
+  draw_grob(textGrob(
+    label=panel.labels$labels[3],
+    x = unit(0.15, "npc"),
+    y = unit(0.375, "npc"),
+    hjust = 0,
+    gp = gpar(fontface="bold", cex=2.5)
+  )) 
+fig
+```
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(ggpubr)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+
+```
+
+
+
+```{r,fig.height=6,fig.width=16,dev=c("png", "pdf","svg")}
+dat<-read_csv(here("data/scores","Screening_Val.csv"))
+dat<-dat %>% filter(training_set_include_screening=="no")
+dat<-dat %>% mutate(country=if_else(cohort %in% c("NKI","NKI2","NKI-HE4_study"),"EU","US"))
+dat<-dat %>% select(id,classifier_type,score,subtype_simple,stage,country,training_set_include_screening,training_set_include_diag,diag_val,screen_val)
+
+
+st<-dat %>% filter(classifier_type=="cancer" & stage %in% c("I","II","III","IV","Unknown")) %>% mutate(group="Stage",cat=stage)
+h<-dat %>% filter(classifier_type=="cancer") %>% mutate(group="Subtype",cat=subtype_simple)
+#h<-dat %>% filter(classifier_type=="cancer" & subtype_simple %in% c("HGSOC","Endometrioid","Mucinous","LGSOC","Clear Cell")) %>% mutate(group="Subtype",cat=subtype_simple)
+
+
+h<-h %>% mutate(cat=if_else(!subtype_simple %in% c("LGSOC","HGSOC","Endometrioid","Mucinous","Clear Cell"),"Other Subtypes",cat))
+#h<-h %>% mutate(cat=if_else(subtype_simple %in% c("Endometrioid","Mucinous"),"Endo/Mucinous",cat))
+
+#nc<-dat %>% filter(classifier_type != "cancer" & training_set_include_diag=="yes")
+#nc$group<-"Non-cancer"
+#nc$cat<-"Benign Lesion\nEU"
+
+nc2<-dat %>% filter(classifier_type != "cancer" & diag_val=="yes")
+nc2$group<-"Non-cancer"
+nc2$cat<-"Benign Lesion"
+
+nc3<-dat %>% filter(classifier_type != "cancer" & screen_val=="yes")
+nc3$group<-"Non-cancer"
+nc3$cat<-"Screening\nPopulation"
+
+
+dat1<-rbind(st,h,nc2,nc3)
+
+data<- dat1 #%>% filter(model != "ca125")
+
+data$group<-factor(data$group,levels=c("Non-cancer","Stage","Subtype"))
+
+labels<-data %>% group_by(cat) %>% dplyr::summarize(n=n())
+data<-inner_join(data,labels,by="cat")
+data$cat<-paste0(data$cat,"\n(n = ",data$n,")")
+data$cat<-factor(data$cat,levels=c("Screening\nPopulation\n(n = 22)","Benign Lesion\n(n = 50)","HGSOC\n(n = 16)","LGSOC\n(n = 2)","Endometrioid\n(n = 5)","Mucinous\n(n = 5)","Clear Cell\n(n = 2)","Other Subtypes\n(n = 10)","I\n(n = 14)","II\n(n = 5)","III\n(n = 11)","IV\n(n = 6)","Unknown\n(n = 4)"))
+
+
+p<-ggplot(data,aes(x=cat,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="indianred",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~group,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")
+
+p
+
+
+
+
+```
+
+
+
+
+
+
+

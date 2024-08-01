@@ -1,0 +1,52 @@
+---
+title: "S11"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r delfiprocorplot, echo = FALSE}
+###################################
+# S11
+#####################################
+
+library(tidyverse); library(ggpubr)
+library(here)
+#Clean out list section
+rm(list=ls());gc()
+
+#Pull Discovery Screening Cohort Cancers
+dat<-read_csv(here("./data/scores/All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes" & classifier_type == "cancer")
+dat<-dat %>% select(id,classifier_type,ca125,he4,`Screening ZEUS`,subtype_simple,stage)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+dat<- dat %>% filter(model == "Screening ZEUS") %>% arrange(desc(score)) %>% dplyr::mutate(rank = 1:n())
+
+#Pull Discovery Diagnostic Cohort Cancers
+dat2<-read_csv(here("./data/scores/All_Scores_CV.csv"))
+dat2<-dat2 %>% filter(training_set_include_diag=="yes" & classifier_type == "cancer")
+dat2<-dat2 %>% select(id,classifier_type,ca125,he4,`Diagnostic ZEUS`,subtype_simple,stage)
+dat2<-dat2 %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+dat2<- dat2 %>% filter(model == "Diagnostic ZEUS") %>% arrange(desc(score)) %>% dplyr::mutate(rank = 1:n())
+head(dat2); dim(dat2)
+
+cor_input <- rbind(dat,dat2)
+cor_input2 <- inner_join(dat,dat2, by = c("id"))
+
+#rank ordered
+cor_input2
+plot_rank <- cor_input2 %>%
+  ggplot(aes(x =rank.y, y = rank.x)) +
+  geom_point() +
+  geom_smooth(method='lm') +
+  xlim(0, 100) +
+  ylim(0, 100) +
+  labs(x = "Discovery Diagnostic model DELFI-Pro score rank", y = "Discovery Screening model DELFI-Pro score rank") +
+  theme_classic()+
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+ 
+  stat_cor(method = "pearson", label.x = 0, label.y = 90, size = 4)
+plot_rank
+#ggsave("./docs/DELFIPRO_RANK_061224.png", plot = plot_rank, width = 7, height = 6)
+```

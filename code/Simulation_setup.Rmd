@@ -1,0 +1,125 @@
+---
+title: "Predictive distributions of performance in future studies"
+---
+
+# Goals
+
+In a future study of 100,000 participants, what is our predictive distribution for the following:
+- number individuals screened
+- liver cancers detected by delfi
+- liver cancers detected by ultrasound (US) + alpha fetal protein (AFP)
+- false positives leading to unnecessary follow-up procedures by these approaches
+- individuals with liver cancer not identified ( false negatives )
+
+The size of the screening study is determined by the number of samples collected in a finite period of time.  Studies with lower adherence to surveillance guidelines have fewer participants.
+
+
+# Best guesses
+
+```{r packages, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(ggpubr)
+load_all("~/Dropbox/useful.stuff.aa")
+
+```
+
+#Set up priors
+```{r}
+#CA125 performance from Fig 4 of Menon 2015
+d1<-tibble(tool="CA125_22_ukctocs",mode=c(.665,.892,.75),metric=c("sensitivity","specificity","adherence"),n=c(133,50507,NA))
+d2<-tibble(tool="CA125_30_ukctocs",mode=c(.484,.959,.75),metric=c("sensitivity","specificity","adherence"),n=c(133,50507,NA))
+d3<-tibble(tool="CA125_35_ukctocs",mode=c(.413,.975,.75),metric=c("sensitivity","specificity","adherence"),n=c(133,50507,NA))
+
+#Our DELFI-Pro, reweighted for UKCTOCS stage dist
+delfi<-fread(here("data","tables","Allcancer_screen.csv")) %>% filter(model=="Screening DELFI+CA125+HE4" & set_specificity==1)
+delfi<-delfi %>% filter(set %in% c("Stage I","Stage II","Stage III","Stage IV"))
+
+#Table 2 of Menon 
+percs<-c(35,20,68,10)/133
+ds<-sum(delfi$sensitivity*percs)
+#for spec we'll assume that we get the next one wrong -- so 182 correct, 183rd is wrong
+delfi<-tibble(tool="DELFI-Pro",mode=c(ds,182/183,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+#Our CA125 at all three thresholds, reweighted for UKCTOCS stage dist
+c<-fread(here("data","scores","All_Scores_CV.csv")) %>% filter(training_set_include_screening=="yes")
+s1<-nrow(c %>% filter(ca125>22 & classifier_type=="cancer" & stage=="I"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="I"))
+s2<-nrow(c %>% filter(ca125>22 & classifier_type=="cancer" & stage=="II"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="II"))
+s3<-nrow(c %>% filter(ca125>22 & classifier_type=="cancer" & stage=="III"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="III"))
+s4<-nrow(c %>% filter(ca125>22 & classifier_type=="cancer" & stage=="IV"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="IV"))
+cs<-sum(c(s1,s2,s3,s4)*percs)
+spec<-nrow(c %>% filter(ca125<=22 & classifier_type=="healthy"))/nrow(c %>% filter(classifier_type=="healthy"))
+c1<-tibble(tool="CA125_22_jhu",mode=c(cs,spec,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+c<-fread(here("data","scores","All_Scores_CV.csv")) %>% filter(training_set_include_screening=="yes")
+s1<-nrow(c %>% filter(ca125>30 & classifier_type=="cancer" & stage=="I"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="I"))
+s2<-nrow(c %>% filter(ca125>30 & classifier_type=="cancer" & stage=="II"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="II"))
+s3<-nrow(c %>% filter(ca125>30 & classifier_type=="cancer" & stage=="III"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="III"))
+s4<-nrow(c %>% filter(ca125>30 & classifier_type=="cancer" & stage=="IV"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="IV"))
+cs<-sum(c(s1,s2,s3,s4)*percs)
+spec<-nrow(c %>% filter(ca125<=30 & classifier_type=="healthy"))/nrow(c %>% filter(classifier_type=="healthy"))
+c2<-tibble(tool="CA125_30_jhu",mode=c(cs,spec,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+c<-fread(here("data","scores","All_Scores_CV.csv")) %>% filter(training_set_include_screening=="yes")
+s1<-nrow(c %>% filter(ca125>35 & classifier_type=="cancer" & stage=="I"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="I"))
+s2<-nrow(c %>% filter(ca125>35 & classifier_type=="cancer" & stage=="II"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="II"))
+s3<-nrow(c %>% filter(ca125>35 & classifier_type=="cancer" & stage=="III"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="III"))
+s4<-nrow(c %>% filter(ca125>35 & classifier_type=="cancer" & stage=="IV"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="IV"))
+cs<-sum(c(s1,s2,s3,s4)*percs)
+spec<-nrow(c %>% filter(ca125<=35 & classifier_type=="healthy"))/nrow(c %>% filter(classifier_type=="healthy"))
+c3<-tibble(tool="CA125_35_jhu",mode=c(cs,spec,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+#HE4 from Jacob et al 2011 Table 3, re-weighted for UKCTOCS stage dist
+#This is Stage I/II and Stage III/IV
+percs2<-c(35+20,68+10)/133
+hs<-c(.789,.893)
+hs<-sum(hs*percs2)
+hspec<-.818
+h1<-tibble(tool="HE4_70_Jacob",mode=c(hs,hspec,.75),metric=c("sensitivity","specificity","adherence"),n=c(56,33,NA))
+
+#Our HE4 at two thresholds, reweighted for UKCTOCS stage dist
+h<-fread(here("data","scores","All_Scores_CV.csv")) %>% filter(training_set_include_screening=="yes")
+s1<-nrow(c %>% filter(he4>70 & classifier_type=="cancer" & stage=="I"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="I"))
+s2<-nrow(c %>% filter(he4>70 & classifier_type=="cancer" & stage=="II"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="II"))
+s3<-nrow(c %>% filter(he4>70 & classifier_type=="cancer" & stage=="III"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="III"))
+s4<-nrow(c %>% filter(he4>70 & classifier_type=="cancer" & stage=="IV"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="IV"))
+hs<-sum(c(s1,s2,s3,s4)*percs)
+spec<-nrow(h %>% filter(he4<=70 & classifier_type=="healthy"))/nrow(c %>% filter(classifier_type=="healthy"))
+h2<-tibble(tool="HE4_70_jhu",mode=c(hs,spec,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+h<-fread(here("data","scores","All_Scores_CV.csv")) %>% filter(training_set_include_screening=="yes")
+s1<-nrow(c %>% filter(he4>150 & classifier_type=="cancer" & stage=="I"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="I"))
+s2<-nrow(c %>% filter(he4>150 & classifier_type=="cancer" & stage=="II"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="II"))
+s3<-nrow(c %>% filter(he4>150 & classifier_type=="cancer" & stage=="III"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="III"))
+s4<-nrow(c %>% filter(he4>150 & classifier_type=="cancer" & stage=="IV"))/nrow(c %>% filter(classifier_type=="cancer" & stage=="IV"))
+hs<-sum(c(s1,s2,s3,s4)*percs)
+spec<-nrow(h %>% filter(he4<=150 & classifier_type=="healthy"))/nrow(c %>% filter(classifier_type=="healthy"))
+h3<-tibble(tool="HE4_150_jhu",mode=c(hs,spec,.75),metric=c("sensitivity","specificity","adherence"),n=c(94,182,NA))
+
+
+data<-rbind(d1,d2,d3,delfi,c1,c2,c3,h1,h2,h3)
+
+library(Hmisc)
+dat1<-data %>% filter(metric != "adherence")
+dat1$lower<-binconf(dat1$n*dat1$mode,dat1$n,alpha=.05,include.x=T,include.n=T)[,4]
+dat1$upper<-binconf(dat1$n*dat1$mode,dat1$n,alpha=.05,include.x=T,include.n=T)[,5]
+dat2<-data %>% filter(metric == "adherence")
+dat2$lower=.6
+dat2$upper<-.9
+
+data<-rbind(dat1,dat2)
+data$population<-"All"
+data<-data %>% select(tool,population,mode,metric,lower,upper)
+#write.csv(data,here("data","simulations_metrics.csv"))
+```
+
+
+
+

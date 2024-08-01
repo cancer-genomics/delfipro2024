@@ -1,0 +1,124 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+# DELFI score distribution
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+#dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_diag=="yes")
+#dat<-dat %>% select(id,classifier_type,ca125,`Diagnostic ZEUS`,subtype_simple,stage)
+#dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+#dat<-dat %>% filter(model=="Diagnostic ZEUS")
+#meta<-read_xlsx(here("data","20220620_ Clinical_Data_Ovarian_Cancer_june2022_cgid_CBCs.xlsx"))
+
+#dat1<-inner_join(dat,meta,by=c("id"="cgid"))
+
+#dat2<-inner_join(dat,meta,by=c("id"="PGDXID"))
+
+#data<-rbind(dat1 %>% select(-PGDXID),dat2 %>% select(-cgid))
+#data<-data %>% select(id,classifier_type,subtype_simple,stage,model,score,`Ultrasound tumorsize (mm)`,`Pathological Tumor size (mm)`,`Symptomatic/Asymptomatic`)
+
+#write.csv(data,here("data","S12_data.csv"))
+data<-fread(here("data","S12_data.csv"))
+
+```
+
+All cancers
+
+```{r, all_cancer1}
+
+data<-data %>% mutate(size=if_else(is.na(`Ultrasound tumorsize (mm)`) & !is.na(`Pathological Tumor size (mm)`),`Pathological Tumor size (mm)`,`Ultrasound tumorsize (mm)`))
+data<-data %>% mutate(size=if_else(`Ultrasound tumorsize (mm)`=="Unknown" & !is.na(`Pathological Tumor size (mm)`),`Pathological Tumor size (mm)`,`Ultrasound tumorsize (mm)`))
+
+
+data %>% filter(size=="Unknown")
+data$size<-na_if(data$size,"Unknown")
+
+data %>% filter(is.na(size))
+
+
+data$size<-as.numeric(data$size)/10
+
+data<-data %>% filter(classifier_type=="healthy")
+
+```
+
+```{r all_cancer,echo=FALSE,fig.width = 6, fig.height = 6, dev=c("png", "pdf")}
+library(ggpubr)
+
+
+ds<-data %>% filter(!is.na(`Symptomatic/Asymptomatic`)) %>% filter(`Symptomatic/Asymptomatic` != "Unknown")
+b<-ggplot(ds,aes(x=`Symptomatic/Asymptomatic`,y=score))+theme_classic()+stat_compare_means()+geom_boxplot(outlier.shape=NA,fill="darkblue",alpha=.5,width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("Asymptomatic\n(n=17)","Symptomatic\n(n=164)"))
+
+b
+
+```
+
+
+```{r}
+
+#dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_diag=="yes")
+#dat<-dat %>% select(id,classifier_type,ca125,`Diagnostic ZEUS`,subtype_simple,stage)
+#dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+#size<-read_xlsx(here("data","final_list_ovarian_3_15_24_benign_masses.xlsx"))
+#size<-size %>% filter(id %in% dat$id)
+#size<-size %>% mutate(`Ultrasound tumorsize (cm)`=if_else(is.na(`Ultrasound tumorsize (cm)`) & !is.na(`Pathological Tumor size (cm)`),`Pathological Tumor size (cm)`,`Ultrasound tumorsize (cm)`))
+#size<-size %>% filter(!is.na(`Ultrasound tumorsize (cm)`))
+
+
+#size<-size %>% mutate(size=if_else(`Ultrasound tumorsize (cm)`<5,"<5","big"))
+#size<-size %>% mutate(size=if_else(`Ultrasound tumorsize (cm)`>=5 &`Ultrasound tumorsize (cm)`<10 ,"5-10",size))
+#size<-size %>% mutate(size=if_else(`Ultrasound tumorsize (cm)`>=10,">10",size))
+#size<-size %>% select(id,size,`Ultrasound tumorsize (cm)`)
+
+#dat<-left_join(dat,size,by="id")
+
+#write.csv(dat,here("data","S12_data_p2.csv"))
+dat<-fread(here("data","S12_data_p2.csv"))
+
+dat$size<-factor(dat$size,levels=c("<5","5-10",">10"))
+
+comp<-list(c("<5","5-10"),c(">10","<5"))
+c<-ggplot(dat %>% filter(model=="Diagnostic ZEUS" & classifier_type=="healthy" & !is.na(size)),aes(x=size,y=score))+geom_boxplot(outlier.shape=NA,fill="darkblue",alpha=.5,width=.5)+geom_jitter(width=.25)+theme_classic()+xlab("")+ylab("")+stat_compare_means(comparisons=comp)+ylab("DELFI-Pro Score")+xlab("Lesion size (cm)")+scale_x_discrete(labels=c("<5\n(n=15)","5-10\n(n=50)",">10\n(n=83)"))
+
+
+```
+
+
+```{r,fig.height=6,fig.width=12,dev=c("png", "pdf","svg")}
+library(cowplot)
+x<-plot_grid(b,c,nrow=1)
+x
+```
+
+

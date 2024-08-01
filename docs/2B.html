@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Jamie Medina" />
+
+<meta name="date" content="2024-07-18" />
+
+<title>2B</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">delfipro2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">2B</h1>
+<h4 class="author">Jamie Medina</h4>
+<h4 class="date">2024-07-18</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-08-01
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>delfipro2024/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
+1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong0dea39c"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 0dea39c.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  CITATION.md
+    Untracked:  analysis/2A.Rmd
+    Untracked:  analysis/2B.Rmd
+    Untracked:  analysis/2c.Rmd
+    Untracked:  analysis/2d.Rmd
+    Untracked:  analysis/3abc.Rmd
+    Untracked:  analysis/3d.Rmd
+    Untracked:  analysis/4bcd.Rmd
+    Untracked:  analysis/S1.Rmd
+    Untracked:  analysis/S10B_C.Rmd
+    Untracked:  analysis/S10a.Rmd
+    Untracked:  analysis/S11.Rmd
+    Untracked:  analysis/S12.Rmd
+    Untracked:  analysis/S13abc.Rmd
+    Untracked:  analysis/S13d.Rmd
+    Untracked:  analysis/S14.Rmd
+    Untracked:  analysis/S15B_C.Rmd
+    Untracked:  analysis/S15a.Rmd
+    Untracked:  analysis/S16.Rmd
+    Untracked:  analysis/S17.Rmd
+    Untracked:  analysis/S2.Rmd
+    Untracked:  analysis/S3.Rmd
+    Untracked:  analysis/S4.Rmd
+    Untracked:  analysis/S5.Rmd
+    Untracked:  analysis/S6.Rmd
+    Untracked:  analysis/S7.Rmd
+    Untracked:  analysis/S8.Rmd
+    Untracked:  analysis/S9.Rmd
+    Untracked:  analysis/S_Source.Rmd
+    Untracked:  analysis/SessionInfo.Rmd
+    Untracked:  code/Simulation_setup.Rmd
+    Untracked:  code/allcancer_table_diag.r
+    Untracked:  code/allcancer_table_screen.r
+    Untracked:  code/collect_scores.r
+    Untracked:  code/diagnostic_model.r
+    Untracked:  code/feature_importance.Rmd
+    Untracked:  code/hgsoc_table_diag.r
+    Untracked:  code/hgsoc_table_screen.r
+    Untracked:  code/liver.tools/
+    Untracked:  code/proteins_screening_model.r
+    Untracked:  code/screening_model.r
+    Untracked:  code/useful.stuff.aa/
+    Untracked:  data/06062024_val_tumor_size.xlsx
+    Untracked:  data/2B.csv
+    Untracked:  data/2B_annot.csv
+    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Untracked:  data/Proteins.csv
+    Untracked:  data/S12_data.csv
+    Untracked:  data/S12_data_p2.csv
+    Untracked:  data/S1_data.csv
+    Untracked:  data/S2_data.csv
+    Untracked:  data/S5.csv
+    Untracked:  data/S5_p2.csv
+    Untracked:  data/diag_test_data.csv
+    Untracked:  data/diag_train_data.csv
+    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Untracked:  data/ichor_mfl_excel.xlsx
+    Untracked:  data/long_bins_hiseq.csv
+    Untracked:  data/metadata.csv
+    Untracked:  data/models/
+    Untracked:  data/scores/
+    Untracked:  data/screening_test_data.csv
+    Untracked:  data/screening_train_data.csv
+    Untracked:  data/simulations_metrics.csv
+    Untracked:  data/stability_superscreen.csv
+    Untracked:  data/tables/
+    Untracked:  data/tcga/
+    Untracked:  output/feature_importance.Rmd/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Modified:   .gitattributes
+    Modified:   .gitignore
+    Modified:   README.md
+    Modified:   _workflowr.yml
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   code/README.md
+    Modified:   data/README.md
+    Modified:   delfipro2024.Rproj
+    Modified:   output/README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<p>Figure 2B.</p>
+<pre><code>                        Disease ca125  he4   Stage        Subtype
+CGPLOV161P  Benign Adnexal Mass    87  151    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV315P  Benign Adnexal Mass    33   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV317P  Benign Adnexal Mass     7   84    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV321P  Benign Adnexal Mass    31   87    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV322P  Benign Adnexal Mass    20   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV323P  Benign Adnexal Mass    48   79    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV324P  Benign Adnexal Mass    26  136    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV325P  Benign Adnexal Mass    12   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV327P  Benign Adnexal Mass    18  121    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV329P  Benign Adnexal Mass    12   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV330P  Benign Adnexal Mass    73   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV334P  Benign Adnexal Mass     9   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV335P  Benign Adnexal Mass     8   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV338P  Benign Adnexal Mass   134   71    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV344P  Benign Adnexal Mass    16   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV347P  Benign Adnexal Mass    80  122    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV350P  Benign Adnexal Mass    10   37    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV351P  Benign Adnexal Mass    13   75    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV352P  Benign Adnexal Mass    18   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV353P  Benign Adnexal Mass    10   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV356P  Benign Adnexal Mass    24   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV358P  Benign Adnexal Mass    27   75    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV359P  Benign Adnexal Mass     7   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV360P  Benign Adnexal Mass    17   61    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV361P  Benign Adnexal Mass    25   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV362P  Benign Adnexal Mass    18   85    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV363P  Benign Adnexal Mass    88  111    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV364P  Benign Adnexal Mass    14   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV367P  Benign Adnexal Mass   115  126    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV368P  Benign Adnexal Mass    26   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV371P  Benign Adnexal Mass    10   83    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV373P  Benign Adnexal Mass    42  122    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV375P  Benign Adnexal Mass    89   58    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV376P  Benign Adnexal Mass    49   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV378P  Benign Adnexal Mass   295   78    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV380P  Benign Adnexal Mass    32   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV382P  Benign Adnexal Mass    31   34    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV386P  Benign Adnexal Mass    40   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV387P  Benign Adnexal Mass    22   66    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV388P  Benign Adnexal Mass    53   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV389P  Benign Adnexal Mass    29   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV391P  Benign Adnexal Mass    12   37    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV393P  Benign Adnexal Mass    82   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV394P  Benign Adnexal Mass    14   37    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV395P  Benign Adnexal Mass    24   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV396P  Benign Adnexal Mass     8   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV397P  Benign Adnexal Mass    42  165    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV399P  Benign Adnexal Mass     7   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV406P  Benign Adnexal Mass   262   69    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV407P  Benign Adnexal Mass   103   73    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV411P  Benign Adnexal Mass    29   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV412P  Benign Adnexal Mass   421   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV413P  Benign Adnexal Mass    12   82    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV415P  Benign Adnexal Mass   120   74    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV417P  Benign Adnexal Mass   557  110    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV419P  Benign Adnexal Mass    45   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV420P  Benign Adnexal Mass    25   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV421P  Benign Adnexal Mass    18   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV422P  Benign Adnexal Mass    49  102    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV423P  Benign Adnexal Mass    10   90    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV425P  Benign Adnexal Mass    46   29    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV427P  Benign Adnexal Mass    18   72    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV429P  Benign Adnexal Mass    13   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV430P  Benign Adnexal Mass    19   23    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV431P  Benign Adnexal Mass    12   53    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV432P  Benign Adnexal Mass    11   59    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV433P  Benign Adnexal Mass   129   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV434P  Benign Adnexal Mass    14   59    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV435P  Benign Adnexal Mass    16   61    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV437P  Benign Adnexal Mass     4   38    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV438P  Benign Adnexal Mass     5   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV439P  Benign Adnexal Mass   134   63    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV441P  Benign Adnexal Mass     8   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV442P  Benign Adnexal Mass    36   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV443P  Benign Adnexal Mass    14   67    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV445P  Benign Adnexal Mass    32   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV446P  Benign Adnexal Mass    32   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV448P  Benign Adnexal Mass    30   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV450P  Benign Adnexal Mass     4   61    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV451P  Benign Adnexal Mass    24   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV452P  Benign Adnexal Mass    58   67    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV453P  Benign Adnexal Mass    10   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV454P  Benign Adnexal Mass    12   38    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV456P  Benign Adnexal Mass    13   66    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV457P  Benign Adnexal Mass    56   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV460P  Benign Adnexal Mass    22   98    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV463P  Benign Adnexal Mass    31   74    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV464P  Benign Adnexal Mass    24   35    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV465P  Benign Adnexal Mass    10   34    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV466P  Benign Adnexal Mass    22   87    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV467P  Benign Adnexal Mass    15   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV468P  Benign Adnexal Mass    37  107    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV471P  Benign Adnexal Mass    69   81    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV472P  Benign Adnexal Mass     6   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV473P  Benign Adnexal Mass    37   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV474P  Benign Adnexal Mass    23   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV478P  Benign Adnexal Mass    63   70    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV480P  Benign Adnexal Mass    11   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV481P  Benign Adnexal Mass     7  183    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV483P  Benign Adnexal Mass    14   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV485P  Benign Adnexal Mass    18   98    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV487P  Benign Adnexal Mass    69   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV488P  Benign Adnexal Mass    19   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV490P  Benign Adnexal Mass   359   66    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV493P  Benign Adnexal Mass    33   71    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV495P  Benign Adnexal Mass    10   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV498P  Benign Adnexal Mass    18   74    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV499P  Benign Adnexal Mass    15   65    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV500P  Benign Adnexal Mass     7   90    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV501P  Benign Adnexal Mass   313   98    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV502P  Benign Adnexal Mass     3   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV503P  Benign Adnexal Mass    50  153    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV505P  Benign Adnexal Mass     5   69    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV506P  Benign Adnexal Mass    36   84    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV507P  Benign Adnexal Mass     6   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV508P  Benign Adnexal Mass    12   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV509P  Benign Adnexal Mass    73   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV510P  Benign Adnexal Mass   170   71    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV511P  Benign Adnexal Mass     8   38    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV512P  Benign Adnexal Mass   481   62    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV513P  Benign Adnexal Mass    49   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV514P  Benign Adnexal Mass    13   87    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV515P  Benign Adnexal Mass    78   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV517P  Benign Adnexal Mass    10   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV519P  Benign Adnexal Mass     9   67    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV521P  Benign Adnexal Mass    38   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV523P  Benign Adnexal Mass    16   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV524P  Benign Adnexal Mass     4   84    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV525P  Benign Adnexal Mass    24   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV526P  Benign Adnexal Mass     5   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV527P  Benign Adnexal Mass    40   64    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV528P  Benign Adnexal Mass    23   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV531P  Benign Adnexal Mass    53   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV532P  Benign Adnexal Mass     7   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV539P  Benign Adnexal Mass    18   65    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV540P  Benign Adnexal Mass    27  113    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV542P  Benign Adnexal Mass   246   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV545P  Benign Adnexal Mass   129   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV546P  Benign Adnexal Mass   118  112    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV549P  Benign Adnexal Mass    12   38    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV551P  Benign Adnexal Mass    21   60    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV553P  Benign Adnexal Mass    70   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV554P  Benign Adnexal Mass   215   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV559P  Benign Adnexal Mass   118   68    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV562P  Benign Adnexal Mass    66   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV567P  Benign Adnexal Mass    42   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV568P  Benign Adnexal Mass    81   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV571P  Benign Adnexal Mass    50   94    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV572P  Benign Adnexal Mass  1652   78    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV575P  Benign Adnexal Mass    28   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV576P  Benign Adnexal Mass   161   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV577P  Benign Adnexal Mass    25  147    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV590P  Benign Adnexal Mass    15   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV591P  Benign Adnexal Mass    36  103    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV600P  Benign Adnexal Mass    36   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV607P  Benign Adnexal Mass    30   28    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV608P  Benign Adnexal Mass    13   58    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV610P  Benign Adnexal Mass    13   33    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV611P  Benign Adnexal Mass    23   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV612P  Benign Adnexal Mass    16   40    &lt;NA&gt;           &lt;NA&gt;
+PGDX25840P  Benign Adnexal Mass    21  121    &lt;NA&gt;           &lt;NA&gt;
+PGDX25841P  Benign Adnexal Mass     6   42    &lt;NA&gt;           &lt;NA&gt;
+PGDX25842P  Benign Adnexal Mass    51   46    &lt;NA&gt;           &lt;NA&gt;
+PGDX25855P  Benign Adnexal Mass   222   80    &lt;NA&gt;           &lt;NA&gt;
+PGDX25856P  Benign Adnexal Mass   111  102    &lt;NA&gt;           &lt;NA&gt;
+PGDX25864P  Benign Adnexal Mass    23   46    &lt;NA&gt;           &lt;NA&gt;
+PGDX25865P  Benign Adnexal Mass    88   46    &lt;NA&gt;           &lt;NA&gt;
+PGDX25866P  Benign Adnexal Mass    18   60    &lt;NA&gt;           &lt;NA&gt;
+PGDX25867P  Benign Adnexal Mass    32  126    &lt;NA&gt;           &lt;NA&gt;
+PGDX25868P  Benign Adnexal Mass    11   89    &lt;NA&gt;           &lt;NA&gt;
+PGDX25869P  Benign Adnexal Mass   139   42    &lt;NA&gt;           &lt;NA&gt;
+PGDX25870P  Benign Adnexal Mass    13   74    &lt;NA&gt;           &lt;NA&gt;
+PGDX25872P  Benign Adnexal Mass    13   55    &lt;NA&gt;           &lt;NA&gt;
+PGDX25879P  Benign Adnexal Mass   157   50    &lt;NA&gt;           &lt;NA&gt;
+PGDX25880P  Benign Adnexal Mass   593   48    &lt;NA&gt;           &lt;NA&gt;
+PGDX25881P  Benign Adnexal Mass   108   84    &lt;NA&gt;           &lt;NA&gt;
+PGDX25882P  Benign Adnexal Mass    11   57    &lt;NA&gt;           &lt;NA&gt;
+PGDX25883P  Benign Adnexal Mass   174   60    &lt;NA&gt;           &lt;NA&gt;
+PGDX25884P  Benign Adnexal Mass    81   71    &lt;NA&gt;           &lt;NA&gt;
+PGDX25885P  Benign Adnexal Mass   134   61    &lt;NA&gt;           &lt;NA&gt;
+PGDX25886P  Benign Adnexal Mass    28   49    &lt;NA&gt;           &lt;NA&gt;
+PGDX25887P  Benign Adnexal Mass    52   62    &lt;NA&gt;           &lt;NA&gt;
+PGDX26054P  Benign Adnexal Mass   186   55    &lt;NA&gt;           &lt;NA&gt;
+PGDX26055P  Benign Adnexal Mass   144   54    &lt;NA&gt;           &lt;NA&gt;
+PGDX26066P  Benign Adnexal Mass    80  111    &lt;NA&gt;           &lt;NA&gt;
+PGDX26069P  Benign Adnexal Mass   534   58    &lt;NA&gt;           &lt;NA&gt;
+PGDX26256P  Benign Adnexal Mass   445  158    &lt;NA&gt;           &lt;NA&gt;
+PGDX26257P  Benign Adnexal Mass   121  171    &lt;NA&gt;           &lt;NA&gt;
+PGDX26258P  Benign Adnexal Mass   551   42    &lt;NA&gt;           &lt;NA&gt;
+PGDX26259P  Benign Adnexal Mass    48   57    &lt;NA&gt;           &lt;NA&gt;
+PGDX26260P  Benign Adnexal Mass  2483  105    &lt;NA&gt;           &lt;NA&gt;
+PGDX26261P  Benign Adnexal Mass   141   64    &lt;NA&gt;           &lt;NA&gt;
+PGDX26263P  Benign Adnexal Mass    62   94    &lt;NA&gt;           &lt;NA&gt;
+PGDX26264P  Benign Adnexal Mass   785   89    &lt;NA&gt;           &lt;NA&gt;
+PGDX26271P  Benign Adnexal Mass    31   51    &lt;NA&gt;           &lt;NA&gt;
+PGDX26272P  Benign Adnexal Mass    42   38    &lt;NA&gt;           &lt;NA&gt;
+PGDX26273P  Benign Adnexal Mass    68   61    &lt;NA&gt;           &lt;NA&gt;
+PGDX26274P  Benign Adnexal Mass    31   80    &lt;NA&gt;           &lt;NA&gt;
+PGDX26275P  Benign Adnexal Mass     9   46    &lt;NA&gt;           &lt;NA&gt;
+PGDX26276P  Benign Adnexal Mass    83   82    &lt;NA&gt;           &lt;NA&gt;
+PGDX26277P  Benign Adnexal Mass    14   42    &lt;NA&gt;           &lt;NA&gt;
+PGDX26278P  Benign Adnexal Mass    17   53    &lt;NA&gt;           &lt;NA&gt;
+PGDX26279P  Benign Adnexal Mass    14  210    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1062P           Non-Cancer    12   94    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1063P           Non-Cancer     6   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1065P           Non-Cancer    10   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1066P           Non-Cancer     7   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1069P           Non-Cancer     6   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1070P           Non-Cancer    12   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1074P           Non-Cancer     4   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1075P           Non-Cancer    12   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1076P           Non-Cancer     6   62    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1077P           Non-Cancer    14   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1080P           Non-Cancer     6   58    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1081P           Non-Cancer    19   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1082P           Non-Cancer    18   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1085P           Non-Cancer     5   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1089P           Non-Cancer     3   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH1090P           Non-Cancer     4   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH301P_2          Non-Cancer    23   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLH303P_2          Non-Cancer    17   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH304P_2          Non-Cancer    14   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH305P_2          Non-Cancer     9   81    &lt;NA&gt;           &lt;NA&gt;
+CGPLH306P_2          Non-Cancer     7   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH310P_2          Non-Cancer    14   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH312P_2          Non-Cancer     6   35    &lt;NA&gt;           &lt;NA&gt;
+CGPLH315P_2          Non-Cancer    16   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH317P_2          Non-Cancer    11   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLH319P_2          Non-Cancer     7   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLH320P_2          Non-Cancer     5   71    &lt;NA&gt;           &lt;NA&gt;
+CGPLH323P_2          Non-Cancer    11   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH336P_2          Non-Cancer    11   85    &lt;NA&gt;           &lt;NA&gt;
+CGPLH337P_2          Non-Cancer     3   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH342P_2          Non-Cancer    25   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLH345P_2          Non-Cancer     6   71    &lt;NA&gt;           &lt;NA&gt;
+CGPLH348P_2          Non-Cancer    21   77    &lt;NA&gt;           &lt;NA&gt;
+CGPLH349P_2          Non-Cancer    20   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH352P_2          Non-Cancer    11   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLH353P_2          Non-Cancer    17   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH354P_2          Non-Cancer    12   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH356P_2          Non-Cancer    18   53    &lt;NA&gt;           &lt;NA&gt;
+CGPLH357P_2          Non-Cancer     4   53    &lt;NA&gt;           &lt;NA&gt;
+CGPLH362P_2          Non-Cancer     9   72    &lt;NA&gt;           &lt;NA&gt;
+CGPLH363P_2          Non-Cancer    11  155    &lt;NA&gt;           &lt;NA&gt;
+CGPLH365P_2          Non-Cancer    15   67    &lt;NA&gt;           &lt;NA&gt;
+CGPLH367P_2          Non-Cancer    29   68    &lt;NA&gt;           &lt;NA&gt;
+CGPLH370P_2          Non-Cancer    20   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLH371P_2          Non-Cancer    10   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH372P_2          Non-Cancer    14   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH373P_2          Non-Cancer    10   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLH375P_2          Non-Cancer     8  198    &lt;NA&gt;           &lt;NA&gt;
+CGPLH378P_2          Non-Cancer    17   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH380P_2          Non-Cancer     7   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLH381P_2          Non-Cancer     8   88    &lt;NA&gt;           &lt;NA&gt;
+CGPLH382P_2          Non-Cancer    16   66    &lt;NA&gt;           &lt;NA&gt;
+CGPLH387P_2          Non-Cancer    10   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH389P_2          Non-Cancer    18   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLH390P_2          Non-Cancer    24   67    &lt;NA&gt;           &lt;NA&gt;
+CGPLH392P_2          Non-Cancer    11   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLH394P_2          Non-Cancer     9   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLH399P_2          Non-Cancer    10   93    &lt;NA&gt;           &lt;NA&gt;
+CGPLH402P_2          Non-Cancer    11   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH407P_2          Non-Cancer    16   64    &lt;NA&gt;           &lt;NA&gt;
+CGPLH412P_2          Non-Cancer    17   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH413P_2          Non-Cancer    16   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH416P_2          Non-Cancer     8   69    &lt;NA&gt;           &lt;NA&gt;
+CGPLH418P_2          Non-Cancer     4   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH419P_2          Non-Cancer     6   86    &lt;NA&gt;           &lt;NA&gt;
+CGPLH421P_2          Non-Cancer    13   53    &lt;NA&gt;           &lt;NA&gt;
+CGPLH422P_2          Non-Cancer    19   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH424P_2          Non-Cancer     8   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH425P_2          Non-Cancer    11   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH428P_2          Non-Cancer    16   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH429P_2          Non-Cancer    13   63    &lt;NA&gt;           &lt;NA&gt;
+CGPLH430P_2          Non-Cancer    13   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH433P_2          Non-Cancer     7  112    &lt;NA&gt;           &lt;NA&gt;
+CGPLH436P_2          Non-Cancer     5   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH441P_2          Non-Cancer     8   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH443P_2          Non-Cancer    15   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH444P_2          Non-Cancer    12   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLH445P_2          Non-Cancer     6   95    &lt;NA&gt;           &lt;NA&gt;
+CGPLH448P_2          Non-Cancer     8   35    &lt;NA&gt;           &lt;NA&gt;
+CGPLH449P_2          Non-Cancer    34   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLH450P_2          Non-Cancer    15   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLH451P_2          Non-Cancer    14   60    &lt;NA&gt;           &lt;NA&gt;
+CGPLH453P_2          Non-Cancer   127   70    &lt;NA&gt;           &lt;NA&gt;
+CGPLH456P_2          Non-Cancer     6   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLH457P_2          Non-Cancer    49   66    &lt;NA&gt;           &lt;NA&gt;
+CGPLH459P_2          Non-Cancer    16   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH460P_2          Non-Cancer    12   65    &lt;NA&gt;           &lt;NA&gt;
+CGPLH461P_2          Non-Cancer    36   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH462P_2          Non-Cancer     8   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH465P_2          Non-Cancer    12   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLH469P_2          Non-Cancer    19  139    &lt;NA&gt;           &lt;NA&gt;
+CGPLH470P_2          Non-Cancer    16   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH475P_2          Non-Cancer    16   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLH477P_2          Non-Cancer     8   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH478P_2          Non-Cancer    17   53    &lt;NA&gt;           &lt;NA&gt;
+CGPLH480P_2          Non-Cancer     4   75    &lt;NA&gt;           &lt;NA&gt;
+CGPLH485P_2          Non-Cancer     5   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLH489P_2          Non-Cancer    26   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLH490P_2          Non-Cancer     9   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH492P_2          Non-Cancer    10   57    &lt;NA&gt;           &lt;NA&gt;
+CGPLH494P_2          Non-Cancer     6   37    &lt;NA&gt;           &lt;NA&gt;
+CGPLH495P_2          Non-Cancer    21   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLH498P_2          Non-Cancer    17   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLH499P_2          Non-Cancer    17   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLH500P_2          Non-Cancer    19   63    &lt;NA&gt;           &lt;NA&gt;
+CGPLH502P_2          Non-Cancer    12   72    &lt;NA&gt;           &lt;NA&gt;
+CGPLH506P_2          Non-Cancer    26   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLH514P_2          Non-Cancer     7   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH515P_2          Non-Cancer    33  169    &lt;NA&gt;           &lt;NA&gt;
+CGPLH518P_2          Non-Cancer    11   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH522P_2          Non-Cancer    16   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLH523P_2          Non-Cancer    19   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH524P_2          Non-Cancer    17   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH525P_2          Non-Cancer    24   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH526P_2          Non-Cancer    13   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH527P_2          Non-Cancer    19   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLH528P_2          Non-Cancer     6  103    &lt;NA&gt;           &lt;NA&gt;
+CGPLH529P_2          Non-Cancer     7   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLH531P_2          Non-Cancer     9   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH532P_2          Non-Cancer     9   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH534P_2          Non-Cancer     9   83    &lt;NA&gt;           &lt;NA&gt;
+CGPLH535P_2          Non-Cancer    11   85    &lt;NA&gt;           &lt;NA&gt;
+CGPLH536P_2          Non-Cancer    15   64    &lt;NA&gt;           &lt;NA&gt;
+CGPLH537P_2          Non-Cancer    10   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH539P_2          Non-Cancer    14   60    &lt;NA&gt;           &lt;NA&gt;
+CGPLH540P_2          Non-Cancer     5   59    &lt;NA&gt;           &lt;NA&gt;
+CGPLH541P_2          Non-Cancer    10   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH545P_2          Non-Cancer    12   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH552P_2          Non-Cancer    19   34    &lt;NA&gt;           &lt;NA&gt;
+CGPLH553P_2          Non-Cancer    14  167    &lt;NA&gt;           &lt;NA&gt;
+CGPLH555P_2          Non-Cancer    16   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLH556P_2          Non-Cancer     9   43    &lt;NA&gt;           &lt;NA&gt;
+CGPLH557P_2          Non-Cancer    23   41    &lt;NA&gt;           &lt;NA&gt;
+CGPLH562P_2          Non-Cancer    12   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH564P_2          Non-Cancer    14   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLH566P_2          Non-Cancer    13   36    &lt;NA&gt;           &lt;NA&gt;
+CGPLH567P_2          Non-Cancer     9   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLH569P_2          Non-Cancer    14   42    &lt;NA&gt;           &lt;NA&gt;
+CGPLH570P_2          Non-Cancer    16   77    &lt;NA&gt;           &lt;NA&gt;
+CGPLH609P_2          Non-Cancer     4  113    &lt;NA&gt;           &lt;NA&gt;
+CGPLH617P_2          Non-Cancer    12   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH618P_2          Non-Cancer     7   47    &lt;NA&gt;           &lt;NA&gt;
+CGPLH626P_2          Non-Cancer    25   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH640P_2          Non-Cancer    28   56    &lt;NA&gt;           &lt;NA&gt;
+CGPLH642P_2          Non-Cancer     8   52    &lt;NA&gt;           &lt;NA&gt;
+CGPLH644P_2          Non-Cancer    22   73    &lt;NA&gt;           &lt;NA&gt;
+CGPLH654P_2          Non-Cancer     4  121    &lt;NA&gt;           &lt;NA&gt;
+CGPLH682P_2          Non-Cancer     9   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLH684P_2          Non-Cancer    23   83    &lt;NA&gt;           &lt;NA&gt;
+CGPLH703P_2          Non-Cancer     8   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLH762P_2          Non-Cancer    13   62    &lt;NA&gt;           &lt;NA&gt;
+CGPLH764P_2          Non-Cancer    11   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH765P_2          Non-Cancer     8   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLH773P_2          Non-Cancer    23  103    &lt;NA&gt;           &lt;NA&gt;
+CGPLH774P_2          Non-Cancer     7   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH777P_2          Non-Cancer     4   54    &lt;NA&gt;           &lt;NA&gt;
+CGPLH778P_2          Non-Cancer    14   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLH781P_2          Non-Cancer     4   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLH783P_2          Non-Cancer    13   49    &lt;NA&gt;           &lt;NA&gt;
+CGPLH784P_2          Non-Cancer    18   37    &lt;NA&gt;           &lt;NA&gt;
+CGPLH785P_2          Non-Cancer    24   38    &lt;NA&gt;           &lt;NA&gt;
+CGPLH787P_2          Non-Cancer    11   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH788P_2          Non-Cancer     8   32    &lt;NA&gt;           &lt;NA&gt;
+CGPLH789P_2          Non-Cancer     4   55    &lt;NA&gt;           &lt;NA&gt;
+CGPLH791P_2          Non-Cancer     7   80    &lt;NA&gt;           &lt;NA&gt;
+CGPLH792P_2          Non-Cancer     7   75    &lt;NA&gt;           &lt;NA&gt;
+CGPLH793P_2          Non-Cancer     9   48    &lt;NA&gt;           &lt;NA&gt;
+CGPLH795P_2          Non-Cancer     7  110    &lt;NA&gt;           &lt;NA&gt;
+CGPLH797P_2          Non-Cancer     5   73    &lt;NA&gt;           &lt;NA&gt;
+CGPLH798P_2          Non-Cancer    20   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLH799P_2          Non-Cancer    17   68    &lt;NA&gt;           &lt;NA&gt;
+CGPLH800P_2          Non-Cancer    13   39    &lt;NA&gt;           &lt;NA&gt;
+CGPLH801P_2          Non-Cancer     5   46    &lt;NA&gt;           &lt;NA&gt;
+CGPLH803P_2          Non-Cancer     9  210    &lt;NA&gt;           &lt;NA&gt;
+CGPLH810P            Non-Cancer     9   40    &lt;NA&gt;           &lt;NA&gt;
+CGPLH850P            Non-Cancer     9   58    &lt;NA&gt;           &lt;NA&gt;
+CGPLH852P            Non-Cancer    24   45    &lt;NA&gt;           &lt;NA&gt;
+CGPLH855P            Non-Cancer     9   44    &lt;NA&gt;           &lt;NA&gt;
+CGPLH859P            Non-Cancer    15   63    &lt;NA&gt;           &lt;NA&gt;
+CGPLH866P            Non-Cancer     8   62    &lt;NA&gt;           &lt;NA&gt;
+CGPLH872P            Non-Cancer    11   50    &lt;NA&gt;           &lt;NA&gt;
+CGPLH879P            Non-Cancer    12   51    &lt;NA&gt;           &lt;NA&gt;
+CGPLOV320P       Ovarian Cancer  1283 2499      IV          HGSOC
+CGPLOV326P       Ovarian Cancer    14  143       I   Endometrioid
+CGPLOV331P       Ovarian Cancer    23   54       I       Mucinous
+CGPLOV332P       Ovarian Cancer   358   84       I   Endometrioid
+CGPLOV336P       Ovarian Cancer   467  685     III          HGSOC
+CGPLOV339P       Ovarian Cancer   126  106     III          HGSOC
+CGPLOV340P       Ovarian Cancer   827 1280     III          HGSOC
+CGPLOV343P       Ovarian Cancer    28   72      II   Endometrioid
+CGPLOV345P       Ovarian Cancer    16  240      II Other Subtypes
+CGPLOV355P       Ovarian Cancer   312  217     III   Endometrioid
+CGPLOV357P       Ovarian Cancer    87  155       I Other Subtypes
+CGPLOV370P       Ovarian Cancer   179  134       I       Mucinous
+CGPLOV372P       Ovarian Cancer  1184  739      II          HGSOC
+CGPLOV374P       Ovarian Cancer   145  242     III          HGSOC
+CGPLOV377P       Ovarian Cancer   153  547     III          HGSOC
+CGPLOV379P       Ovarian Cancer   725  518       I   Endometrioid
+CGPLOV383P       Ovarian Cancer   188   86     III       Mucinous
+CGPLOV384P       Ovarian Cancer   114   71     III          LGSOC
+CGPLOV392P       Ovarian Cancer     8  110       I          HGSOC
+CGPLOV398P       Ovarian Cancer    27  113     III          HGSOC
+CGPLOV401P       Ovarian Cancer    22   38      II Other Subtypes
+CGPLOV402P       Ovarian Cancer  2193  454     III          HGSOC
+CGPLOV408P       Ovarian Cancer    30  127      II Other Subtypes
+CGPLOV410P       Ovarian Cancer   364 2981     III          HGSOC
+CGPLOV414P       Ovarian Cancer   255  133      II Other Subtypes
+CGPLOV418P       Ovarian Cancer    65  148       I       Mucinous
+CGPLOV444P       Ovarian Cancer   129  119      II          HGSOC
+CGPLOV449P       Ovarian Cancer    24  128       I       Mucinous
+CGPLOV459P       Ovarian Cancer    50  843     III          HGSOC
+CGPLOV462P       Ovarian Cancer    30   50       I Other Subtypes
+CGPLOV470P       Ovarian Cancer    37  103       I       Mucinous
+CGPLOV482P       Ovarian Cancer   895  951      IV Other Subtypes
+CGPLOV484P       Ovarian Cancer    31   66 Unknown Other Subtypes
+CGPLOV489P       Ovarian Cancer   360  452 Unknown   Endometrioid
+CGPLOV496P       Ovarian Cancer   182   66      II          LGSOC
+CGPLOV497P       Ovarian Cancer   265  622     III          HGSOC
+CGPLOV516P       Ovarian Cancer   168 1123      II          HGSOC
+CGPLOV520P       Ovarian Cancer   138  166      II   Endometrioid
+CGPLOV556P       Ovarian Cancer   114  214     III          HGSOC
+CGPLOV561P       Ovarian Cancer   121  148       I          HGSOC
+CGPLOV565P       Ovarian Cancer   449  267     III          HGSOC
+CGPLOV566P       Ovarian Cancer    22   67      II Other Subtypes
+CGPLOV569P       Ovarian Cancer   865  398     III          HGSOC
+CGPLOV573P       Ovarian Cancer  5454  111 Unknown   Endometrioid
+CGPLOV574P       Ovarian Cancer    38   72     III          HGSOC
+CGPLOV578P       Ovarian Cancer   633  197     III          HGSOC
+CGPLOV580P       Ovarian Cancer   151  202      II   Endometrioid
+CGPLOV584P       Ovarian Cancer    88  199 Unknown          HGSOC
+CGPLOV589P       Ovarian Cancer    31   90       I       Mucinous
+CGPLOV592P       Ovarian Cancer    16  321      II Other Subtypes
+CGPLOV597P       Ovarian Cancer   469  258     III          LGSOC
+CGPLOV606P       Ovarian Cancer    18  133       I   Endometrioid
+PGDX25573P       Ovarian Cancer   135  228     III          LGSOC
+PGDX25574P       Ovarian Cancer     5   52       I       Mucinous
+PGDX25576P       Ovarian Cancer   458  645       I Other Subtypes
+PGDX25577P       Ovarian Cancer    33   67       I       Mucinous
+PGDX25682P       Ovarian Cancer    22   47       I Other Subtypes
+PGDX25683P       Ovarian Cancer   805 1285      II          HGSOC
+PGDX25684P       Ovarian Cancer  2003  265     III          HGSOC
+PGDX25692P       Ovarian Cancer  2458  342     III          HGSOC
+PGDX25693P       Ovarian Cancer   354  568       I          HGSOC
+PGDX25695P       Ovarian Cancer    69   65      II       Mucinous
+PGDX25696P       Ovarian Cancer   206  107      II          HGSOC
+PGDX25697P       Ovarian Cancer   103  231     III          HGSOC
+PGDX25698P       Ovarian Cancer   717   92      II Other Subtypes
+PGDX25703P       Ovarian Cancer   160   58      II       Mucinous
+PGDX25704P       Ovarian Cancer    55  442       I   Endometrioid
+PGDX25705P       Ovarian Cancer   122  241       I Other Subtypes
+PGDX25706P       Ovarian Cancer   517  164      II          LGSOC
+PGDX25707P       Ovarian Cancer   396   75       I          HGSOC
+PGDX25765P       Ovarian Cancer    39   66       I Other Subtypes
+PGDX25766P       Ovarian Cancer   222  130      II          HGSOC
+PGDX25767P       Ovarian Cancer   392   55       I          HGSOC
+PGDX25768P       Ovarian Cancer    72   72     III          LGSOC
+PGDX25769P       Ovarian Cancer   790   99       I          LGSOC
+PGDX25770P       Ovarian Cancer    52   66       I Other Subtypes
+PGDX25771P       Ovarian Cancer   270  370       I   Endometrioid
+PGDX25772P       Ovarian Cancer   274  696       I          HGSOC
+PGDX25793P       Ovarian Cancer   434  661     III          HGSOC
+PGDX25794P       Ovarian Cancer    51  305     III          HGSOC
+PGDX25795P       Ovarian Cancer   104  192     III          HGSOC
+PGDX25796P       Ovarian Cancer   944  221     III          HGSOC
+PGDX25797P       Ovarian Cancer    28   69      II Other Subtypes
+PGDX25798P       Ovarian Cancer    80   85       I Other Subtypes
+PGDX25799P       Ovarian Cancer   316  205     III          HGSOC
+PGDX25800P       Ovarian Cancer   112  287       I   Endometrioid
+PGDX25801P       Ovarian Cancer    17   44      II Other Subtypes
+PGDX25809P       Ovarian Cancer   512  353      II          HGSOC
+PGDX25824P       Ovarian Cancer  3448  726       I Other Subtypes
+PGDX25825P       Ovarian Cancer   251  683      II          HGSOC
+PGDX25827P       Ovarian Cancer    20   95     III Other Subtypes
+PGDX25829P       Ovarian Cancer    34  124      II Other Subtypes
+PGDX25830P       Ovarian Cancer   250  166      II   Endometrioid
+PGDX25857P       Ovarian Cancer    21   46       I       Mucinous
+            DELFI-Pro Score
+CGPLOV161P       0.27902414
+CGPLOV315P       0.15440282
+CGPLOV317P       0.16794014
+CGPLOV321P       0.18291976
+CGPLOV322P       0.13221021
+CGPLOV323P       0.18362437
+CGPLOV324P       0.26668709
+CGPLOV325P       0.15387253
+CGPLOV327P       0.21114819
+CGPLOV329P       0.10905518
+CGPLOV330P       0.12463110
+CGPLOV334P       0.11932056
+CGPLOV335P       0.17309266
+CGPLOV338P       0.13341329
+CGPLOV344P       0.18582967
+CGPLOV347P       0.29339252
+CGPLOV350P       0.10094817
+CGPLOV351P       0.19711384
+CGPLOV352P       0.09022281
+CGPLOV353P       0.11962268
+CGPLOV356P       0.13782758
+CGPLOV358P       0.15190417
+CGPLOV359P       0.16521958
+CGPLOV360P       0.17507802
+CGPLOV361P       0.14827944
+CGPLOV362P       0.20143323
+CGPLOV363P       0.23966421
+CGPLOV364P       0.12220748
+CGPLOV367P       0.39810519
+CGPLOV368P       0.12616728
+CGPLOV371P       0.16047761
+CGPLOV373P       0.25859732
+CGPLOV375P       0.15223292
+CGPLOV376P       0.11166628
+CGPLOV378P       0.15510787
+CGPLOV380P       0.14919290
+CGPLOV382P       0.10508804
+CGPLOV386P       0.11868324
+CGPLOV387P       0.20303327
+CGPLOV388P       0.14366045
+CGPLOV389P       0.13556104
+CGPLOV391P       0.13723490
+CGPLOV393P       0.13614303
+CGPLOV394P       0.13840167
+CGPLOV395P       0.18930219
+CGPLOV396P       0.15120109
+CGPLOV397P       0.39661960
+CGPLOV399P       0.15789541
+CGPLOV406P       0.15596943
+CGPLOV407P       0.14722448
+CGPLOV411P       0.13333384
+CGPLOV412P       0.16750545
+CGPLOV413P       0.19238867
+CGPLOV415P       0.17892455
+CGPLOV417P       0.25542306
+CGPLOV419P       0.10489299
+CGPLOV420P       0.17507607
+CGPLOV421P       0.10573007
+CGPLOV422P       0.21051412
+CGPLOV423P       0.18910080
+CGPLOV425P       0.15195056
+CGPLOV427P       0.17067937
+CGPLOV429P       0.15986350
+CGPLOV430P       0.06685572
+CGPLOV431P       0.12736316
+CGPLOV432P       0.20142987
+CGPLOV433P       0.12602272
+CGPLOV434P       0.13601027
+CGPLOV435P       0.14852480
+CGPLOV437P       0.12167758
+CGPLOV438P       0.09440408
+CGPLOV439P       0.17037231
+CGPLOV441P       0.12484847
+CGPLOV442P       0.11939949
+CGPLOV443P       0.17903431
+CGPLOV445P       0.18138940
+CGPLOV446P       0.16740583
+CGPLOV448P       0.14473819
+CGPLOV450P       0.11377409
+CGPLOV451P       0.11528503
+CGPLOV452P       0.17348652
+CGPLOV453P       0.15333804
+CGPLOV454P       0.12001405
+CGPLOV456P       0.17752572
+CGPLOV457P       0.11193301
+CGPLOV460P       0.22696938
+CGPLOV463P       0.16457069
+CGPLOV464P       0.10817064
+CGPLOV465P       0.12969238
+CGPLOV466P       0.22358709
+CGPLOV467P       0.12136292
+CGPLOV468P       0.24720377
+CGPLOV471P       0.22432536
+CGPLOV472P       0.13190209
+CGPLOV473P       0.09440532
+CGPLOV474P       0.11430849
+CGPLOV478P       0.12665118
+CGPLOV480P       0.16698815
+CGPLOV481P       0.38312455
+CGPLOV483P       0.11999697
+CGPLOV485P       0.25252523
+CGPLOV487P       0.11127566
+CGPLOV488P       0.14510356
+CGPLOV490P       0.19084668
+CGPLOV493P       0.20073165
+CGPLOV495P       0.15838173
+CGPLOV498P       0.17241818
+CGPLOV499P       0.15875165
+CGPLOV500P       0.22679681
+CGPLOV501P       0.18296403
+CGPLOV502P       0.13223726
+CGPLOV503P       0.36383167
+CGPLOV505P       0.13547598
+CGPLOV506P       0.19383111
+CGPLOV507P       0.13798556
+CGPLOV508P       0.16454072
+CGPLOV509P       0.16639677
+CGPLOV510P       0.21354964
+CGPLOV511P       0.11317529
+CGPLOV512P       0.14968794
+CGPLOV513P       0.19479377
+CGPLOV514P       0.23324837
+CGPLOV515P       0.11092401
+CGPLOV517P       0.12124838
+CGPLOV519P       0.16685947
+CGPLOV521P       0.13797434
+CGPLOV523P       0.13852285
+CGPLOV524P       0.18809986
+CGPLOV525P       0.11964373
+CGPLOV526P       0.15620781
+CGPLOV527P       0.16956614
+CGPLOV528P       0.12309339
+CGPLOV531P       0.16873525
+CGPLOV532P       0.18866086
+CGPLOV539P       0.13994175
+CGPLOV540P       0.28193741
+CGPLOV542P       0.19085984
+CGPLOV545P       0.15677386
+CGPLOV546P       0.20350358
+CGPLOV549P       0.13016938
+CGPLOV551P       0.11578485
+CGPLOV553P       0.11959403
+CGPLOV554P       0.19100723
+CGPLOV559P       0.16368677
+CGPLOV562P       0.12789314
+CGPLOV567P       0.16818970
+CGPLOV568P       0.12596873
+CGPLOV571P       0.27978845
+CGPLOV572P       0.29440521
+CGPLOV575P       0.14644435
+CGPLOV576P       0.12936715
+CGPLOV577P       0.36017667
+CGPLOV590P       0.15550586
+CGPLOV591P       0.23850305
+CGPLOV600P       0.16185386
+CGPLOV607P       0.13798569
+CGPLOV608P       0.15820398
+CGPLOV610P       0.13999901
+CGPLOV611P       0.23731880
+CGPLOV612P       0.15398203
+PGDX25840P       0.29524506
+PGDX25841P       0.20826517
+PGDX25842P       0.23839117
+PGDX25855P       0.34771589
+PGDX25856P       0.32740783
+PGDX25864P       0.21944014
+PGDX25865P       0.24173287
+PGDX25866P       0.17013060
+PGDX25867P       0.34235348
+PGDX25868P       0.24470009
+PGDX25869P       0.30464448
+PGDX25870P       0.20248262
+PGDX25872P       0.20940003
+PGDX25879P       0.25420916
+PGDX25880P       0.23130054
+PGDX25881P       0.29484296
+PGDX25882P       0.31949723
+PGDX25883P       0.20779080
+PGDX25884P       0.24388679
+PGDX25885P       0.27462307
+PGDX25886P       0.20006091
+PGDX25887P       0.19210706
+PGDX26054P       0.57512213
+PGDX26055P       0.30431440
+PGDX26066P       0.39028805
+PGDX26069P       0.31309923
+PGDX26256P       0.49336345
+PGDX26257P       0.50732808
+PGDX26258P       0.27676313
+PGDX26259P       0.40110944
+PGDX26260P       0.66664337
+PGDX26261P       0.27575066
+PGDX26263P       0.25611419
+PGDX26264P       0.41553937
+PGDX26271P       0.26296074
+PGDX26272P       0.17999585
+PGDX26273P       0.23499993
+PGDX26274P       0.37730238
+PGDX26275P       0.17499671
+PGDX26276P       0.24236320
+PGDX26277P       0.22905393
+PGDX26278P       0.27255280
+PGDX26279P       0.68893477
+CGPLH1062P       0.10965911
+CGPLH1063P       0.03578699
+CGPLH1065P       0.02026788
+CGPLH1066P       0.05011894
+CGPLH1069P       0.04389892
+CGPLH1070P       0.04902581
+CGPLH1074P       0.10730748
+CGPLH1075P       0.12470766
+CGPLH1076P       0.21900810
+CGPLH1077P       0.05240390
+CGPLH1080P       0.17953147
+CGPLH1081P       0.42106412
+CGPLH1082P       0.05406539
+CGPLH1085P       0.09316720
+CGPLH1089P       0.15921071
+CGPLH1090P       0.11988461
+CGPLH301P_2      0.05199546
+CGPLH303P_2      0.06168817
+CGPLH304P_2      0.05905576
+CGPLH305P_2      0.17802914
+CGPLH306P_2      0.05300304
+CGPLH310P_2      0.07493687
+CGPLH312P_2      0.06160681
+CGPLH315P_2      0.08444837
+CGPLH317P_2      0.04890048
+CGPLH319P_2      0.06333686
+CGPLH320P_2      0.10101960
+CGPLH323P_2      0.04107467
+CGPLH336P_2      0.20845450
+CGPLH337P_2      0.04676516
+CGPLH342P_2      0.05126025
+CGPLH345P_2      0.15390221
+CGPLH348P_2      0.09136836
+CGPLH349P_2      0.06484828
+CGPLH352P_2      0.03185189
+CGPLH353P_2      0.04087302
+CGPLH354P_2      0.04496501
+CGPLH356P_2      0.05549773
+CGPLH357P_2      0.05817421
+CGPLH362P_2      0.05318017
+CGPLH363P_2      0.26686052
+CGPLH365P_2      0.08047730
+CGPLH367P_2      0.07612221
+CGPLH370P_2      0.07004475
+CGPLH371P_2      0.10060418
+CGPLH372P_2      0.05741027
+CGPLH373P_2      0.07787656
+CGPLH375P_2      0.50812922
+CGPLH378P_2      0.06808198
+CGPLH380P_2      0.02582495
+CGPLH381P_2      0.18606173
+CGPLH382P_2      0.19771474
+CGPLH387P_2      0.06663133
+CGPLH389P_2      0.08212034
+CGPLH390P_2      0.18572061
+CGPLH392P_2      0.04910082
+CGPLH394P_2      0.07907421
+CGPLH399P_2      0.36010531
+CGPLH402P_2      0.04062130
+CGPLH407P_2      0.12047361
+CGPLH412P_2      0.06291685
+CGPLH413P_2      0.05750436
+CGPLH416P_2      0.22173523
+CGPLH418P_2      0.04020274
+CGPLH419P_2      0.11220378
+CGPLH421P_2      0.02758824
+CGPLH422P_2      0.03141968
+CGPLH424P_2      0.07103160
+CGPLH425P_2      0.03353045
+CGPLH428P_2      0.04941974
+CGPLH429P_2      0.03981952
+CGPLH430P_2      0.08256754
+CGPLH433P_2      0.15388127
+CGPLH436P_2      0.04600315
+CGPLH441P_2      0.03839593
+CGPLH443P_2      0.07282344
+CGPLH444P_2      0.08206139
+CGPLH445P_2      0.13872268
+CGPLH448P_2      0.05309363
+CGPLH449P_2      0.04159287
+CGPLH450P_2      0.09808339
+CGPLH451P_2      0.06924758
+CGPLH453P_2      0.63548949
+CGPLH456P_2      0.04283185
+CGPLH457P_2      0.08466604
+CGPLH459P_2      0.04389168
+CGPLH460P_2      0.08577012
+CGPLH461P_2      0.08138750
+CGPLH462P_2      0.06989982
+CGPLH465P_2      0.09244975
+CGPLH469P_2      0.18899848
+CGPLH470P_2      0.08760598
+CGPLH475P_2      0.04594566
+CGPLH477P_2      0.08507050
+CGPLH478P_2      0.08705845
+CGPLH480P_2      0.05681428
+CGPLH485P_2      0.04161207
+CGPLH489P_2      0.13986858
+CGPLH490P_2      0.02710039
+CGPLH492P_2      0.09287621
+CGPLH494P_2      0.04442109
+CGPLH495P_2      0.05909384
+CGPLH498P_2      0.09076434
+CGPLH499P_2      0.05307993
+CGPLH500P_2      0.07305489
+CGPLH502P_2      0.06768833
+CGPLH506P_2      0.03520266
+CGPLH514P_2      0.17774489
+CGPLH515P_2      0.51202309
+CGPLH518P_2      0.04114505
+CGPLH522P_2      0.10459959
+CGPLH523P_2      0.11892195
+CGPLH524P_2      0.04809873
+CGPLH525P_2      0.06166045
+CGPLH526P_2      0.08403986
+CGPLH527P_2      0.05958998
+CGPLH528P_2      0.15746308
+CGPLH529P_2      0.03857079
+CGPLH531P_2      0.05690441
+CGPLH532P_2      0.05142248
+CGPLH534P_2      0.15113893
+CGPLH535P_2      0.07294584
+CGPLH536P_2      0.11475589
+CGPLH537P_2      0.02645711
+CGPLH539P_2      0.04789056
+CGPLH540P_2      0.04911340
+CGPLH541P_2      0.05832424
+CGPLH545P_2      0.04569299
+CGPLH552P_2      0.07854108
+CGPLH553P_2      0.34722147
+CGPLH555P_2      0.12283043
+CGPLH556P_2      0.04924396
+CGPLH557P_2      0.05609141
+CGPLH562P_2      0.02951292
+CGPLH564P_2      0.12564637
+CGPLH566P_2      0.05724819
+CGPLH567P_2      0.08146833
+CGPLH569P_2      0.04773868
+CGPLH570P_2      0.07987557
+CGPLH609P_2      0.15153973
+CGPLH617P_2      0.07103466
+CGPLH618P_2      0.06683067
+CGPLH626P_2      0.15862500
+CGPLH640P_2      0.11950293
+CGPLH642P_2      0.09715743
+CGPLH644P_2      0.07226780
+CGPLH654P_2      0.27259515
+CGPLH682P_2      0.07488351
+CGPLH684P_2      0.09146399
+CGPLH703P_2      0.39439166
+CGPLH762P_2      0.08454393
+CGPLH764P_2      0.03548500
+CGPLH765P_2      0.04368175
+CGPLH773P_2      0.22048322
+CGPLH774P_2      0.07304101
+CGPLH777P_2      0.11022086
+CGPLH778P_2      0.06244808
+CGPLH781P_2      0.02379893
+CGPLH783P_2      0.04214454
+CGPLH784P_2      0.11495301
+CGPLH785P_2      0.07182574
+CGPLH787P_2      0.06505077
+CGPLH788P_2      0.04925039
+CGPLH789P_2      0.08057022
+CGPLH791P_2      0.08236247
+CGPLH792P_2      0.06158133
+CGPLH793P_2      0.04868528
+CGPLH795P_2      0.02500094
+CGPLH797P_2      0.08761015
+CGPLH798P_2      0.05289182
+CGPLH799P_2      0.03921585
+CGPLH800P_2      0.05063522
+CGPLH801P_2      0.02489118
+CGPLH803P_2      0.51607755
+CGPLH810P        0.11622516
+CGPLH850P        0.03950832
+CGPLH852P        0.04859773
+CGPLH855P        0.05717851
+CGPLH859P        0.24897284
+CGPLH866P        0.08945858
+CGPLH872P        0.05481652
+CGPLH879P        0.05663340
+CGPLOV320P       1.00000000
+CGPLOV326P       0.24408308
+CGPLOV331P       0.20240827
+CGPLOV332P       0.89423392
+CGPLOV336P       0.99999951
+CGPLOV339P       0.85759281
+CGPLOV340P       1.00000000
+CGPLOV343P       0.17399739
+CGPLOV345P       0.76207991
+CGPLOV355P       0.99206599
+CGPLOV357P       0.63495553
+CGPLOV370P       0.71686024
+CGPLOV372P       1.00000000
+CGPLOV374P       0.97498199
+CGPLOV377P       0.99904860
+CGPLOV379P       0.99999987
+CGPLOV383P       0.51349183
+CGPLOV384P       0.34261235
+CGPLOV392P       0.33876338
+CGPLOV398P       0.18976670
+CGPLOV401P       0.02052495
+CGPLOV402P       1.00000000
+CGPLOV408P       0.51641569
+CGPLOV410P       1.00000000
+CGPLOV414P       0.80330903
+CGPLOV418P       0.67691130
+CGPLOV444P       0.62981263
+CGPLOV449P       0.21518019
+CGPLOV459P       0.99997308
+CGPLOV462P       0.07140144
+CGPLOV470P       0.15259327
+CGPLOV482P       0.99999888
+CGPLOV484P       0.07226143
+CGPLOV489P       0.99999943
+CGPLOV496P       0.49785036
+CGPLOV497P       0.99998159
+CGPLOV516P       0.99999998
+CGPLOV520P       0.83395170
+CGPLOV556P       0.77452600
+CGPLOV561P       0.67470591
+CGPLOV565P       0.99904057
+CGPLOV566P       0.10436373
+CGPLOV569P       0.99999995
+CGPLOV573P       1.00000000
+CGPLOV574P       0.17346861
+CGPLOV578P       0.79396858
+CGPLOV580P       0.21203341
+CGPLOV584P       0.92313302
+CGPLOV589P       0.08457631
+CGPLOV592P       0.86181877
+CGPLOV597P       0.99971946
+CGPLOV606P       0.13368264
+PGDX25573P       0.99934130
+PGDX25574P       0.79444516
+PGDX25576P       1.00000000
+PGDX25577P       0.92576969
+PGDX25682P       0.84062152
+PGDX25683P       1.00000000
+PGDX25684P       1.00000000
+PGDX25692P       1.00000000
+PGDX25693P       0.99999993
+PGDX25695P       0.97469715
+PGDX25696P       0.99953226
+PGDX25697P       0.99869892
+PGDX25698P       0.99987215
+PGDX25703P       0.98545150
+PGDX25704P       0.99983081
+PGDX25705P       0.99990619
+PGDX25706P       0.99998779
+PGDX25707P       0.99974806
+PGDX25765P       0.95058548
+PGDX25766P       0.99859413
+PGDX25767P       0.99844001
+PGDX25768P       0.97747477
+PGDX25769P       0.99993247
+PGDX25770P       0.94272363
+PGDX25771P       0.99999193
+PGDX25772P       0.99999992
+PGDX25793P       0.81386893
+PGDX25794P       0.99841237
+PGDX25795P       0.99715755
+PGDX25796P       0.99999998
+PGDX25797P       0.46466738
+PGDX25798P       0.95788133
+PGDX25799P       0.99988917
+PGDX25800P       0.99831014
+PGDX25801P       0.88757313
+PGDX25809P       0.99999963
+PGDX25824P       1.00000000
+PGDX25825P       1.00000000
+PGDX25827P       0.91742814
+PGDX25829P       0.96814515
+PGDX25830P       0.99977757
+PGDX25857P       0.92364564</code></pre>
+<pre><code>$Family
+   zscore     ratio 
+&quot;#66c2a5&quot; &quot;#8da0cb&quot; </code></pre>
+<p><img src="figure/2B.Rmd/heatmap-1.png" width="2304" style="display: block; margin: auto;" /><img src="figure/2B.Rmd/heatmap-2.png" width="2304" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] readxl_1.3.1         here_1.0.1           data.table_1.14.0   
+ [4] circlize_0.4.13      ComplexHeatmap_2.6.2 devtools_2.4.2      
+ [7] usethis_2.0.1        openxlsx_4.2.4       forcats_0.5.1       
+[10] stringr_1.5.1        dplyr_1.1.4          purrr_1.0.2         
+[13] readr_2.0.1          tidyr_1.3.1          tibble_3.2.1        
+[16] ggplot2_3.5.0        tidyverse_1.3.1      workflowr_1.6.2     
+
+loaded via a namespace (and not attached):
+ [1] matrixStats_0.61.0  fs_1.5.0            lubridate_1.7.10   
+ [4] RColorBrewer_1.1-2  httr_1.4.2          rprojroot_2.0.2    
+ [7] tools_4.0.5         backports_1.2.1     bslib_0.3.0        
+[10] utf8_1.2.2          R6_2.5.1            BiocGenerics_0.36.1
+[13] DBI_1.1.1           colorspace_2.0-2    GetoptLong_1.0.5   
+[16] withr_3.0.0         tidyselect_1.2.1    prettyunits_1.1.1  
+[19] processx_3.5.2      compiler_4.0.5      git2r_0.28.0       
+[22] cli_3.6.2           rvest_1.0.1         Cairo_1.5-12.2     
+[25] xml2_1.3.2          desc_1.3.0          sass_0.4.0         
+[28] scales_1.3.0        callr_3.7.0         digest_0.6.27      
+[31] rmarkdown_2.10      pkgconfig_2.0.3     htmltools_0.5.2    
+[34] sessioninfo_1.1.1   highr_0.9           dbplyr_2.1.1       
+[37] fastmap_1.1.0       GlobalOptions_0.1.2 rlang_1.1.3        
+[40] rstudioapi_0.13     shape_1.4.6         jquerylib_0.1.4    
+[43] generics_0.1.3      jsonlite_1.7.2      zip_2.2.0          
+[46] magrittr_2.0.1      S4Vectors_0.28.1    Rcpp_1.0.7         
+[49] munsell_0.5.0       fansi_0.5.0         lifecycle_1.0.4    
+[52] stringi_1.7.4       yaml_2.2.1          pkgbuild_1.2.0     
+[55] parallel_4.0.5      promises_1.2.0.1    crayon_1.4.1       
+[58] haven_2.4.3         hms_1.1.0           knitr_1.33         
+[61] ps_1.6.0            pillar_1.9.0        rjson_0.2.20       
+[64] stats4_4.0.5        pkgload_1.2.1       reprex_2.0.1       
+[67] glue_1.7.0          evaluate_0.14       remotes_2.4.0      
+[70] modelr_0.1.8        vctrs_0.6.5         png_0.1-7          
+[73] tzdb_0.1.2          httpuv_1.6.2        testthat_3.0.4     
+[76] cellranger_1.1.0    gtable_0.3.0        clue_0.3-59        
+[79] assertthat_0.2.1    cachem_1.0.6        xfun_0.25          
+[82] broom_0.7.9         later_1.3.0         IRanges_2.24.1     
+[85] memoise_2.0.0       cluster_2.1.2       ellipsis_0.3.2     </code></pre>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

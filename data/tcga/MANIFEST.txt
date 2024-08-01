@@ -1,0 +1,1 @@
+06acb66fd24ef37e9a82e6500b499a0e OV.snp__genome_wide_snp_6__broad_mit_edu__Level_3__segmented_scna_minus_germline_cnv_hg19__seg.seg.txt

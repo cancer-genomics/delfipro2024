@@ -1,0 +1,83 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+# DELFI score distribution
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+#dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+#dat<-dat %>% filter(training_set_include_screening=="yes")
+#dat<-dat %>% select(id,classifier_type,ca125,`Screening ZEUS`,subtype_simple,stage)
+#dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+#dat<-dat %>% filter(model=="Screening ZEUS")
+#meta<-read_xlsx(here("data","20220620_ Clinical_Data_Ovarian_Cancer_june2022_cgid_CBCs.xlsx"))
+
+#dat1<-inner_join(dat,meta,by=c("id"="cgid"))
+
+#dat2<-inner_join(dat,meta,by=c("id"="PGDXID"))
+
+#data<-rbind(dat1 %>% select(-PGDXID),dat2 %>% select(-cgid))
+#data<-data %>% select(id,classifier_type,subtype_simple,stage,model,score,`Symptomatic/Asymptomatic`,`Menopause status`,`Age at diagnosis (ultrasound date)`)
+
+#write.csv(data,here("data","S2_data.csv"))
+data<-fread(here("data","S2_data.csv"))
+
+```
+
+All cancers
+
+
+```{r all_cancer,echo=FALSE,fig.width = 12, fig.height = 6, dev=c("png", "pdf")}
+library(ggpubr)
+
+
+ds<-data %>% filter(!is.na(`Symptomatic/Asymptomatic`))
+b<-ggplot(ds,aes(x=`Symptomatic/Asymptomatic`,y=score))+theme_classic()+stat_compare_means(label.y=1.03)+geom_boxplot(outlier.shape=NA,fill="indianred",alpha=.5,width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("Asymptomatic\n(n=5)","Symptomatic\n(n=84)"))#+ylim(0,1.1)
+
+dm<-data %>% filter(`Menopause status` != "Unknown")
+c<-ggplot(dm,aes(x=`Menopause status`,y=score))+theme_classic()+stat_compare_means(label.y=1.03)+geom_boxplot(outlier.shape=NA,fill="indianred",alpha=.5,width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("Postmenopausal\n(n=82)","Premenopausal\n(n=9)"))
+
+
+
+```
+
+```{r}
+data$`Age at diagnosis (ultrasound date)`<-as.numeric(data$`Age at diagnosis (ultrasound date)`)
+d<-ggplot(data,aes(x=`Age at diagnosis (ultrasound date)`,y=score))+geom_point()+theme_classic()+stat_cor(label.y=1.03)+ylab("DELFI-Pro Score")+xlab("Age at diagnosis (ultrasound date)\n(n=94 tumors)")
+
+```
+
+```{r all_cancer2,echo=FALSE,fig.width = 12, fig.height = 10, dev=c("png", "pdf")}
+library(cowplot)
+plot_grid(d,b,c,ncol=3,rel_width=c(1,.6,.6),align="h",axis="b")
+
+```
+
+

@@ -1,0 +1,356 @@
+---
+title: "Predictive distributions of performance in future studies"
+---
+
+# Goals
+
+In a future study of 100,000 participants, what is our predictive distribution for the following:
+- number individuals screened
+- liver cancers detected by delfi
+- liver cancers detected by ultrasound (US) + alpha fetal protein (AFP)
+- false positives leading to unnecessary follow-up procedures by these approaches
+- individuals with liver cancer not identified ( false negatives )
+
+The size of the screening study is determined by the number of samples collected in a finite period of time.  Studies with lower adherence to surveillance guidelines have fewer participants.
+
+
+# Best guesses
+
+```{r packages, message=FALSE, echo=FALSE}
+library(here)
+library(devtools)
+devtools::load_all(here("code", "liver.tools"))
+library(grid)
+library(gridExtra)
+library(gtools)
+library(tidyverse)
+library(mvtnorm)
+library(magrittr)
+library(ggplot2)
+library(epiR)
+library(readxl)
+library(data.table)
+library(patchwork)
+library(cowplot)
+tools <- here("data", "simulations_metrics.csv") %>%
+    fread() %>% filter(tool %in% c("CA125_30_ukctocs","CA125_30_jhu","HE4_70_jhu","HE4_70_Jacob","DELFI-Pro"))
+
+set.seed(1949694)
+
+```
+
+## We have a point estimate with a confidence interval -- binomial for most things, beta for the adherence stuff based on the liver paper
+
+```{r betas}
+find_params <- function(i, dat){
+    dat <- dat[i, ]
+    params <- epi.betabuster(mode=dat$mode,
+                             conf=0.975,
+                             greaterthan=TRUE,
+                             x=dat$lower,
+                             max.shape1=500,
+                             conf.level=0.95)
+    dat$shape1 <- params$shape1
+    dat$shape2 <- params$shape2
+    dat
+}
+params <- seq_len(nrow(tools)) %>%
+    map_dfr(find_params, dat=tools)
+```
+
+
+```{r performance}
+simulate_performance <- function(i, params, N=1000){
+    p <- params[i, ]
+    x <- rbeta(N, shape1=p$shape1, shape2=p$shape2)
+    x
+}
+simvalues <- seq_len(nrow(tools)) %>%
+    map(simulate_performance, params=params)
+params$simulation <- simvalues
+params2 <- params %>%
+    filter(metric != "adherence") %>%
+    pivot_wider(id_cols=c("tool", "population"),
+                names_from="metric",
+                values_from="simulation") %>%
+    unnest(c("sensitivity", "specificity"))
+adhere <- params %>%
+    filter(metric=="adherence") %>%
+    unnest(simulation) %>%
+    select(tool, population, simulation) %>%
+    set_colnames(c("tool", "population", "adherence")) %>%
+    nest(adherence=adherence)
+params3 <- params2 %>%
+    nest(performance=c(sensitivity, specificity))
+params4 <- left_join(params3, adhere,
+                     by=c("tool", "population"))
+panelA.data <- params2 #%>%
+   # mutate(population=factor(population,
+                             #rev(c("High risk", "Early stage"))))
+```
+
+```{r panelA}
+panelA.data<-panelA.data #%>% filter(tool %in% c("DELFI", "US + AFP")) 
+#panelA.data$tool<-factor(panelA.data$tool,levels=c("US + AFP","DELFI"))
+pt_esti<-tools %>% select(tool,mode,metric) %>% filter(metric %in% c("sensitivity","specificity"))%>%spread(key=metric,value=mode)
+panelA.data$tool<-factor(panelA.data$tool,levels=c("HE4_70_Jacob","HE4_70_jhu","CA125_30_ukctocs","CA125_30_jhu","DELFI-Pro"))
+panelA <- panelA.data %>% 
+    ggplot(aes(specificity, sensitivity)) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank()) +
+    geom_density2d(aes(color=tool),bins=25, size=.5) +
+    scale_y_continuous(expand=c(0, 0), limits=c(0, 1)) +
+    scale_x_continuous(expand=c(0, 0), limits=c(0, 1)) +
+    geom_point(data=pt_esti,aes(specificity, sensitivity), size=3) +
+    ##xlim(c(0.15, 1)) +
+    ##ylim(c(0.15, 1)) +
+    ##facet_wrap(~population, ncol=1) +
+    theme(strip.background=element_blank(),
+          legend.position=c(0.2, 0.25)) +
+    guides(color=guide_legend(title="",
+                              override.aes=list(size=1.5))) +
+    xlab("Specificity") +
+    ylab("Sensitivity")+theme(legend.position="left")+
+  scale_color_manual(values=c("steelblue","steelblue1","lightpink1","deeppink","darkmagenta"),
+                     labels=c("HE4 - 70 pM - Jacob et al., 2011","HE4 - 70 pM - JHU","CA125 - 30 U/mL - Menon et al., 2015","CA125 - 30 U/mL - JHU", "DELFI-Pro - >99% Specificity"))+coord_fixed()
+panelA
+#panelA <- ggplotGrob(panelA)
+```
+
+```{r panelA2, fig.width=4, fig.height=7, dev=c("png", "pdf")}
+#panelA.data$tool<-factor(panelA.data$tool,levels=c("US + AFP","DELFI"))
+panelA2 <- panelA.data %>% 
+    ggplot(aes(specificity, sensitivity)) +
+    theme(panel.grid=element_blank()) +
+    geom_density2d(aes(color=tool),bins=25, size=.5) +
+    scale_y_continuous(expand=c(0, 0), limits=c(0.3, 1.01)) +
+    scale_x_continuous(expand=c(0, 0), limits=c(0.7, 1.01)) +
+    geom_point(data=pt_esti,aes(specificity, sensitivity), size=3) +
+    ##xlim(c(0.15, 1)) +
+    ##ylim(c(0.15, 1)) +
+    ##facet_wrap(~population, ncol=1) +
+    theme(strip.background=element_blank(),
+          legend.position=c(0.2, 0.25),
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          axis.text.x=element_text(size=15),
+          axis.text.y=element_text(size=15),
+          axis.title.x=element_text(size=20),
+          axis.title.y=element_text(size=20)
+
+          ) +
+    guides(color=guide_legend(title="",
+                              override.aes=list(size=1.5))) +
+    xlab("Specificity") +
+    ylab("Sensitivity")+theme(legend.position="none")+
+  scale_color_manual(values=c("steelblue","steelblue1","lightpink1","deeppink","darkmagenta"),
+                     labels=c("HE4 - 70 pM - Jacob et al., 2011","HE4 - 70 pM - JHU","CA125 - 30 U/mL - Menon et al., 2015","CA125 - 30 U/mL - JHU", "DELFI-Pro - >99% Specificity"))+theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))
+panelA2
+#panelA2 <- ggplotGrob(panelA2)
+```
+
+```{r contours, fig.width=15, fig.height=15, dev=c("png", "pdf")}
+
+set1<-panelA+theme(legend.position="none")#+patchwork::inset_element(panelA2,.1,.1,.6,.6)
+
+l<-get_legend(panelA)
+
+set1
+
+l
+
+panelA2
+
+```
+
+
+#I CHANGED THIS SECTION -- ASK ROB
+
+```{r prevalence, fig.width=10, fig.height=6}
+#prev.wide <- rdirichlet(1000, cohorts$prevalence*1000) %>%
+#    as_tibble() %>%
+#    set_colnames(cohorts$disease)
+
+#prev <- epi.betabuster(mode=cohorts$prevalence[1],
+#                             conf=0.975,
+#                             greaterthan=TRUE,
+#                             x=cohorts$prevalence[1]/10,
+#                             max.shape1=500,
+#                             conf.level=0.95)
+s1<-236511
+#s1<-19680
+#s1<-2055
+#s2<-(274633642/2)-s1
+s2<-63757324-s1
+#s2<-202562-s1
+#prev <- rbeta(1000, shape1=prev$shape1, shape2=prev$shape2)
+prev <- rbeta(1000, shape1=s1, shape2=s2)
+
+#prev.long <- prev.wide %>%
+#    pivot_longer(cols=all_of(cohorts$disease), names_to="Disease",
+#                 values_to="Prevalence")
+
+prev.long<-tibble(Disease="Ovarian Cancer",Prevalence=prev)
+prev.long %>%
+    ggplot(aes(Prevalence)) +
+    geom_density(color="gray", fill="gray") +
+    theme_bw(base_size=15) +
+    facet_wrap(~Disease, scales="free_y") +
+    theme(panel.grid=element_blank()) +
+    xlim(c(0, 1))
+```
+
+```{r update_params}
+prev3 <- tibble(prevalence=prev)
+params4$prevalence <- rep(prev3, 5)
+```
+
+## Simulations
+
+1. sample 100,000 people from high risk population (multinomial)
+
+2. subsample based on adherence
+
+3. calculate performance statistics 
+
+4. repeat 1-3 1000 times
+
+```{r functions}
+perf <- function(i, object, N=100e3){
+    dat <- unnest(object[i, ], c("performance",
+                                 "adherence",
+                                 "prevalence"))
+    L <- nrow(dat)
+    set.seed(149491) ## use same random number seed to capture differences in parameters
+    screened <- rbinom(L, size=N, prob=dat$adherence)
+    ## prevalence
+    P <- rbinom(L, size=screened, prob=dat$prevalence) ## P = FN + TP
+    N <- screened - P  ## N = TN + FP
+    TP <- rbinom(L, size=P, prob=dat$sensitivity)
+    FP <- rbinom(L, size=N, prob=(1-dat$specificity))
+    TN <- N - FP  ## N = FP + TN
+    FN <- P - TP
+    fpr <- FP/N
+    fnr <- FN/P
+    tnr <- TN/N
+    tpr <- TP/P ## sensitivity
+    acc <- (TP+TN)/(P+N)
+    err <- (FP+FN)/(P+N)
+    ppv <- TP/(TP+FP)
+    npv <- TN/(TN+FN)
+    stats <- tibble("P"=P, "N"=N, "TP"=TP, "FP"=FP, "TN"=TN,
+                    "FN"=FN, "acc"=acc, "err"=err,
+                    "fpr"=fpr, "fnr"=fnr, "tnr"=tnr,
+                    "tpr"=tpr, "ppv"=ppv, "npv"=npv,
+                    "number_screened"=screened)
+    stats2 <- bind_cols(dat, stats)
+    stats2
+}
+```
+
+```{r simulation}
+## for now, we only care about HCC versus not HCC
+params5 <- seq_len(nrow(params4)) %>%
+    map_dfr(perf, params4) #%>%
+    #filter(tool %in% c("DELFI", "US + AFP"))
+#There are 10 simulations in which there were 0 cases of ovarian cancer, so FNR and TPR end up NaN but should be 0
+params5 <- params5 %>% mutate(fnr=if_else(is.na(fnr),0,fnr))
+params5 <- params5 %>% mutate(tpr=if_else(is.na(tpr),0,tpr))
+
+montecarlo <- params5
+
+
+
+```
+
+I want to plot all metrics
+```{r fpr, fig.width=8, fig.height=15, dev=c("png", "pdf")}
+
+dat<-montecarlo %>% select(fpr,tool)
+
+dat<-dat %>% gather(key=metric,value=score,-tool)
+
+#dat<-dat %>% filter(tool %in% c("CA125_30_ukctocs","CA125_30_jhu","HE4_70_Jacob","HE4_70_jhu","DELFI-Pro"))
+dat$tool<-factor(dat$tool,levels=c("HE4_70_Jacob","HE4_70_jhu","CA125_30_ukctocs","CA125_30_jhu","DELFI-Pro"))
+
+#colors=c("goldenrod1","darkorange","goldenrod3","darkorange2","goldenrod4","darkorange3","dodgerblue","cyan2","cyan4","violetred4")
+
+set2<-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA)+theme_classic(base_size=20)+ylim(0,.5)+
+  scale_fill_manual(values=c("steelblue","steelblue1","lightpink1","deeppink","darkmagenta"),
+                     labels=c("HE4 - 70 pM - Jacob et al., 2011","HE4 - 70 pM - JHU","CA125 - 30 U/mL - Menon et al., 2015","CA125 - 30 U/mL - JHU", "DELFI-Pro - >99% Specificity"))+theme(axis.text.x=element_text(angle=60,vjust = 1, hjust=1))+xlab("")+ylab("Predicted FPR")+theme(legend.position="none")+
+  scale_x_discrete(labels=c("HE4-Jacob","HE4-JHU","CA125-Menon","CA125-JHU","DELFI-Pro"))+theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))
+set2
+
+dat %>% group_by(tool) %>% summarize(mean(score))
+dat %>% group_by(tool) %>% summarize(med=median(score),perc_fpr=med*100,ci_low=round(quantile(score, 0.025), 4)*100,ci_high=round(quantile(score, 0.975), 4)*100)#,sd=sd(score)*100)
+
+```
+
+```{r ppv, fig.width=8, fig.height=15, dev=c("png", "pdf")}
+
+dat<-montecarlo %>% select(ppv,tool)
+
+dat<-dat %>% gather(key=metric,value=score,-tool)
+
+#dat<-dat %>% filter(tool %in% c("CA125_30_ukctocs","CA125_30_jhu","HE4_70_Jacob","HE4_70_jhu","DELFI-Pro"))
+dat$tool<-factor(dat$tool,levels=c("HE4_70_Jacob","HE4_70_jhu","CA125_30_ukctocs","CA125_30_jhu","DELFI-Pro"))
+
+#colors=c("goldenrod1","darkorange","goldenrod3","darkorange2","goldenrod4","darkorange3","dodgerblue","cyan2","cyan4","violetred4")
+
+set3<-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA)+theme_classic(base_size=20)+ylim(0,.9)+
+  scale_fill_manual(values=c("steelblue","steelblue1","lightpink1","deeppink","darkmagenta"),
+                     labels=c("HE4 - 70 pM - Jacob et al., 2011","HE4 - 70 pM - JHU","CA125 - 30 U/mL - Menon et al., 2015","CA125 - 30 U/mL - JHU", "DELFI-Pro - >99% Specificity"))+theme(axis.text.x=element_text(angle=60,vjust = 1, hjust=1))+xlab("")+ylab("Predicted PPV")+theme(legend.position="none")+
+    scale_x_discrete(labels=c("HE4-Jacob","HE4-JHU","CA125-Menon","CA125-JHU","DELFI-Pro"))+theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))
+
+
+set3
+
+dat %>% group_by(tool) %>% summarize(mean(score))
+dat %>% group_by(tool) %>% summarize(med=median(score),perc_ppv=med*100,ci_low=round(quantile(score, 0.025), 4)*100,ci_high=round(quantile(score, 0.975), 4)*100)#,sd=sd(score)*100)
+
+```
+
+```{r full,fig.width=20, fig.height=8, dev=c("png", "pdf")}
+plot_grid(set1,set3,set2,ncol=3,rel_widths = c(1,.75,.75),align="h",axis="b")
+```
+
+
+
+```{r stats_adherence}
+#mc <- filter(montecarlo, population=="Early stage",
+#             tool %in% c("DELFI", "US + AFP"))
+mc<-montecarlo
+
+ppv <- mc %>%
+    group_by(tool) %>%
+    summarize(mu=mean(ppv),
+              `0.025`=quantile(ppv, prob=0.025),
+              `0.975`=quantile(ppv, prob=0.975)) %>%
+    mutate_at(2:4, round, 3) %>%
+    mutate_at(2:4, scales::percent) %>%
+    set_colnames(c("tool", "mu", "q2.5", "q97.5")) %>%
+    unite("ci", c("q2.5", "q97.5"), sep="-")
+
+fpr <- mc %>%
+    group_by(tool) %>%
+    summarize(mu=mean(fpr),
+              `0.025`=quantile(fpr, prob=0.025),
+              `0.975`=quantile(fpr, prob=0.975)) %>%
+    mutate_at(2:4, round, 3) %>%
+    mutate_at(2:4, scales::percent) %>%
+    set_colnames(c("tool", "mu", "q2.5", "q97.5")) %>%
+    unite("ci", c("q2.5", "q97.5"), sep="-")
+
+ppv
+
+fpr
+```
+
+
+

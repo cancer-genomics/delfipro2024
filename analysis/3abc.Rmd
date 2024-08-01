@@ -1,0 +1,437 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(ggpubr)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes")
+dat<-dat %>% select(id,classifier_type,`Screening ZEUS`,subtype_simple,stage)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+
+```
+
+All cancers
+
+```{r, all_cancer}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+r1<-c2
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") +
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("All Cancers (n=94)")
+
+C<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+
+
+
+I
+```{r, I}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")  %>% filter(type=="healthy"|stage=="I")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+r1<-c2
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage I (n=32)")
+
+C2<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+d %>% group_by(type) %>% summarize(n=n())
+
+
+
+```
+
+II
+```{r}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")  %>% filter(type=="healthy"|stage=="II")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+r1<-c2
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage II (n=26)")
+
+C3<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+III
+```{r}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")  %>% filter(type=="healthy"|stage=="III"|stage=="IV")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+r1<-c2
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stages III (n=30)/IV (n=2)")
+
+C4<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+
+```
+
+HGSOC
+```{r}
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")  %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+r1<-c2
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("indianred")
+names(colors) <- c(unique(r1$type))
+
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") +
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("HGSOC (n=39)")
+
+C6<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+
+```
+
+
+Random figure just to get a legend
+
+```{r}
+colors <- c("indianred")
+
+names(colors) <- c("DELFI+CA125+HE4")#,"CA-125","RMI","HE4")
+B <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=model), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors,name=NULL) +
+    theme_classic(base_size=25) + theme(legend.position = "bottom")+#,legend.key.size = unit(6,"line"))+
+    xlab("Specificity") + ylab("Sensitivity") + theme( strip.background = element_blank() )
+```
+
+Assemble
+```{r,fig.height=12,fig.width=24,dev=c("png", "pdf","svg")}
+library(cowplot)
+x<-plot_grid(C6,C2,C3,C4,nrow=2,ncol=2)
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  B #+ theme(legend.box.margin = margin(0,0,0,1))
+)
+x<-plot_grid(C,x,ncol=2,rel_widths=c(1.3,2))
+plot_grid(x,legend,ncol=1,rel_heights=c(10,.3))
+x
+```
+
+```{r,fig.height=6,fig.width=16,dev=c("png", "pdf","svg")}
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes")
+dat<-dat %>% select(id,classifier_type,`Screening ZEUS`,subtype_simple,stage)
+
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+st<-dat %>% filter(classifier_type=="cancer" & stage %in% c("I","II","III","IV","Unknown")) %>% mutate(group="Stage",cat=stage)
+h<-dat %>% filter(classifier_type=="cancer") %>% mutate(group="Subtype",cat=subtype_simple)
+#h<-dat %>% filter(classifier_type=="cancer" & subtype_simple %in% c("HGSOC","Endometrioid","Mucinous","LGSOC","Clear Cell")) %>% mutate(group="Subtype",cat=subtype_simple)
+
+
+h<-h %>% mutate(cat=if_else(!subtype_simple %in% c("LGSOC","HGSOC","Endometrioid","Mucinous","Clear Cell"),"Other Subtypes",cat))
+#h<-h %>% mutate(cat=if_else(subtype_simple %in% c("Endometrioid","Mucinous"),"Endo/Mucinous",cat))
+
+nc<-dat %>% filter(classifier_type != "cancer")
+nc$group<-"Non-cancer"
+nc$cat<-"Non-Cancer\nScreening Population"
+
+dat1<-rbind(st,h,nc)
+
+data<- dat1 %>% filter(model != "ca125")
+
+data$group<-factor(data$group,levels=c("Non-cancer","Stage","Subtype"))
+
+labels<-data %>% group_by(cat) %>% summarize(n =n())
+data<-inner_join(data,labels,by="cat")
+data$cat<-paste0(data$cat,"\n(n = ",data$n,")")
+data$cat<-factor(data$cat,levels=c("Non-Cancer\nScreening Population\n(n = 182)","HGSOC\n(n = 39)","LGSOC\n(n = 7)","Endometrioid\n(n = 14)","Mucinous\n(n = 12)","Clear Cell\n(n = 11)","Other Subtypes\n(n = 11)","I\n(n = 32)","II\n(n = 26)","III\n(n = 30)","IV\n(n = 2)","Unknown\n(n = 4)"))
+
+
+p<-ggplot(data,aes(x=cat,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="indianred",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
+  facet_grid(.~group,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")
+
+p
+
+
+
+
+```
+
+
+```{r fig.height=6,fig.width=6,dev=c("png", "pdf","svg")}
+val<-fread(here("data","tables","Allcancer_screen.csv"))
+val<-val %>% select(-V1)
+
+val<-val %>% filter(model=="Screening DELFI+CA125+HE4" & set_specificity %in% c(1.00,.99,.95))
+
+v1<-val %>% select(specificity,sensitivity,set,set_specificity) %>% gather(key=metric,value=val,-set,-set_specificity) %>% mutate(group="Discovery")
+v2<-val %>% select(val_spec,val_sens,set,set_specificity) %>% gather(key=metric,value=val,-set,-set_specificity) %>% mutate(group="Validation") %>% mutate(metric=if_else(metric=="val_spec","specificity","sensitivity"))
+
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+h<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="healthy") %>% nrow()
+c<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer") %>% nrow()
+c1<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer" & stage=="I") %>% nrow()
+c2<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer" & stage=="II") %>% nrow()
+c3<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer" & stage=="III") %>% nrow()
+c4<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer" & stage=="IV") %>% nrow()
+c5<-dat %>% filter(training_set_include_screening=="yes") %>% filter(classifier_type=="cancer" & subtype_simple=="HGSOC") %>% nrow()
+
+v1<-v1 %>% mutate(n=if_else(metric=="specificity",h,c))
+v1<-v1 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage I",c1,n))
+v1<-v1 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage II",c2,n))
+v1<-v1 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage III",c3,n))
+v1<-v1 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage IV",c4,n))
+v1<-v1 %>% mutate(n=if_else(metric=="sensitivity" & set=="HGSOC",c5,n))
+
+dat<-read_csv(here("data/scores","All_Scores_Val.csv"))
+h<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="healthy") %>% nrow()
+c<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer") %>% nrow()
+c1<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer" & stage=="I") %>% nrow()
+c2<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer" & stage=="II") %>% nrow()
+c3<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer" & stage=="III") %>% nrow()
+c4<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer" & stage=="IV") %>% nrow()
+c5<-dat %>% filter(screen_val=="yes") %>% filter(classifier_type=="cancer" & subtype_simple=="HGSOC") %>% nrow()
+
+v2<-v2 %>% mutate(n=if_else(metric=="specificity",h,c))
+v2<-v2 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage I",c1,n))
+v2<-v2 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage II",c2,n))
+v2<-v2 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage III",c3,n))
+v2<-v2 %>% mutate(n=if_else(metric=="sensitivity" & set=="Stage IV",c4,n))
+v2<-v2 %>% mutate(n=if_else(metric=="sensitivity" & set=="HGSOC",c5,n))
+
+
+val<-rbind(v1,v2)
+
+val<-val %>% filter((set=="All Cancers"& metric=="specificity")|metric=="sensitivity")
+
+library(Hmisc)
+CI<-binconf(val$n*val$val, val$n, alpha=.1)
+CI<-tibble(Low=CI[,2],High=CI[,3])
+val<-cbind(val,CI)
+
+
+val<-val %>% mutate(set_specificity2=if_else(set_specificity==1.00,">99% Specificity","test"))
+val<-val %>% mutate(set_specificity2=if_else(set_specificity==.99,"99% Specificity",set_specificity2))
+val<-val %>% mutate(set_specificity2=if_else(set_specificity==.95,"95% Specificity",set_specificity2))
+val$set_specificity2<-factor(val$set_specificity2,levels=c(">99% Specificity","99% Specificity","95% Specificity"))
+
+val<-val %>% mutate(metric=if_else(metric=="specificity","Specificity","Sensitivity"))
+val$metric<-factor(val$metric,levels=c("Specificity","Sensitivity"))
+
+val<-val %>% mutate(set=if_else(metric=="Specificity","Non-cancer",set))
+val<-val %>% filter(!(metric=="Sensitivity" & set=="All Cancers"))
+ggplot(val,aes(x=set,y=val,dodge=group,color=group))+geom_point(position=position_dodge(width = .5),size=2)+facet_grid(set_specificity2~metric,scales="free_x",space="free")+#+scale_alpha_discrete(range=c(.3,1))
+theme_classic()+theme(axis.title = element_blank(),legend.position="bottom",axis.text=element_text(size=12),strip.text =element_text(size=12),plot.title = element_text(hjust = 0.5,size=12))+geom_errorbar(aes(x=set,ymin=Low,ymax=High,width=.5),position=position_dodge(width = .5))+scale_color_manual(values=c("gray50","indianred"))+ylim(c(0,1))+labs(color="")
+
+
+
+
+
+```
+
+
+
+
+

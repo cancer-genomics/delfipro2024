@@ -1,0 +1,529 @@
+---
+title: "ROC Curves"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: true
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r caching, echo=FALSE}
+knitr::opts_chunk$set(autodep = TRUE, echo=FALSE)
+```
+
+
+# DELFI score distribution
+
+
+```{r load_data, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(cowplot)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+
+dat<-read_csv(here("data/scores","All_Scores_CV.csv"))
+dat<-dat %>% filter(training_set_include_screening=="yes")
+dat<-dat %>% select(id,classifier_type,ca125,he4,`Screening ZEUS`,subtype_simple,stage)
+
+#add in the Screening Proteins
+dat2<-fread(here("data/scores","Protein_Screen_CV.csv"))
+dat2<-dat2 %>% select(id,score) %>% rename("Screening Proteins"="score")
+dat<-inner_join(dat,dat2,by="id")
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+```
+
+All cancers
+
+```{r, all_cancer}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+#names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("All Cancers (n=94)")
+
+C<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+
+
+
+I
+```{r, I}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125") %>% filter(type=="healthy"|stage=="I")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4") %>% filter(type=="healthy"|stage=="I")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS") %>% filter(type=="healthy"|stage=="I")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins") %>% filter(type=="healthy"|stage=="I")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"  ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+
+#names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage I (n=32)")
+
+C2<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+
+```
+
+II
+```{r}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125") %>% filter(type=="healthy"|stage=="II")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4") %>% filter(type=="healthy"|stage=="II")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS") %>% filter(type=="healthy"|stage=="II")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins") %>% filter(type=="healthy"|stage=="II")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"  ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage II (n=26)")
+
+C3<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+III
+```{r}
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125") %>% filter(type=="healthy"|stage=="III")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4") %>% filter(type=="healthy"|stage=="III")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS") %>% filter(type=="healthy"|stage=="III")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins") %>% filter(type=="healthy"|stage=="III")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"  ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage III (n=30)")
+
+C4<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+IV
+```{r}
+
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125") %>% filter(type=="healthy"|stage=="IV")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4") %>% filter(type=="healthy"|stage=="IV")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"  ")
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS") %>% filter(type=="healthy"|stage=="IV")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins") %>% filter(type=="healthy"|stage=="IV")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"   ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Stage IV (n=2)")
+
+C5<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+```
+
+HGSOC
+```{r}
+
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="ca125") %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"ca125"
+c1$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="he4") %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"he4"
+c2$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2))
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening ZEUS") %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"ZEUS"
+c3$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2)," ")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Screening Proteins") %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"ca125+he4"
+c4$type<-paste0("pAUC: ",round(roc(d$type,d$score,partial.auc=c(1,.9),partial.auc.correct=TRUE)$auc[1],2),"  ")
+
+r1<-rbind(c1,c2,c4,c3)
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+#r1$type<-sapply(str_split(r1$type,": "),"[",2)
+
+
+colors <- c("gray50","skyblue","pink","indianred")
+l<-r1 %>% group_by(model) %>% summarize(m=max(type))
+names(colors) <- l$m
+r1$type<-factor(r1$type,levels=l$m)
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + xlim(c(1,.9))+
+    guides(color=guide_legend(title="pAUC: ", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("HGSOC (n=39)")
+
+C6<-ggdraw(A)#+draw_plot(B,.5,.2,.4,.4)
+
+d %>% group_by(type) %>% summarize(n=n())
+
+```
+
+
+Random figure just to get a legend
+
+```{r}
+colors <- c("gray50","skyblue","pink","indianred")
+
+names(colors) <- c("CA125","HE4","CA125+HE4","DELFI-Pro")#,"CA-125","RMI","HE4")
+r1<-r1 %>% mutate(model=if_else(model=="ca125","CA125",model))
+r1<-r1 %>% mutate(model=if_else(model=="he4","HE4",model))
+r1<-r1 %>% mutate(model=if_else(model=="ZEUS","DELFI-Pro",model))
+r1<-r1 %>% mutate(model=if_else(model=="ca125+he4","CA125+HE4",model))
+r1$model<-factor(r1$model,levels=c("CA125","HE4","CA125+HE4","DELFI-Pro"))
+B <- r1 %>%
+    ggplot(aes(spec, sens, group=model)) +
+    geom_line(aes(color=model), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors,name=NULL) +
+    theme_classic(base_size=25) + theme(legend.position = "bottom")+#,legend.key.size = unit(6,"line"))+
+    xlab("Specificity") + ylab("Sensitivity") + theme( strip.background = element_blank() )
+
+```
+
+Assemble
+```{r,fig.height=12,fig.width=18,dev=c("png", "pdf","svg")}
+library(cowplot)
+x<-plot_grid(C,C6,C2,C3,C4,C5,C6,nrow=2,ncol=3)
+
+legend <- get_legend(
+  # create some space to the left of the legend
+  B #+ theme(legend.box.margin = margin(0,0,0,1))
+)
+plot_grid(x,legend,ncol=1,rel_heights=c(10,.3))
+
+```
+
+
+
+
+

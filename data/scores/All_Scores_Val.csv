@@ -1,0 +1,113 @@
+"","id","id2","cohort","type","type2","training_set_include_screening","training_set_include_diag","diag_val","screen_val","stage","subtype","subtype_simple","menopause_status","history_of_cancer","history_binary","classifier_type","classifier_type2","Screening ZEUS","Diagnostic ZEUS","ca125","he4"
+"1","CGPLH175P","CGPLH175P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0665019026115585,0.141823577754386,14.68,47.55
+"2","CGPLH176P","CGPLH176P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0630187143988435,0.13794923743924,6.18,53.82
+"3","CGPLH177P","CGPLH177P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.120468673720385,0.148426294720851,10.75,41.27
+"4","CGPLH178P","CGPLH178P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0731435223569681,0.120032904441546,5.2,48.08
+"5","CGPLH179P","CGPLH179P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0511515257892576,0.118915735986717,11.82,42.81
+"6","CGPLH180P","CGPLH180P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.070912544592533,0.116235315219551,13.85,45.82
+"7","CGPLH181P","CGPLH181P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0706500179509008,0.196209864458113,13.21,75.67
+"8","CGPLH157P","CGPLH157P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0958763982382987,0.154911935545403,12.34,72.36
+"9","CGPLH158P","CGPLH158P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.107615096743882,0.141430634512449,39.32,50.9
+"10","CGPLH160P","CGPLH160P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.103456554688586,0.12716850068739,5.07,63.72
+"11","CGPLH164P","CGPLH164P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0827510505536824,0.168015872489826,12.04,39.24
+"12","CGPLH165P","CGPLH165P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0571834553558324,0.106109752925929,14.75,36.66
+"13","CGPLH167P","CGPLH167P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0760009278716914,0.118656802380322,4.42,44.54
+"14","CGPLH169P","CGPLH169P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.119447618509689,0.178469892167728,17.32,54.49
+"15","CGPLH170P","CGPLH170P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0482995126818667,0.121790220765692,10.27,37.54
+"16","CGPLH171P","CGPLH171P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0258226994641529,0.120529070626712,4.08,42.33
+"17","CGPLH1243P","CGPLH1243P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0242362015448516,0.145793694936092,10.31,42.95
+"18","CGPLH1244P","CGPLH1244P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0838197604667437,0.123661889538484,9.65,27.46
+"19","CGPLH1245P","CGPLH1245P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.025269675542421,0.166657359793338,6.53,32.49
+"20","CGPLH1246P","CGPLH1246P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0479557815141242,0.107471281000139,4.24,33.56
+"21","CGPLH1247P","CGPLH1247P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.145107374045028,0.169034373478598,7.19,44.17
+"22","CGPLH1248P","CGPLH1248P","ILS-Healthy","non-cancer","non-cancer","no","no","no","yes","Non-cancer",NA,"non-cancer",NA,NA,"no","healthy","non-cancer",0.0918284833985248,0.105930710379346,9.93,36.65
+"23","CGPLOV633P_1","CGPLOV633P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.163290719777454,0.120722825763164,23.17,49.6
+"24","CGPLOV634P_1","CGPLOV634P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.144171811673524,0.139505296952161,29.24,52.37
+"25","CGPLOV635P_1","CGPLOV635P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.422004576207553,0.134912355946245,88.03,50.94
+"26","CGPLOV636P_1","CGPLOV636P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.538938068889683,0.16393357393318,46.29,70.09
+"27","CGPLOV637P_1","CGPLOV637P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.192296406521859,0.178646951820506,13.21,61.83
+"28","CGPLOV638P_1","CGPLOV638P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.304306992340009,0.135561643582633,34.86,82.51
+"29","CGPLOV639P_1","CGPLOV639P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0660910203376015,0.239989402627531,39.46,59.43
+"30","CGPLOV640P_1","CGPLOV640P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.189750558196836,0.117354861235951,46.35,64.59
+"31","CGPLOV641P_1","CGPLOV641P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.675502999377597,0.139582852852755,215.1,52.7
+"32","CGPLOV642P_1","CGPLOV642P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.183357624004535,0.15632021329216,12.81,52.69
+"33","CGPLOV643P_1","CGPLOV643P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.185769345642999,0.279373886217984,17.93,118.6
+"34","CGPLOV644P_1","CGPLOV644P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.191195216764692,0.145637146135292,5.29,75.87
+"35","CGPLOV645P_1","CGPLOV645P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.226595991658652,0.298129096647545,10.55,94.78
+"36","CGPLOV646P_1","CGPLOV646P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.128997661378155,0.231650818179053,14.06,93.25
+"37","CGPLOV647P_1","CGPLOV647P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0798384211631283,0.154925991629654,10.29,51.78
+"38","CGPLOV648P_1","CGPLOV648P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.133325069295005,0.116070415364664,5.4,40.66
+"39","CGPLOV649P_1","CGPLOV649P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.114628203874992,0.146022064565741,14.14,59.69
+"40","CGPLOV650P_1","CGPLOV650P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.679164847834278,0.752904999912681,6.31,304.3
+"41","CGPLOV651P_1","CGPLOV651P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0480459781022361,0.125854186981786,27.3,39.9
+"42","CGPLOV652P_1","CGPLOV652P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.372319998609687,0.286801201184673,36.04,128.6
+"43","CGPLOV653P_1","CGPLOV653P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.258728979172359,0.244883535181449,91.41,78.58
+"44","CGPLOV654P_1","CGPLOV654P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.999997770128102,0.373170476286835,885.1,137.1
+"45","CGPLOV655P_1","CGPLOV655P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0925914667510714,0.155638942502851,18.34,64.86
+"46","CGPLOV656P_1","CGPLOV656P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.039399494343569,0.164637120712059,8.54,37.8
+"47","CGPLOV657P_1","CGPLOV657P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0720036610183388,0.173079387752315,13.24,39.61
+"48","CGPLOV658P_1","CGPLOV658P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.335941635069903,0.176405293107132,104.6,82.97
+"49","CGPLOV659P_1","CGPLOV659P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.133035813687439,0.254591062025245,65.35,94.79
+"50","CGPLOV660P_1","CGPLOV660P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0431299071334299,0.11274994477702,3.91,40.75
+"51","CGPLOV661P_1","CGPLOV661P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.213640166587875,0.14613010672365,21.26,76.13
+"52","CGPLOV662P_1","CGPLOV662P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.038381591647827,0.192662477107899,11.19,47.37
+"53","CGPLOV663P_1","CGPLOV663P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.996389709205387,0.25012732722721,508.8,92.82
+"54","CGPLOV664P_1","CGPLOV664P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.112490019038644,0.198882329569008,15.5,68.98
+"55","CGPLOV665P_1","CGPLOV665P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0566004390963936,0.28286577658245,34.59,60.22
+"56","CGPLOV666P_1","CGPLOV666P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.103448104258464,0.18394617545193,20.28,61.08
+"57","CGPLOV667P_1","CGPLOV667P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.110786594884104,0.108878824031636,7.12,35.06
+"58","CGPLOV668P_1","CGPLOV668P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0274679102289787,0.104418907522874,10.97,42.31
+"59","CGPLOV669P_1","CGPLOV669P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0583527750149908,0.189270762729986,18.17,58.91
+"60","CGPLOV670P_1","CGPLOV670P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.107977594549734,0.140059955735026,14.35,70.29
+"61","CGPLOV671P_1","CGPLOV671P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.103809428242024,0.15570626111659,11.53,50.6
+"62","CGPLOV672P_1","CGPLOV672P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.166363378967396,0.300967884779977,53.92,54.02
+"63","CGPLOV673P_1","CGPLOV673P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.106029070390244,0.153308027792928,10.76,52.05
+"64","CGPLOV674P_1","CGPLOV674P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.140764695388835,0.210568024287228,16.17,71.45
+"65","CGPLOV675P_1","CGPLOV675P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.14264250653126,0.229423716716381,23.25,78.47
+"66","CGPLOV676P_1","CGPLOV676P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.987969936392049,0.158151950238635,360.1,85.46
+"67","CGPLOV677P_1","CGPLOV677P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.13579007909261,0.186625049399607,5.04,87.38
+"68","CGPLOV678P_1","CGPLOV678P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.103477611571881,0.136427453858886,10.51,40.77
+"69","CGPLOV679P_1","CGPLOV679P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0507210471711205,0.145696603874551,12.4,32.14
+"70","CGPLOV680P_1","CGPLOV680P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.0746725222275558,0.133576586137415,9.05,38.15
+"71","CGPLOV681P_1","CGPLOV681P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.125155066982565,0.160286251291241,11.8,64.26
+"72","CGPLOV682P_1","CGPLOV682P_1","UPenn2","non-cancer","Benign","no","no","yes","no","Non-cancer",NA,NA,NA,NA,"no","healthy","Benign",0.846785543191266,0.173318948475887,244.4,32.94
+"73","CGPLOV11P","CGPLOV11P","ILS-Ovarian","cancer","Endometrioid Adenoarcinoma, Villoglandular Type","no","no","yes","yes","IV","Endometrioid","Endometrioid",NA,NA,"no","cancer","cancer",1,0.999984244919843,6648,963.6
+"74","CGPLOV10P","CGPLOV10P","ILS-Ovarian","cancer","High Grade Serous Carcinoma","no","no","yes","yes","I","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",1,0.998490384555527,8204,509.3
+"75","CGPLOV9P","CGPLOV9P","ILS-Ovarian","cancer","Endometrioid adenocarcinoma, NOS (8380/3) Villoglandular Type","no","no","yes","yes","II","Endometrioid","Endometrioid",NA,NA,"no","cancer","cancer",0.999999999999888,0.194604542177793,1994,38.53
+"76","CGPLOV8P","CGPLOV8P","ILS-Ovarian","cancer","Mucinous cystadenocarcinoma, NOS (8470/3)","no","no","yes","yes","I","Mucinous","Mucinous",NA,NA,"no","cancer","cancer",0.246713623401671,0.147411243197852,124.2,53.64
+"77","CGPLOV7P","CGPLOV7P","ILS-Ovarian","cancer","Mucinous cystadenocarcinoma, NOS (8470/3)","no","no","yes","yes","I","Mucinous","Mucinous",NA,NA,"no","cancer","cancer",0.714279324541491,0.172930706852455,207.5,61.17
+"78","CGPLOV14P","CGPLOV14P","ILS-Ovarian","cancer","High Grade Serous Carcinoma","no","no","yes","yes","I","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.998179617788319,0.202829835308683,528,104.3
+"79","CGPLOV13P","CGPLOV13P","ILS-Ovarian","cancer","Endometrioid Adenocarcinoma, Solid Type Predominant","no","no","yes","yes","IV","Endometrioid","Endometrioid",NA,NA,"no","cancer","cancer",1,0.723947675826923,5560,138.8
+"80","CGPLOV12P","CGPLOV12P","ILS-Ovarian","cancer","Villoglandular Endometrioid Adenocarcinoma with Mucinous Differentiation","no","no","yes","yes","I","Endometrioid","Endometrioid",NA,NA,"no","cancer","cancer",1,0.822582334408646,3873,226.4
+"81","CGPLOV27P","CGPLOV27P","ILS-Ovarian","cancer","GERM CELL TUMORS / Dysgerminoma (9060/3) / Clinical diagnosis of ovarian teratoma, but with suspected malignancy","no","no","yes","yes","I","Germ Cell","Germ Cell",NA,NA,"no","cancer","cancer",0.114173659129797,0.212264384221956,82.87,43.13
+"82","CGPLOV15P","CGPLOV15P","ILS-Ovarian","cancer","Poorly Differentiated Adenocarcinoma","no","no","yes","yes","III","Poorly Diff.","Poorly Diff.",NA,NA,"no","cancer","cancer",0.999604907158148,0.7047827023004,497.3,198.7
+"83","CGPLOV2P","CGPLOV2P","ILS-Ovarian","cancer","Mucinous Papillary Adenocarcinoma","no","no","yes","yes","I","Mucinous","Mucinous",NA,NA,"no","cancer","cancer",0.210300763934223,0.138883368930668,22.3,71.93
+"84","CGPLOV4P","CGPLOV4P","ILS-Ovarian","cancer","Granulosa cell tumor, juvenile (8622/1)","no","no","yes","yes","III","Granulosa","Granulosa",NA,NA,"no","cancer","cancer",0.996374982480433,0.92869992802591,105.5,447
+"85","CGPLOV6P","CGPLOV6P","ILS-Ovarian","cancer","Papillary serous adenocarcinoma (8460/3)","no","no","yes","yes","II","Serous","Serous",NA,NA,"no","cancer","cancer",0.999999972422689,0.326513358422241,1252,122.1
+"86","CGPLOV80P","CGPLOV80P","ILS-Ovarian","cancer","CYSTADENOCARCINOMA, NOS | Serous Carcinoma, High Grade (8441/3) |","no","no","yes","yes","II","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.999999999794698,0.554528011197584,1376,235.8
+"87","CGPLOV37P","CGPLOV37P","ILS-Ovarian","cancer","CYSTADENOCARCINOMA, NOS | Serous carcinoma, NOS (8441/3) | High Grade","no","no","yes","yes","I","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.999999999998101,0.835921618121327,1601,303.8
+"88","CGPLOV38P","CGPLOV38P","ILS-Ovarian","cancer","CYSTADENOCARCINOMA, NOS | Serous carcinoma, NOS (8441/3) | High Grade","no","no","yes","yes","I","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.725250014838568,0.802171913282296,91.33,170.9
+"89","CGPLOV31P","CGPLOV31P","ILS-Ovarian","cancer","Clear cell carcinoma (8310/3)","no","no","yes","yes","III","Clear Cell","Clear Cell",NA,NA,"no","cancer","cancer",0.180121649901539,0.136207273460562,121.7,52.26
+"90","CGPLOV32P","CGPLOV32P","ILS-Ovarian","cancer","Mucinous cystadenoma, NOS (8470/0)","no","no","yes","yes","I","Mucinous","Mucinous",NA,NA,"no","cancer","cancer",0.999999874153377,0.229798354644038,1063,54.56
+"91","CGPLOV40P","CGPLOV40P","ILS-Ovarian","cancer","CYSTADENOCARCINOMA, NOS | Serous carcinoma, NOS (8441/3) | High Grade/Distant metastasis to the omentum, uterus, and appendix","no","no","yes","yes","IV","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.999929565950629,0.897237503500935,325.7,372.4
+"92","CGPLOV41P","CGPLOV41P","ILS-Ovarian","cancer","CYSTADENOCARCINOMA, NOS | Serous carcinoma, NOS (8441/3) | High Grade/Distant metastasis to the omentum, uterus, and cervix","no","no","yes","yes","IV","HGSOC","HGSOC",NA,NA,"no","cancer","cancer",0.99999971005139,0.979788880927704,439.9,559.8
+"93","CGPLOV613P","CGPLOV613P","UPenn2","cancer","Malignant","no","no","yes","yes","I","mixed (serous/endo)",NA,NA,NA,"no","cancer","cancer",1,0.999998687847895,5989,1284
+"94","CGPLOV614P","CGPLOV614P","UPenn2","cancer","Malignant","no","no","yes","yes","IV","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.86132007282178,0.711665490718678,63.85,278
+"95","CGPLOV615P","CGPLOV615P","UPenn2","cancer","Malignant","no","no","yes","yes","III","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.999999994255891,0.290307237186925,1197,118.2
+"96","CGPLOV616P","CGPLOV616P","UPenn2","cancer","Malignant","no","no","yes","yes","II","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.284396930705774,0.147031268562866,21.48,71.48
+"97","CGPLOV617P","CGPLOV617P","UPenn2","cancer","Malignant","no","no","yes","yes","II","Serous","Serous",NA,NA,"no","cancer","cancer",0.679701046736272,0.20860320664701,117.3,117.2
+"98","CGPLOV618P","CGPLOV618P","UPenn2","cancer","Malignant","no","no","yes","yes","I","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.282021951610145,0.164037751474534,15.41,86
+"99","CGPLOV619P","CGPLOV619P","UPenn2","cancer","Malignant","no","no","yes","yes","III","Low Grade Serous","LGSOC",NA,NA,"no","cancer","cancer",0.942066651110279,0.45503212151013,196.3,147.3
+"100","CGPLOV620P","CGPLOV620P","UPenn2","cancer","Malignant","no","no","yes","yes","III","MMMT","MMMT",NA,NA,"no","cancer","cancer",0.0697400733548935,0.350342703014582,17.74,83.55
+"101","CGPLOV621P","CGPLOV621P","UPenn2","cancer","Malignant","no","no","yes","yes","IV","Serous","Serous",NA,NA,"no","cancer","cancer",0.0369598984603166,0.0811204210017603,15.65,37.2
+"102","CGPLOV622P","CGPLOV622P","UPenn2","cancer","Malignant","no","no","yes","yes","I","Endometrioid","Endometrioid",NA,NA,"no","cancer","cancer",0.698284255331964,0.399203183249322,56.1,182.5
+"103","CGPLOV623P","CGPLOV623P","UPenn2","cancer","Malignant","no","no","yes","yes","Unknown","Clear Cell","Clear Cell",NA,NA,"no","cancer","cancer",0.999806713532318,0.616029117159892,503.6,242.5
+"104","CGPLOV624P","CGPLOV624P","UPenn2","cancer","Malignant","no","no","yes","yes","III","Low Grade Serous","LGSOC",NA,NA,"no","cancer","cancer",0.998333513636824,0.412988351132758,454.5,181.5
+"105","CGPLOV625P","CGPLOV625P","UPenn2","cancer","Malignant","no","no","yes","yes","Unknown","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.992131701536355,0.61049828524713,323.8,258.2
+"106","CGPLOV626P","CGPLOV626P","UPenn2","cancer","Malignant","no","no","yes","yes","III","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.371694387449575,0.331160307609392,11.89,172.4
+"107","CGPLOV627P","CGPLOV627P","UPenn2","cancer","Malignant","no","no","yes","yes","I","MMMT","MMMT",NA,NA,"no","cancer","cancer",0.999996575749716,0.993077396040264,314.5,601.9
+"108","CGPLOV628P","CGPLOV628P","UPenn2","cancer","Malignant","no","no","yes","yes","Unknown","Malignant mucinous neoplasm with intestinal differentiation involving the left ovary","Mucinous",NA,NA,"no","cancer","cancer",0.0484381530002621,0.151642004036072,17.12,55.33
+"109","CGPLOV629P","CGPLOV629P","UPenn2","cancer","Malignant","no","no","yes","yes","Unknown","fallopian tube cancer","FT",NA,NA,"no","cancer","cancer",0.0883549161099856,0.190072034649096,27.37,91.83
+"110","CGPLOV630P","CGPLOV630P","UPenn2","cancer","Malignant","no","no","yes","yes","III","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",1,0.999915206016844,3884,685.9
+"111","CGPLOV631P","CGPLOV631P","UPenn2","cancer","Malignant","no","no","yes","yes","III","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.999999999997952,0.999966289176374,634.2,1157
+"112","CGPLOV632P","CGPLOV632P","UPenn2","cancer","Malignant","no","no","yes","yes","III","High Grade Serous","HGSOC",NA,NA,"no","cancer","cancer",0.999999999624652,0.908527849465735,1193,379.6

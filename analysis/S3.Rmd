@@ -1,0 +1,52 @@
+---
+title: "Fig 4 feature importance"
+output: html_document
+---
+
+```{r packages}
+library(tidyverse)
+library(caret)
+library(recipes)
+library(pROC)
+library(devtools)
+library(reshape2)
+library(plyr)
+library(here)
+library(readxl)
+library(data.table)
+here <- here::here
+library(ggpubr)
+```
+
+```{r coefs, echo=FALSE, fig.width=12, fig.height=6, dev=c("png", "pdf")}
+
+meta<-fread(here("data","stability_superscreen.csv"))
+
+meta<-meta %>% select(-V1)
+meta$Repeat<-sapply(str_split(meta$Resample,"Rep"),"[",2)
+meta<-meta %>% mutate(type=if_else(type=="cancer","All Ovarian Cancers (n=94)","Non-Cancer, Screening Population (n=182)"))
+
+#add in the early stage cancers
+meta2<-fread(here("data","stability_superscreen.csv"))
+meta2<-meta2 %>% select(-V1)
+meta2$Repeat<-sapply(str_split(meta2$Resample,"Rep"),"[",2)
+meta3<-read_csv(here("data/scores","All_Scores_CV.csv"))
+meta3<-meta3 %>% filter(training_set_include_screening=="yes") %>% filter(stage=="I"|stage=="II")
+meta2<-meta2 %>% filter(id %in% meta3$id)
+meta2<-meta2 %>% mutate(type="Early Stage (I/II) Ovarian Cancers (n=58)")
+
+meta<-rbind(meta,meta2)
+
+#set the factor order
+meta$type<-factor(meta$type,levels=c("Non-Cancer, Screening Population (n=182)","All Ovarian Cancers (n=94)","Early Stage (I/II) Ovarian Cancers (n=58)"))
+
+ggplot(meta,aes(x=cancer,y=..scaled..,color=Repeat))+geom_density()+facet_wrap(vars(type))+theme_classic()+xlab("DELFI-Pro Scores")+theme_classic()+
+  theme(axis.title = element_text(face = "bold",size=12),
+        axis.text.x=element_text(face = "bold",size=9), 
+        axis.text.y=element_text(face = "bold",size=9))+labs(color="Cross-Validation\nRepeat")+ylab("Scaled Density")
+
+
+
+```
+
+

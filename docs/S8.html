@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Jamie Medina" />
+
+<meta name="date" content="2024-07-18" />
+
+<title>S8</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">delfipro2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">S8</h1>
+<h4 class="author">Jamie Medina</h4>
+<h4 class="date">2024-07-18</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-08-01
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>delfipro2024/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
+1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong0dea39c"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 0dea39c.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  CITATION.md
+    Untracked:  analysis/2A.Rmd
+    Untracked:  analysis/2B.Rmd
+    Untracked:  analysis/2c.Rmd
+    Untracked:  analysis/2d.Rmd
+    Untracked:  analysis/3abc.Rmd
+    Untracked:  analysis/3d.Rmd
+    Untracked:  analysis/4bcd.Rmd
+    Untracked:  analysis/S1.Rmd
+    Untracked:  analysis/S10B_C.Rmd
+    Untracked:  analysis/S10a.Rmd
+    Untracked:  analysis/S11.Rmd
+    Untracked:  analysis/S12.Rmd
+    Untracked:  analysis/S13abc.Rmd
+    Untracked:  analysis/S13d.Rmd
+    Untracked:  analysis/S14.Rmd
+    Untracked:  analysis/S15B_C.Rmd
+    Untracked:  analysis/S15a.Rmd
+    Untracked:  analysis/S16.Rmd
+    Untracked:  analysis/S17.Rmd
+    Untracked:  analysis/S2.Rmd
+    Untracked:  analysis/S3.Rmd
+    Untracked:  analysis/S4.Rmd
+    Untracked:  analysis/S5.Rmd
+    Untracked:  analysis/S6.Rmd
+    Untracked:  analysis/S7.Rmd
+    Untracked:  analysis/S8.Rmd
+    Untracked:  analysis/S9.Rmd
+    Untracked:  analysis/S_Source.Rmd
+    Untracked:  analysis/SessionInfo.Rmd
+    Untracked:  code/Simulation_setup.Rmd
+    Untracked:  code/allcancer_table_diag.r
+    Untracked:  code/allcancer_table_screen.r
+    Untracked:  code/collect_scores.r
+    Untracked:  code/diagnostic_model.r
+    Untracked:  code/feature_importance.Rmd
+    Untracked:  code/hgsoc_table_diag.r
+    Untracked:  code/hgsoc_table_screen.r
+    Untracked:  code/liver.tools/
+    Untracked:  code/proteins_screening_model.r
+    Untracked:  code/screening_model.r
+    Untracked:  code/useful.stuff.aa/
+    Untracked:  data/06062024_val_tumor_size.xlsx
+    Untracked:  data/2B.csv
+    Untracked:  data/2B_annot.csv
+    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Untracked:  data/Proteins.csv
+    Untracked:  data/S12_data.csv
+    Untracked:  data/S12_data_p2.csv
+    Untracked:  data/S1_data.csv
+    Untracked:  data/S2_data.csv
+    Untracked:  data/S5.csv
+    Untracked:  data/S5_p2.csv
+    Untracked:  data/diag_test_data.csv
+    Untracked:  data/diag_train_data.csv
+    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Untracked:  data/ichor_mfl_excel.xlsx
+    Untracked:  data/long_bins_hiseq.csv
+    Untracked:  data/metadata.csv
+    Untracked:  data/models/
+    Untracked:  data/scores/
+    Untracked:  data/screening_test_data.csv
+    Untracked:  data/screening_train_data.csv
+    Untracked:  data/simulations_metrics.csv
+    Untracked:  data/stability_superscreen.csv
+    Untracked:  data/tables/
+    Untracked:  data/tcga/
+    Untracked:  output/feature_importance.Rmd/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Modified:   .gitattributes
+    Modified:   .gitignore
+    Modified:   README.md
+    Modified:   _workflowr.yml
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   code/README.md
+    Modified:   data/README.md
+    Modified:   delfipro2024.Rproj
+    Modified:   output/README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>#For fragplot of the validation cohorts
+valsets&lt;-read_csv(here(&quot;data/scores/All_Scores_Val.csv&quot;))</code></pre>
+<pre><code>New names:Rows: 112 Columns: 22── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (15): id, id2, cohort, type, type2, training_set_include_screening, trai...
+dbl  (5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4
+lgl  (2): menopause_status, history_of_cancer
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>screen &lt;- valsets %&gt;% filter(screen_val == &quot;yes&quot; &amp; cohort != &quot;UPenn2&quot;)
+
+s2 &lt;- valsets %&gt;% filter(screen_val == &quot;yes&quot; &amp; cohort == &quot;UPenn2&quot;)
+s2$classifier_type &lt;- gsub(&quot;healthy&quot;, &quot;benign&quot;, s2$classifier_type)
+screen &lt;- rbind(screen, s2)
+diag &lt;- valsets %&gt;% filter(diag_val == &quot;yes&quot; &amp; classifier_type != &quot;cancer&quot;)
+diag$classifier_type &lt;- gsub(&quot;healthy&quot;, &quot;benign&quot;, diag$classifier_type)
+fragplot &lt;-rbind(screen, diag)
+
+frags &lt;- read.csv(here(&quot;data/long_bins_hiseq.csv&quot;))
+frags &lt;- frags %&gt;% filter(id %in% fragplot$id)
+
+frag1 &lt;- frags %&gt;% group_by(id) %&gt;%
+  mutate(ratio.cor = short.cor/ long.cor,
+    ratio.scaled = scale(ratio.cor),
+    ratiovar = factor(paste0(&quot;ratio_&quot;, bin), paste0(&quot;ratio_&quot;,1:496)))
+
+frag2 &lt;- frag1 %&gt;% select(id, bin, arm, contains(&quot;ratio&quot;))
+
+
+#################
+# filter for metadata
+#################
+meta &lt;- fragplot
+
+b &lt;- inner_join(frag2,meta, by = c(&quot;id&quot;=&quot;id&quot;))
+table(b$cohort)</code></pre>
+<pre><code>
+ILS-Healthy ILS-Ovarian      UPenn2 
+      10912        9920       34720 </code></pre>
+<pre class="r"><code>#################################
+# calculate non-cancer median
+################################
+med.df &lt;-
+    b %&gt;% filter(classifier_type == &quot;healthy&quot;) %&gt;%
+    group_by(bin) %&gt;%
+    mutate(healthy.ratio.med = median(ratio.scaled[classifier_type %in% c(&quot;healthy&quot;, &quot;Healthy&quot;)]))
+
+summary.df &lt;- b %&gt;% group_by(id) %&gt;%
+    mutate(ratio.hmedian = cor(unique(med.df$healthy.ratio.med), ratio.scaled,  method=&quot;pearson&quot;, use=&quot;complete.obs&quot;), ratio.hmed.abs = abs(ratio.hmedian))
+
+summary.df %&gt;% select(ratio.hmedian, ratio.hmed.abs) %&gt;% distinct() %&gt;% arrange(desc(ratio.hmedian))</code></pre>
+<pre><code>Adding missing grouping variables: `id`</code></pre>
+<pre><code># A tibble: 112 × 3
+# Groups:   id [112]
+   id         ratio.hmedian[,1] ratio.hmed.abs[,1]
+   &lt;chr&gt;                  &lt;dbl&gt;              &lt;dbl&gt;
+ 1 CGPLH179P              0.979              0.979
+ 2 CGPLH1246P             0.978              0.978
+ 3 CGPLH167P              0.978              0.978
+ 4 CGPLH176P              0.977              0.977
+ 5 CGPLH169P              0.977              0.977
+ 6 CGPLOV80P              0.976              0.976
+ 7 CGPLOV626P             0.976              0.976
+ 8 CGPLOV2P               0.975              0.975
+ 9 CGPLH170P              0.975              0.975
+10 CGPLH171P              0.975              0.975
+# ℹ 102 more rows</code></pre>
+<pre class="r"><code>b2 &lt;- summary.df</code></pre>
+<pre class="r"><code>arm &lt;-  b2 %&gt;% group_by(arm) %&gt;% summarize(n=n()) %&gt;%
+  mutate(arm = as.character(arm))
+
+small.arms &lt;- setNames(c(&quot;&quot;, &quot;&quot;, &quot;12q&quot;, &quot;&quot;, &quot;16q&quot;,
+                         &quot;&quot;, &quot;17q&quot;, &quot;&quot;, &quot;18q&quot;,
+                         &quot;&quot;, &quot;19&quot;, &quot;&quot;, &quot;20&quot;,
+                         &quot;21&quot;, &quot;22&quot;),
+                       c(&quot;10p&quot;, &quot;12p&quot;, &quot;12q&quot;, &quot;16p&quot;, &quot;16q&quot;,
+                         &quot;17p&quot;, &quot;17q&quot;, &quot;18p&quot;, &quot;18q&quot;,
+                         &quot;19p&quot;, &quot;19q&quot;, &quot;20p&quot;, &quot;20q&quot;,
+                         &quot;21q&quot;, &quot;22q&quot;))
+arm.labels &lt;- setNames(arm$arm, arm$arm)
+arm.labels[names(small.arms)] &lt;- small.arms
+
+fragment.theme2 &lt;- theme(panel.background=element_rect(fill=&quot;white&quot;, color=&quot;white&quot;),
+                         plot.background=element_rect(fill=&quot;white&quot;, color=&quot;white&quot;),
+                         axis.line.y.left=element_line(color=&quot;black&quot;),
+                         axis.line.y.right=element_line(color=&quot;black&quot;),
+                         panel.grid.major = element_blank(),
+                         panel.grid.minor = element_blank(),
+                         strip.background=element_blank(),
+                         axis.text.x=element_blank(),
+                         axis.text.y=element_text(face = &quot;bold&quot;, size=25, color = &quot;black&quot;),
+                         axis.ticks.x=element_blank(),
+                         axis.title.x=element_blank(),
+                         axis.title.y=element_text(face = &quot;bold&quot;, size=25, color = &quot;black&quot;),
+                         strip.text.x = element_text(face = &quot;bold&quot;, size = 25),
+                         strip.placement = &quot;top&quot;,
+                         strip.text.y = element_blank(),
+                         panel.spacing=unit(0, &quot;lines&quot;),
+                         legend.position = &quot;bottom&quot;,
+                         legend.key=element_rect(fill=&quot;white&quot;, color = &quot;white&quot;),
+                         legend.key.size=unit(3, &quot;line&quot;),
+                         legend.text=element_text(size=35),
+                         legend.title=element_text(size=40),
+                         legend.title.align=0.5)</code></pre>
+<pre><code>Warning: The `legend.title.align` argument of `theme()` is deprecated as of
+ggplot2 3.5.0.
+
+Warning: Please use theme(legend.title = element_text(hjust)) instead.</code></pre>
+<pre class="r"><code>####
+# specifics to the graphic
+####
+size &lt;- 1
+cor.lim &lt;- range(b2$ratio.hmed.abs)
+fgrid &lt;- facet_grid(classifier_type ~ arm,
+                    space=&quot;free_x&quot;,
+                    scales=&quot;free_x&quot;,
+                    labeller=labeller(arm=arm.labels),
+                    switch = &quot;x&quot;)
+
+
+####
+# Plotting the graphic
+####
+b2$arm &lt;- factor(b2$arm,levels = c(&quot;1p&quot;,&quot;1q&quot;,&quot;2p&quot;,&quot;2q&quot;,&quot;3p&quot;,&quot;3q&quot;,&quot;4p&quot;,&quot;4q&quot;,&quot;5p&quot;,&quot;5q&quot;,&quot;6p&quot;,
+                                     &quot;6q&quot;,&quot;7p&quot;, &quot;7q&quot;,&quot;8p&quot;,&quot;8q&quot;,&quot;9p&quot;,&quot;9q&quot;,&quot;10p&quot;,&quot;10q&quot;,&quot;11p&quot;,&quot;11q&quot;,
+                                     &quot;12p&quot;, &quot;12q&quot;, &quot;13q&quot;,&quot;14q&quot;,&quot;15q&quot;,&quot;16p&quot;,&quot;16q&quot;,&quot;17p&quot;,&quot;17q&quot;,&quot;18p&quot;,
+                                     &quot;18q&quot;,&quot;19p&quot;,&quot;19q&quot;,&quot;20p&quot;,&quot;20q&quot;,&quot;21q&quot;,&quot;22q&quot;,&quot;Xp&quot;,&quot;Xq&quot;))
+
+
+
+b2$classifier_type &lt;- factor(b$classifier_type, levels = c(&quot;healthy&quot;, &quot;benign&quot;, &quot;cancer&quot;))
+
+library(cowplot)
+b3 &lt;- b2 %&gt;% group_by(id) %&gt;% mutate(ratio.centered = scale(ratio.cor, scale = FALSE))
+b3 &lt;- b3 %&gt;% mutate(ratio.hmed.abs2 = ifelse(ratio.hmed.abs &lt; 0.75, 0.75, ratio.hmed.abs)) 
+library(ggsci)
+fig &lt;- ggplot(b3, aes(x=bin, y=ratio.centered, group=reorder(id, -ratio.hmed.abs), color = classifier_type)) +
+  geom_line(aes(color = ratio.hmed.abs2), size=size) +
+  scale_color_gradient(low=&quot;#18468B&quot;, high=&quot;gray85&quot;, limits=c(0.75,1)) +
+  ylim(-0.1,0.3) +
+  fgrid +
+  fragment.theme2 +
+  labs(x=&quot;&quot;, y=&quot;Fragmentation profile&quot;, color=&quot;Correlation to women without cancer median&quot;) +
+  guides(color=guide_legend(override.aes = list(shape = 21, size = 5, face = &quot;bold&quot;)))</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+
+Warning: Please use `linewidth` instead.</code></pre>
+<pre class="r"><code>fig</code></pre>
+<p><img src="figure/S8.Rmd/fragplot%20generation-1.png" width="2880" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>panel.labels &lt;- b3 %&gt;%
+  group_by(classifier_type) %&gt;%
+  summarize(n=length(unique(id)),
+            .groups=&quot;drop&quot;) %&gt;%
+  mutate(labels=paste0(c(&quot;Women without cancer (n=&quot;,
+                         &quot;Women with benign lesions (n=&quot;,
+                         &quot;Women with cancer (n=&quot;),
+                       n, &quot;)&quot;),
+         arm=&quot;1p&quot;) %&gt;%
+  mutate(x=rep(3, 3), y=rep(0.2, 3))
+
+panel.labels</code></pre>
+<pre><code># A tibble: 3 × 6
+  classifier_type     n labels                           arm       x     y
+  &lt;fct&gt;           &lt;int&gt; &lt;chr&gt;                            &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 healthy            22 Women without cancer (n=22)      1p        3   0.2
+2 benign             50 Women with benign lesions (n=50) 1p        3   0.2
+3 cancer             40 Women with cancer (n=40)         1p        3   0.2</code></pre>
+<pre class="r"><code>library(&quot;cowplot&quot;); library(grid)
+fig &lt;- ggdraw(fig) + draw_grob(textGrob(
+  label=panel.labels$labels[1],
+  x = unit(0.15, &quot;npc&quot;),
+  y = unit(0.95, &quot;npc&quot;),
+  hjust = 0,
+  gp = gpar(fontface=&quot;bold&quot;, cex=2.5)
+))  +
+  draw_grob(textGrob(
+    label=panel.labels$labels[2],
+    x = unit(0.15, &quot;npc&quot;),
+    y = unit(0.67, &quot;npc&quot;),
+    hjust = 0,
+    gp = gpar(fontface=&quot;bold&quot;, cex=2.5)
+  )) +
+  draw_grob(textGrob(
+    label=panel.labels$labels[3],
+    x = unit(0.15, &quot;npc&quot;),
+    y = unit(0.375, &quot;npc&quot;),
+    hjust = 0,
+    gp = gpar(fontface=&quot;bold&quot;, cex=2.5)
+  )) 
+
+fig</code></pre>
+<p><img src="figure/S8.Rmd/unnamed-chunk-4-1.png" width="2880" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] ggsci_2.9                  useful.stuff.aa_0.0.0.9000
+ [3] here_1.0.1                 cowplot_1.1.1             
+ [5] pROC_1.17.0.1              devtools_2.4.2            
+ [7] usethis_2.0.1              readxl_1.3.1              
+ [9] forcats_0.5.1              stringr_1.5.1             
+[11] dplyr_1.1.4                purrr_1.0.2               
+[13] readr_2.0.1                tidyr_1.3.1               
+[15] tibble_3.2.1               ggplot2_3.5.0             
+[17] tidyverse_1.3.1            workflowr_1.6.2           
+
+loaded via a namespace (and not attached):
+ [1] fs_1.5.0          lubridate_1.7.10  bit64_4.0.5       httr_1.4.2       
+ [5] rprojroot_2.0.2   tools_4.0.5       backports_1.2.1   bslib_0.3.0      
+ [9] utf8_1.2.2        R6_2.5.1          DBI_1.1.1         colorspace_2.0-2 
+[13] withr_3.0.0       tidyselect_1.2.1  prettyunits_1.1.1 processx_3.5.2   
+[17] bit_4.0.4         compiler_4.0.5    git2r_0.28.0      cli_3.6.2        
+[21] rvest_1.0.1       xml2_1.3.2        desc_1.3.0        labeling_0.4.2   
+[25] sass_0.4.0        scales_1.3.0      callr_3.7.0       digest_0.6.27    
+[29] rmarkdown_2.10    pkgconfig_2.0.3   htmltools_0.5.2   sessioninfo_1.1.1
+[33] highr_0.9         dbplyr_2.1.1      fastmap_1.1.0     rlang_1.1.3      
+[37] rstudioapi_0.13   farver_2.1.0      jquerylib_0.1.4   generics_0.1.3   
+[41] jsonlite_1.7.2    vroom_1.5.4       magrittr_2.0.1    Rcpp_1.0.7       
+[45] munsell_0.5.0     fansi_0.5.0       lifecycle_1.0.4   stringi_1.7.4    
+[49] yaml_2.2.1        pkgbuild_1.2.0    plyr_1.8.6        parallel_4.0.5   
+[53] promises_1.2.0.1  crayon_1.4.1      haven_2.4.3       hms_1.1.0        
+[57] knitr_1.33        ps_1.6.0          pillar_1.9.0      pkgload_1.2.1    
+[61] reprex_2.0.1      glue_1.7.0        evaluate_0.14     remotes_2.4.0    
+[65] modelr_0.1.8      vctrs_0.6.5       tzdb_0.1.2        httpuv_1.6.2     
+[69] testthat_3.0.4    cellranger_1.1.0  gtable_0.3.0      assertthat_0.2.1 
+[73] cachem_1.0.6      xfun_0.25         broom_0.7.9       later_1.3.0      
+[77] memoise_2.0.0     ellipsis_0.3.2   </code></pre>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

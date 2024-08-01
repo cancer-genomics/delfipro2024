@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Fig 4</title>
+
+<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">delfipro2024</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Fig 4</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-08-01
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>delfipro2024/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
+1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+</a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong0dea39c"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 0dea39c.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    code/.DS_Store
+    Ignored:    code/.Rhistory
+    Ignored:    data/.DS_Store
+
+Untracked files:
+    Untracked:  CITATION.md
+    Untracked:  analysis/2A.Rmd
+    Untracked:  analysis/2B.Rmd
+    Untracked:  analysis/2c.Rmd
+    Untracked:  analysis/2d.Rmd
+    Untracked:  analysis/3abc.Rmd
+    Untracked:  analysis/3d.Rmd
+    Untracked:  analysis/4bcd.Rmd
+    Untracked:  analysis/S1.Rmd
+    Untracked:  analysis/S10B_C.Rmd
+    Untracked:  analysis/S10a.Rmd
+    Untracked:  analysis/S11.Rmd
+    Untracked:  analysis/S12.Rmd
+    Untracked:  analysis/S13abc.Rmd
+    Untracked:  analysis/S13d.Rmd
+    Untracked:  analysis/S14.Rmd
+    Untracked:  analysis/S15B_C.Rmd
+    Untracked:  analysis/S15a.Rmd
+    Untracked:  analysis/S16.Rmd
+    Untracked:  analysis/S17.Rmd
+    Untracked:  analysis/S2.Rmd
+    Untracked:  analysis/S3.Rmd
+    Untracked:  analysis/S4.Rmd
+    Untracked:  analysis/S5.Rmd
+    Untracked:  analysis/S6.Rmd
+    Untracked:  analysis/S7.Rmd
+    Untracked:  analysis/S8.Rmd
+    Untracked:  analysis/S9.Rmd
+    Untracked:  analysis/S_Source.Rmd
+    Untracked:  analysis/SessionInfo.Rmd
+    Untracked:  code/Simulation_setup.Rmd
+    Untracked:  code/allcancer_table_diag.r
+    Untracked:  code/allcancer_table_screen.r
+    Untracked:  code/collect_scores.r
+    Untracked:  code/diagnostic_model.r
+    Untracked:  code/feature_importance.Rmd
+    Untracked:  code/hgsoc_table_diag.r
+    Untracked:  code/hgsoc_table_screen.r
+    Untracked:  code/liver.tools/
+    Untracked:  code/proteins_screening_model.r
+    Untracked:  code/screening_model.r
+    Untracked:  code/useful.stuff.aa/
+    Untracked:  data/06062024_val_tumor_size.xlsx
+    Untracked:  data/2B.csv
+    Untracked:  data/2B_annot.csv
+    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Untracked:  data/Proteins.csv
+    Untracked:  data/S12_data.csv
+    Untracked:  data/S12_data_p2.csv
+    Untracked:  data/S1_data.csv
+    Untracked:  data/S2_data.csv
+    Untracked:  data/S5.csv
+    Untracked:  data/S5_p2.csv
+    Untracked:  data/diag_test_data.csv
+    Untracked:  data/diag_train_data.csv
+    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Untracked:  data/ichor_mfl_excel.xlsx
+    Untracked:  data/long_bins_hiseq.csv
+    Untracked:  data/metadata.csv
+    Untracked:  data/models/
+    Untracked:  data/scores/
+    Untracked:  data/screening_test_data.csv
+    Untracked:  data/screening_train_data.csv
+    Untracked:  data/simulations_metrics.csv
+    Untracked:  data/stability_superscreen.csv
+    Untracked:  data/tables/
+    Untracked:  data/tcga/
+    Untracked:  output/feature_importance.Rmd/
+
+Unstaged changes:
+    Modified:   .Rprofile
+    Modified:   .gitattributes
+    Modified:   .gitignore
+    Modified:   README.md
+    Modified:   _workflowr.yml
+    Modified:   analysis/_site.yml
+    Modified:   analysis/about.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/license.Rmd
+    Modified:   code/README.md
+    Modified:   data/README.md
+    Modified:   delfipro2024.Rproj
+    Modified:   output/README.md
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<p>Read in Noushin’s data for TCGA figure</p>
+<pre class="r"><code>fig.data &lt;- readRDS(here(&#39;data&#39;, &#39;tcga&#39;, &#39;data.rds&#39;))</code></pre>
+<div id="tcga-copy-number" class="section level2">
+<h2>TCGA copy number</h2>
+<p>TCGA figure panel – problems, chromosome widths, making the panel
+match size of one facet in z-score panel</p>
+<pre class="r"><code>setDT(fig.data)
+fig.data[,bin:=as.factor(rev(bin))][]</code></pre>
+<pre><code>     seqnames      pos arm bin   variable        value disease change
+  1:     chr1  7500000  1p 473 liver.Loss -0.208754209   liver   Loss
+  2:     chr1 17500000  1p 472 liver.Loss -0.239057239   liver   Loss
+  3:     chr1 22500000  1p 471 liver.Loss -0.254208754   liver   Loss
+  4:     chr1 27500000  1p 470 liver.Loss -0.227272727   liver   Loss
+  5:     chr1 32500000  1p 469 liver.Loss -0.126262626   liver   Loss
+ ---                                                                 
+942:    chr22 27500000 22q   5 liver.Gain  0.028619529   liver   Gain
+943:    chr22 32500000 22q   4 liver.Gain  0.037037037   liver   Gain
+944:    chr22 37500000 22q   3 liver.Gain  0.020202020   liver   Gain
+945:    chr22 42500000 22q   2 liver.Gain  0.006734007   liver   Gain
+946:    chr22 47500000 22q   1 liver.Gain  0.000000000   liver   Gain</code></pre>
+<pre class="r"><code>fig.data$disease&lt;-&quot;TCGA Ovarian Cancers\n(n = 597)&quot;
+plot &lt;- fig.data %&gt;%
+    mutate(disease=&quot;TCGA Ovarian Cancers\n(n = 597)&quot;) %&gt;%
+    ggplot(aes(x=value, y=bin, color=change, fill=change)) +
+    facet_grid(arm~disease, scales = &#39;free_y&#39;) + ##,
+    ##           switch = &#39;y&#39;)+#, space = &#39;free&#39;)+
+    ##facet_wrap(~arm, ncol=1, scales=&quot;free_y&quot;) + ##
+    geom_col() +
+    scale_x_continuous() +
+    #scale_fill_brewer(palette = &#39;Set1&#39;)+
+    #scale_color_brewer(palette = &#39;Set1&#39;)+
+    scale_color_manual(values=c(&quot;red3&quot;,&quot;#18468B&quot;))+
+    scale_fill_manual(values=c(&quot;red3&quot;,&quot;#18468B&quot;))+
+    theme_minimal(base_size=24) +
+    theme(strip.text.y = element_text(angle = 0,
+                                      hjust = 0.5,
+                                      vjust = 0.5,
+                                      size=20),
+          strip.text.x=element_text(size=20),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          panel.grid =  element_blank(),
+          legend.title = element_blank(),
+          legend.position=&quot;bottom&quot;,
+          axis.title.x = element_blank(),
+          strip.background = element_blank()) + ##removing label
+    #xlab(&quot;Proportion of\ncases with CNV&quot;) +
+    ylab(&quot;Chromosome Arm&quot;)</code></pre>
+</div>
+<div id="ovarian-study-z-scores" class="section level2">
+<h2>Ovarian study z-scores</h2>
+<p>The z-score’s with our data panel. Problems – chromosome width.</p>
+<pre class="r"><code>meta&lt;-fread(here(&quot;data&quot;,&quot;metadata.csv&quot;))
+meta&lt;-meta %&gt;% select(-V1) %&gt;% mutate(classifier_type2=if_else(id==&quot;CGPLOV161P&quot;,&quot;Benign&quot;,classifier_type2))
+
+data&lt;-fread(here(&quot;data&quot;,&quot;screening_train_data.csv&quot;)) %&gt;% select(-type)
+data2&lt;-fread(here(&quot;data&quot;,&quot;diag_train_data.csv&quot;)) %&gt;% filter(type==&quot;healthy&quot;) %&gt;% select(-type)
+data&lt;-rbind(data,data2)
+
+data&lt;-inner_join(data,meta %&gt;% select(id,classifier_type),by=&quot;id&quot;) %&gt;% rename(type=classifier_type)
+
+
+
+features&lt;-data
+
+cols &lt;- brewer.pal(7,&quot;Set1&quot;)
+cols[3] &lt;- cols[4]
+
+features &lt;- features %&gt;% select(id,starts_with(&quot;z&quot;))
+features &lt;- inner_join(features, meta %&gt;%
+                                     select(id,`classifier_type2`),
+                           by=c(&quot;id&quot;=&quot;id&quot;))
+
+
+
+
+datx&lt;-read_csv(here(&quot;data/scores&quot;,&quot;All_Scores_CV.csv&quot;))</code></pre>
+<pre><code>New names:Rows: 479 Columns: 22── Column specification ────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (16): id, id2, cohort, type, type2, training_set_include_screening, trai...
+dbl  (5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4
+lgl  (1): menopause_status
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>datx&lt;-datx %&gt;% filter(training_set_include_screening==&quot;yes&quot;|training_set_include_diag==&quot;yes&quot;)
+datx&lt;-datx %&gt;% select(id,classifier_type,`Screening ZEUS`,`Diagnostic ZEUS`,subtype_simple,stage)
+datx&lt;-datx %&gt;% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %&gt;% filter(!is.na(score))
+
+features&lt;-features %&gt;% filter(id %in% datx$id)
+
+features &lt;- features %&gt;%
+        gather(key=&quot;Arm&quot;, value=&quot;Zscore&quot;, starts_with(&quot;z&quot;))
+    features$Arm &lt;- sapply( str_split(features$Arm,&quot;_&quot;), &quot;[&quot;, 2 )
+
+    chrlevels &lt;- c(&quot;1p&quot;,&quot;1q&quot;,&quot;2p&quot;,&quot;2q&quot;,&quot;3p&quot;,&quot;3q&quot;,&quot;4p&quot;,&quot;4q&quot;,&quot;5p&quot;,
+                   &quot;5q&quot;,&quot;6p&quot;,&quot;6q&quot;,&quot;7p&quot;,&quot;7q&quot;,&quot;8p&quot;,&quot;8q&quot;,&quot;9p&quot;,&quot;9q&quot;,
+                   &quot;10p&quot;,&quot;10q&quot;,&quot;11p&quot;,&quot;11q&quot;,&quot;12p&quot;,&quot;12q&quot;,
+                   &quot;13q&quot;,&quot;14q&quot;,&quot;15q&quot;,&quot;16p&quot;,&quot;16q&quot;,&quot;17p&quot;,&quot;17q&quot;,
+                   &quot;18p&quot;,&quot;18q&quot;,&quot;19p&quot;,&quot;19q&quot;,&quot;20p&quot;,&quot;20q&quot;,&quot;21q&quot;,&quot;22q&quot;)
+    features$Arm &lt;- factor(features$Arm,
+                           levels = chrlevels)
+    features &lt;- features %&gt;% mutate(colors=if_else(Zscore&lt;=0,&quot;Negative&quot;,&quot;Positive&quot;))
+    ##features$colors&lt;-factor(features$colors,levels=c(&quot;Positive&quot;,&quot;Negative&quot;))
+    ##Z-score for two-tailed p-value .05 w/ bonferroni correction for 39 arms
+    features &lt;- features %&gt;%
+        mutate(colors=if_else(Zscore&gt;= -3.22 &amp; Zscore &lt;= 3.22 ,
+                              &quot;Neutral&quot;, features$colors))
+    ##features&lt;- features %&gt;% mutate(transp=if_else(colors==&quot;Neutral&quot;,.9,.2))
+    ##features&lt;- features %&gt;% mutate(transp=if_else(colors==&quot;Neutral&quot;,.05,.99))
+    features &lt;- features %&gt;% mutate(transp=if_else(colors==&quot;Neutral&quot;,1,1))
+    ##features&lt;-features %&gt;% mutate(colors=if_else(Zscore&lt;=0,&quot;Negative&quot;,&quot;Positive&quot;))
+    features$colors&lt;-factor(features$colors,levels=c(&quot;Positive&quot;,&quot;Negative&quot;,&quot;Neutral&quot;))
+    features$y=1
+    ##features$log&lt;-log10(abs(features$Zscore))
+    ##features &lt;- features %&gt;% mutate(log=if_else(Zscore&lt;=0,-1*log,log))
+    features &lt;- features %&gt;% mutate(Zscore=if_else(Zscore&lt;=-150,-150,Zscore))
+    features &lt;- features %&gt;% mutate(Zscore=if_else(Zscore&gt;150,150,Zscore))
+    features &lt;- features %&gt;%
+        mutate(`type`=if_else(`classifier_type2`==&quot;cancer&quot;,&quot;Ovarian Cancer&quot;,classifier_type2))
+      features &lt;- features %&gt;%
+        mutate(`type`=if_else(`classifier_type2`==&quot;non-cancer&quot;,&quot;Non-cancer&quot;,type))
+
+    features$type &lt;- factor(features$`type`,
+                                  levels=c(&quot;Ovarian Cancer&quot;,&quot;Benign&quot;,&quot;Non-cancer&quot;))
+    features2  &lt;- features %&gt;%
+        rename(z=Zscore) %&gt;%
+        mutate(root2=nroot(z, 2)) %&gt;%
+        mutate(root3=nroot(z, 3))
+
+
+features2 &lt;- features2  %&gt;%
+    select(id, type, Arm,
+           z, root2, root3, y, colors, transp)
+###YOU ARE HERE AFTER LUNCH!!!
+
+b&lt;-features2 %&gt;% filter(type==&quot;Benign&quot;)
+#b2&lt;-meta %&gt;% select(-V1) %&gt;% filter(classifier_type2==&quot;Benign&quot;) %&gt;% filter(training_set_include_diag==&quot;yes&quot;)
+ns &lt;- features2 %&gt;%
+    group_by(type) %&gt;%
+    summarize(n=length(unique(id))) %&gt;%
+    mutate(label=paste0(type, &quot;\n(n = &quot;, n, &quot;)&quot;))
+ns &lt;- setNames(ns$label, ns$type)
+cols[2]&lt;-&quot;#18468B&quot;
+cols[1]&lt;-&quot;red3&quot;
+
+zplot_cancer &lt;- features2 %&gt;%
+    ggplot(aes(x=y, y=z, color=colors, alpha=transp)) +
+    geom_point(size=5) +
+    facet_grid(Arm ~ type, scales = &#39;free_y&#39;,labeller=labeller(type=ns)) +
+    coord_flip() +
+    theme_minimal(base_size=24) +
+    theme(strip.text.y.left = element_text(angle = 0,
+                                           hjust = 0.5,
+                                           vjust = 0.5),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+
+          panel.grid =  element_blank(),
+          plot.title = element_blank(),
+          legend.title = element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = &quot;bottom&quot;,
+          strip.text.y = element_blank(),
+          axis.title.x = element_blank()) + #####removing label
+    scale_y_continuous(limits = c(-150,150)) +
+    scale_alpha_identity() +
+    scale_fill_manual(values = cols) +
+    scale_color_manual(values = cols) #+
+    #ylab(&quot;Z-Score&quot;)</code></pre>
+<p>Adding together the TCGA and z-score panel – problems – chromosome
+width, size of TCGA panel, not yet stacked with feature importance
+panel.</p>
+<pre class="r"><code>#pdf(&quot;test.pdf&quot;)
+cowplot::plot_grid(plot,zplot_cancer,nrow=1,align=&quot;v&quot;,axis=&quot;l&quot;)
+#dev.off() #</code></pre>
+</div>
+<div id="feature-importance" class="section level2">
+<h2>Feature importance</h2>
+<p>Feature importance panel</p>
+<pre class="r"><code>results&lt;-readRDS(here(&quot;output&quot;,&quot;feature_importance.Rmd&quot;,
+                     &quot;loadings.rds&quot;))
+pd &lt;- results[[&quot;pd&quot;]]
+sc &lt;- results[[&quot;sc&quot;]]
+#---------------- now make plots -----------------###
+                                        # visualize feature by PC heatmap ##
+pc.labels &lt;- c(&quot;PC1\n&quot;, &quot;PC2\n&quot;, &quot;PC3\n&quot;) %&gt;%
+    setNames(1:3)
+heatmap &lt;- pd %&gt;% filter(variable != &quot;PC1&quot;)%&gt;%
+    ggplot(aes(x = pc.id, y = bin.id)) +
+    facet_grid(arm ~ pc.id, scales = &#39;free&#39;,
+               switch = &#39;y&#39;, space = &#39;free&#39;,
+               labeller=labeller(pc.id=pc.labels))+
+    geom_tile(aes(fill = value)) +
+    scale_fill_distiller(palette = &#39;RdBu&#39;) +
+    scale_y_continuous(trans = &#39;reverse&#39;) +
+    theme_minimal(base_size=24) +
+    labs(x = &#39;Principal components\nof fragmentation profiles&#39;, y = &#39;&#39;, fill = &#39;Value&#39;) +
+    theme(axis.text.x=element_text(color=&quot;white&quot;),
+          strip.text.y=element_blank(),
+          strip.text.x=element_text(size=26),
+          axis.text.y = element_text(color=&quot;white&quot;),
+          axis.title.y=element_text(color=&quot;white&quot;),
+          axis.ticks = element_blank(),
+          panel.grid =  element_blank(),
+          legend.position = &#39;none&#39;) +
+    ylab(&quot;Something&quot;)</code></pre>
+<pre class="r"><code>ta &lt;- subset(sc, grepl(&#39;PC&#39;, features))
+ta$pc.id &lt;- gsub(&#39;PC&#39;, &#39;&#39;, gsub(&#39; &#39;,&#39;&#39;,ta$features))
+ta$sign.value = factor(ta$sign.value, levels = c(-1, 1))
+ta &lt;- ta[,c(&#39;pc.id&#39;, &#39;abs.value&#39;, &#39;sign.value&#39;)]
+#ta &lt;- rbind(ta, data.frame(pc.id = setdiff(seq(3), ta$pc.id), abs.value =0, sign.value = NA))
+ta$pc.id &lt;- factor(ta$pc.id, levels = ta$pc.id)
+ta$x = 1
+ta$arm = 1
+ta</code></pre>
+<pre><code>  pc.id abs.value sign.value x arm
+5     3 0.8718138         -1 1   1
+4     2 0.4426378         -1 1   1</code></pre>
+<pre class="r"><code>cols &lt;- c(&#39;#0571b0&#39;, &#39;#ca0020&#39;, &#39;#999999&#39;)
+names(cols) &lt;- c(&#39;-1&#39;, &#39;1&#39;, NA)
+top.annot &lt;- ta %&gt;%
+    ggplot(aes(x = pc.id, y = abs.value, colour = sign.value)) +
+    facet_grid(arm ~ pc.id, scales = &#39;free&#39;,
+                   switch = &#39;y&#39;, space = &#39;free&#39;) +
+    geom_point(size = 5) +
+    geom_segment(aes(x = pc.id,
+                     xend = pc.id,
+                     y = abs.value, yend = 0),
+                 size=2) +
+    theme_minimal(base_size=24) +
+    ylab(&quot;Log odds ratio&quot;) +
+    xlab(&quot;&quot;) +
+    theme(axis.text.x=element_text(color=&quot;white&quot;),
+          strip.text.y=element_blank(),
+          axis.line.x=element_line(color=&quot;gray&quot;),
+          axis.ticks.x=element_line(color=&quot;gray&quot;),
+          axis.ticks = element_blank(),
+          panel.grid =  element_blank(),
+          legend.position = &#39;none&#39;) +
+##    theme(panel.grid=element_blank(),
+##          strip.text.y = element_blank(),
+
+##          strip.text.x = element_blank(),
+##          axis.text.x = element_blank(),
+##          axis.ticks = element_blank(),
+##          panel.border = element_rect(color = &quot;white&quot;,
+##                                      fill = NA, size = 0.2),
+##          legend.position = &#39;none&#39;) +
+    scale_color_manual(values = cols, na.value = &#39;#999999&#39;)</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+
+Warning: Please use `linewidth` instead.</code></pre>
+<pre class="r"><code>bins5mb &lt;- read_csv(here(&quot;data&quot;,&quot;long_bins_hiseq.csv&quot;),
+                    show_col_types=FALSE) </code></pre>
+<pre><code>New names:</code></pre>
+<pre class="r"><code>bins5mb&lt;-bins5mb %&gt;% filter(id %in% features$id)
+bins5mb&lt;-bins5mb %&gt;% select(-`...1`)
+sa &lt;- side_annotation(pd, sc, bins5mb)
+
+
+#sa2 &lt;- results2[[&quot;sc&quot;]]
+#sa2&lt;-sa2 %&gt;% filter(! features %in% c(&quot;PC 1&quot;,&quot;PC 2&quot;, &quot;PC 3&quot;,&quot;TF_pc_1&quot;)) 
+#pd2 &lt;- results2[[&quot;pd&quot;]]
+#sa_temp &lt;- side_annotation(pd2, sc2, bins5mb)$arm.imp
+#x &lt;- strsplit(as.character(sa2$features), &quot; &quot; )
+
+#sa2$arm&lt;-sapply( x, &quot;[&quot;, 2 )
+#sa2&lt;-left_join(sa_temp %&gt;% select(-abs.value),sa2 %&gt;% select(arm,abs.value,scaled_coefs),by=&quot;arm&quot;)
+#sa2 &lt;- sa2 %&gt;% mutate(abs.value=if_else(is.na(abs.value),0,abs.value))
+#sa2&lt;-sa2 %&gt;% mutate(sign.value=sign(scaled_coefs))
+#sa2 &lt;- sa2 %&gt;% select(-scaled_coefs)
+
+bl &lt;- sa[[&quot;bl&quot;]]
+arm.imp &lt;- sa[[&quot;arm.imp&quot;]]
+#arm.imp$model&lt;-&quot;DELFI&quot;
+#sa2$model&lt;-&quot;DELFI+TF&quot;
+#arm.imp&lt;-rbind(arm.imp,sa2)
+right.annot &lt;- bl %&gt;%
+    ggplot(aes(x = x, y = bin.id)) +
+    geom_point(color = &#39;white&#39;) +
+    facet_grid(arm ~ pc.id,
+               scales = &#39;free&#39;,
+               switch = &#39;y&#39;, space = &#39;free&#39;) +
+    theme_minimal(base_size=24) +
+    geom_point(data = arm.imp,
+               aes(x = abs.value,
+                   y = bin.id, color = sign.value),
+               size=5) +
+    geom_segment(data = arm.imp,
+                 aes(x = abs.value, xend = 0,
+                     y = bin.id, yend = bin.id,
+                     color = sign.value),
+                 size=2) +
+    scale_color_manual(values = cols, na.value = &#39;#999999&#39;) +
+    scale_y_continuous(breaks = c(0,2,4,6)) +
+    labs(x = &#39;Log odds\nratio&#39;, y = &#39;&#39;, color = &#39;&#39;) +
+    theme(strip.text.x = element_blank(),
+          strip.text.y = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          panel.border = element_blank(),
+          panel.grid=element_blank(),
+          legend.position = &#39;none&#39;)</code></pre>
+<pre class="r"><code>cols &lt;- c(&#39;#0571b0&#39;, &#39;#ca0020&#39;, &#39;#999999&#39;)
+names(cols) &lt;- c(&#39;-1&#39;, &#39;1&#39;, NA)
+p&lt;-sc %&gt;% filter(features %in% c(&quot;ca125&quot;,&quot;he4&quot;))
+p$feature.type&lt;-&quot;Protein&quot;
+extra.annot &lt;- p %&gt;%
+    ggplot(aes(x = features, y = abs.value, colour = sign.value)) +
+    geom_point(size = 5) +
+    geom_segment(aes(x = features,
+                     xend = features,
+                     y = abs.value, yend = 0),
+                 size=2) +
+    theme_minimal(base_size=24) +
+    ylab(&quot;Log odds ratio&quot;) +
+    xlab(&quot;&quot;) +
+    theme(axis.text.x=element_text(color=&quot;black&quot;),
+          strip.text.y=element_blank(),
+          axis.line.x=element_line(color=&quot;gray&quot;),
+          axis.ticks.x=element_line(color=&quot;gray&quot;),
+          axis.ticks = element_blank(),
+          panel.grid =  element_blank(),
+          legend.position = &#39;none&#39;) +
+##    theme(panel.grid=element_blank(),
+##          strip.text.y = element_blank(),
+
+##          strip.text.x = element_blank(),
+##          axis.text.x = element_blank(),
+##          axis.ticks = element_blank(),
+##          panel.border = element_rect(color = &quot;white&quot;,
+##                                      fill = NA, size = 0.2),
+##          legend.position = &#39;none&#39;) +
+    scale_color_manual(values = cols, na.value = &#39;#999999&#39;)
+
+
+extra.annot</code></pre>
+<p><img src="figure/2c.Rmd/extra_annot-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fig-4" class="section level2">
+<h2>Fig 4</h2>
+<p>Assembling the 3 pieces of the feature importance figure into one
+panel</p>
+<pre class="r"><code>hmap &lt;- ggplotGrob(heatmap)
+z.coef &lt;- ggplotGrob(right.annot)
+pc.coef &lt;- ggplotGrob(top.annot)
+h &lt;- hmap$heights
+## I think these widths correspond to the panels
+ix &lt;- seq(from=8, by=2, length.out=39)
+## make logical
+is_arm &lt;- seq_along(h) %in% ix
+h2 &lt;- h[is_arm]
+size &lt;- map_dbl(h2, function(x) unlist(x)[[1]])
+## The widths less than 100 might be too small
+is2small &lt;- size &lt; 12
+h2[is2small] &lt;- unit(12, &quot;null&quot;)
+h[is_arm] &lt;- h2
+z.coef$heights = h
+hmap$heights &lt;- h
+hmap$widths &lt;- pc.coef$widths
+#saveRDS(h, file=&quot;../data/arm_heights.rds&quot;)
+
+extra.coef &lt;- ggplotGrob(extra.annot)</code></pre>
+<pre class="r"><code>#tf&lt;-ggplotGrob(tf_annotation)
+#tf$widths&lt;-z.coef$widths
+#tf$heights&lt;-z.coef$heights
+tcga.legend &lt;- cowplot::get_legend(plot)</code></pre>
+<pre><code>Warning in get_plot_component(plot, &quot;guide-box&quot;): Multiple components found;
+returning the first one. To return all, use `return_all = TRUE`.</code></pre>
+<pre class="r"><code>p2 &lt;- plot +
+    guides(fill=&quot;none&quot;, color=&quot;none&quot;) +
+    ylab(&quot;&quot;)
+g1 &lt;- ggplotGrob(p2)
+g1$heights &lt;- h
+
+zscore.legend &lt;- cowplot::get_legend(zplot_cancer)</code></pre>
+<pre><code>Warning in get_plot_component(plot, &quot;guide-box&quot;): Multiple components found;
+returning the first one. To return all, use `return_all = TRUE`.</code></pre>
+<pre class="r"><code>p3 &lt;- zplot_cancer +
+    guides(color=&quot;none&quot;, fill=&quot;none&quot;)
+g2 &lt;- ggplotGrob(p3)
+g2$heights &lt;- h
+gl &lt;- list(g1,
+           g2,
+           pc.coef,
+           hmap,
+           z.coef,
+          nullGrob(),extra.coef)
+m &lt;- rbind(c(6, 6, 3, 7),
+           c(1, 2, 4, 5))
+grid.arrange(grobs=gl,
+             layout_matrix=m,
+             heights=c(1, 7),
+             widths=c(2.7, 4, 4, 2.7),
+             padding=unit(0, &quot;lines&quot;)) ##</code></pre>
+<p><img src="figure/2c.Rmd/fig4-1.png" width="2688" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.5 (2021-03-31)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] liver.tools_0.0.0.9000 devtools_2.4.2         usethis_2.0.1         
+ [4] readxl_1.3.1           ggstance_0.3.7         here_1.0.1            
+ [7] gridExtra_2.3          RColorBrewer_1.1-2     data.table_1.14.0     
+[10] forcats_0.5.1          stringr_1.5.1          dplyr_1.1.4           
+[13] purrr_1.0.2            readr_2.0.1            tidyr_1.3.1           
+[16] tibble_3.2.1           ggplot2_3.5.0          tidyverse_1.3.1       
+[19] workflowr_1.6.2       
+
+loaded via a namespace (and not attached):
+ [1] fs_1.5.0          lubridate_1.7.10  bit64_4.0.5       httr_1.4.2       
+ [5] rprojroot_2.0.2   tools_4.0.5       backports_1.2.1   bslib_0.3.0      
+ [9] utf8_1.2.2        R6_2.5.1          DBI_1.1.1         colorspace_2.0-2 
+[13] withr_3.0.0       tidyselect_1.2.1  prettyunits_1.1.1 processx_3.5.2   
+[17] bit_4.0.4         compiler_4.0.5    git2r_0.28.0      cli_3.6.2        
+[21] rvest_1.0.1       xml2_1.3.2        desc_1.3.0        labeling_0.4.2   
+[25] sass_0.4.0        scales_1.3.0      callr_3.7.0       digest_0.6.27    
+[29] rmarkdown_2.10    pkgconfig_2.0.3   htmltools_0.5.2   sessioninfo_1.1.1
+[33] highr_0.9         dbplyr_2.1.1      fastmap_1.1.0     rlang_1.1.3      
+[37] rstudioapi_0.13   farver_2.1.0      jquerylib_0.1.4   generics_0.1.3   
+[41] jsonlite_1.7.2    vroom_1.5.4       magrittr_2.0.1    Rcpp_1.0.7       
+[45] munsell_0.5.0     fansi_0.5.0       lifecycle_1.0.4   stringi_1.7.4    
+[49] yaml_2.2.1        plyr_1.8.6        pkgbuild_1.2.0    parallel_4.0.5   
+[53] promises_1.2.0.1  crayon_1.4.1      cowplot_1.1.1     haven_2.4.3      
+[57] hms_1.1.0         knitr_1.33        ps_1.6.0          pillar_1.9.0     
+[61] pkgload_1.2.1     reprex_2.0.1      glue_1.7.0        evaluate_0.14    
+[65] remotes_2.4.0     modelr_0.1.8      vctrs_0.6.5       tzdb_0.1.2       
+[69] httpuv_1.6.2      testthat_3.0.4    cellranger_1.1.0  gtable_0.3.0     
+[73] assertthat_0.2.1  cachem_1.0.6      xfun_0.25         broom_0.7.9      
+[77] later_1.3.0       memoise_2.0.0     ellipsis_0.3.2   </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+---
+title: "S17"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r correlation, fig.height= 12, fig.width=18,dev=c("png", "pdf")}
+###################################
+# S17
+#####################################
+library(tidyverse)
+library(ggsci)
+library(readxl)
+library(egg)
+library(ggpubr)
+library(here)
+library(data.table)
+#Clean out list section
+rm(list=ls());gc()
+
+proteins <- read_xlsx(here("data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx"))
+proteins$`Roche Ca-125 U/mL` <- as.numeric(as.character(proteins$`Roche Ca-125 U/mL`))
+proteins$nki <- as.numeric(as.character(proteins$nki))
+proteins$nki_he4 <- as.numeric(as.character(proteins$nki_he4))
+proteins$`Roche HE-4 pmol/L` <- as.numeric(as.character(proteins$`Roche HE-4 pmol/L`))
+prot <- proteins %>% filter(nki != c("NA", "unknown"))
+data2 <- fread(here("data/metadata.csv"))
+d3 <- data2 %>% select(id, id2, cohort, type, stage, subtype_simple)
+prot2 <- inner_join(prot, d3, by = c("CGID"="id"))
+prot2 <- prot2 %>% mutate(type2 = ifelse(type == "cancer", "Cancer", ifelse(type == "non-cancer", "Benign", "Benign")))
+prot2$type2 <- factor(prot2$type2, levels = c("Cancer", "Benign"))
+
+a <- prot2 %>% 
+  ggplot(aes(`Roche Ca-125 U/mL`, nki)) +
+  labs(x="Roche CA125 (U/mL) JHU Plasma", y ="NKI CA125 (U/mL) Serum", color = "Category") +
+  ggtitle("CA125 correlation") +
+    scale_color_npg() +
+  xlim(0, 2500) +
+  ylim(0, 2500) +
+  theme_bw() +
+  geom_smooth(method='lm', formula= y~x) +
+  geom_point(aes(color = type2)) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", color = "dodgerblue3"),
+        legend.position = "none", 
+        axis.title = element_text(face = "bold", size = 12),
+        axis.text.x=element_text(face = "bold", size = 12), 
+        axis.text.y=element_text(face = "bold", size = 12)) + stat_cor(method = "pearson")
+
+a
+
+b <- prot2 %>% 
+  ggplot(aes(`Roche HE-4 pmol/L`, nki_he4)) +
+  labs(x="Roche HE4 (pM) JHU Plasma", y ="NKI HE4 (pM) Plasma", color = "Category") +
+  ggtitle("HE4 correlation") +
+  scale_color_npg() +
+  xlim(0, 2500) +
+  ylim(0, 2500) +
+  theme_bw() +
+  geom_smooth(method='lm', formula= y~x) +
+  geom_point(aes(color = type2)) +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", color = "dodgerblue3"),
+        axis.title = element_text(face = "bold", size = 12),
+        axis.text.x=element_text(face = "bold", size = 12), 
+        axis.text.y=element_text(face = "bold", size = 12)) + stat_cor(method = "pearson")
+b
+prot_plot <- egg::ggarrange(a,b, nrow = 1)
+# ggsave("./docs/prot_plot_051524.png", plot = prot_plot)
+
+```

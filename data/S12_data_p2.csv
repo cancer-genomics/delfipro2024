@@ -1,0 +1,595 @@
+"","id","classifier_type","subtype_simple","stage","model","score","size","Ultrasound tumorsize (cm)"
+"1","CGPLOV421P","healthy",NA,"Non-cancer","ca125",18.52,">10",21.9
+"2","CGPLOV422P","healthy",NA,"Non-cancer","ca125",49.94,"5-10",8.5
+"3","CGPLOV423P","healthy",NA,"Non-cancer","ca125",10.4,"5-10",6.9
+"4","CGPLOV460P","healthy",NA,"Non-cancer","ca125",22.36,"<5",4.4
+"5","CGPLOV539P","healthy",NA,"Non-cancer","ca125",18.93,"<5",3.3
+"6","CGPLOV540P","healthy",NA,"Non-cancer","ca125",27.54,">10",10
+"7","CGPLOV542P","healthy",NA,"Non-cancer","ca125",246.6,NA,NA
+"8","CGPLOV425P","healthy",NA,"Non-cancer","ca125",46.49,"5-10",7.3
+"9","CGPLOV506P","healthy",NA,"Non-cancer","ca125",36.44,">10",13
+"10","CGPLOV427P","healthy",NA,"Non-cancer","ca125",18.44,">10",17.5
+"11","CGPLOV315P","healthy",NA,"Non-cancer","ca125",33.6,"5-10",6
+"12","CGPLOV317P","healthy",NA,"Non-cancer","ca125",7.21,NA,NA
+"13","CGPLOV610P","healthy",NA,"Non-cancer","ca125",13.36,"<5",0.9
+"14","CGPLOV419P","healthy",NA,"Non-cancer","ca125",45.48,NA,NA
+"15","CGPLOV420P","healthy",NA,"Non-cancer","ca125",25.76,">10",10
+"16","CGPLOV545P","healthy",NA,"Non-cancer","ca125",129.9,NA,NA
+"17","CGPLOV546P","healthy",NA,"Non-cancer","ca125",118.2,NA,NA
+"18","CGPLOV498P","healthy",NA,"Non-cancer","ca125",18.74,">10",15.1
+"19","CGPLOV507P","healthy",NA,"Non-cancer","ca125",6.32,NA,NA
+"20","CGPLOV499P","healthy",NA,"Non-cancer","ca125",15.66,"5-10",8.2
+"21","CGPLOV500P","healthy",NA,"Non-cancer","ca125",7.84,NA,NA
+"22","CGPLOV321P","healthy",NA,"Non-cancer","ca125",31.27,NA,NA
+"23","CGPLOV549P","healthy",NA,"Non-cancer","ca125",12.68,NA,NA
+"24","CGPLOV527P","healthy",NA,"Non-cancer","ca125",40.28,NA,NA
+"25","CGPLOV429P","healthy",NA,"Non-cancer","ca125",13.22,"5-10",6.9
+"26","CGPLOV430P","healthy",NA,"Non-cancer","ca125",19.99,"5-10",5.2
+"27","CGPLOV322P","healthy",NA,"Non-cancer","ca125",20.48,NA,NA
+"28","CGPLOV551P","healthy",NA,"Non-cancer","ca125",21.32,NA,NA
+"29","CGPLOV432P","healthy",NA,"Non-cancer","ca125",11.74,NA,NA
+"30","CGPLOV347P","healthy",NA,"Non-cancer","ca125",80.89,NA,NA
+"31","CGPLOV324P","healthy",NA,"Non-cancer","ca125",26.93,NA,NA
+"32","CGPLOV323P","healthy",NA,"Non-cancer","ca125",48.68,NA,NA
+"33","CGPLOV528P","healthy",NA,"Non-cancer","ca125",23.91,NA,NA
+"34","CGPLOV553P","healthy",NA,"Non-cancer","ca125",70.99,NA,NA
+"35","CGPLOV554P","healthy",NA,"Non-cancer","ca125",215.1,NA,NA
+"36","CGPLOV431P","healthy",NA,"Non-cancer","ca125",12.51,"5-10",9.3
+"37","CGPLOV501P","healthy",NA,"Non-cancer","ca125",313.1,">10",20
+"38","CGPLOV325P","healthy",NA,"Non-cancer","ca125",12.78,NA,NA
+"39","CGPLOV387P","healthy",NA,"Non-cancer","ca125",22.39,NA,NA
+"40","CGPLOV502P","healthy",NA,"Non-cancer","ca125",3.38,NA,NA
+"41","CGPLOV612P","healthy",NA,"Non-cancer","ca125",16.6,NA,NA
+"42","CGPLOV386P","healthy",NA,"Non-cancer","ca125",40.09,NA,NA
+"43","CGPLOV327P","healthy",NA,"Non-cancer","ca125",18.73,NA,NA
+"44","CGPLOV559P","healthy",NA,"Non-cancer","ca125",118.4,">10",10.9
+"45","CGPLOV503P","healthy",NA,"Non-cancer","ca125",50.93,NA,NA
+"46","CGPLOV388P","healthy",NA,"Non-cancer","ca125",53.13,">10",12
+"47","CGPLOV391P","healthy",NA,"Non-cancer","ca125",12.13,"<5",4.3
+"48","CGPLOV562P","healthy",NA,"Non-cancer","ca125",66.16,NA,NA
+"49","CGPLOV329P","healthy",NA,"Non-cancer","ca125",12.86,NA,NA
+"50","CGPLOV433P","healthy",NA,"Non-cancer","ca125",129.8,NA,NA
+"51","CGPLOV435P","healthy",NA,"Non-cancer","ca125",16.95,"5-10",7.6
+"52","CGPLOV434P","healthy",NA,"Non-cancer","ca125",14.64,"5-10",5.6
+"53","CGPLOV330P","healthy",NA,"Non-cancer","ca125",73.5,NA,NA
+"54","CGPLOV389P","healthy",NA,"Non-cancer","ca125",29.18,">10",10.3
+"55","CGPLOV495P","healthy",NA,"Non-cancer","ca125",10.89,NA,NA
+"56","CGPLOV568P","healthy",NA,"Non-cancer","ca125",81.4,">10",14.7
+"57","CGPLOV463P","healthy",NA,"Non-cancer","ca125",31.26,">10",19.6
+"58","CGPLOV567P","healthy",NA,"Non-cancer","ca125",42.82,"5-10",7.7
+"59","CGPLOV607P","healthy",NA,"Non-cancer","ca125",30.05,">10",13.8
+"60","CGPLOV572P","healthy",NA,"Non-cancer","ca125",1652,">10",13
+"61","CGPLOV508P","healthy",NA,"Non-cancer","ca125",12.62,NA,NA
+"62","CGPLOV575P","healthy",NA,"Non-cancer","ca125",28,NA,NA
+"63","CGPLOV350P","healthy",NA,"Non-cancer","ca125",10.14,"5-10",9.6
+"64","CGPLOV351P","healthy",NA,"Non-cancer","ca125",13.11,">10",12.2
+"65","CGPLOV438P","healthy",NA,"Non-cancer","ca125",5.91,">10",12.5
+"66","CGPLOV464P","healthy",NA,"Non-cancer","ca125",24.72,"5-10",5.3
+"67","CGPLOV571P","healthy",NA,"Non-cancer","ca125",50.7,">10",11
+"68","CGPLOV393P","healthy",NA,"Non-cancer","ca125",82.59,"5-10",9.8
+"69","CGPLOV439P","healthy",NA,"Non-cancer","ca125",134.1,">10",12.4
+"70","CGPLOV577P","healthy",NA,"Non-cancer","ca125",25.12,">10",18
+"71","CGPLOV353P","healthy",NA,"Non-cancer","ca125",10.77,"<5",1.5
+"72","CGPLOV509P","healthy",NA,"Non-cancer","ca125",73.77,">10",11.1
+"73","CGPLOV441P","healthy",NA,"Non-cancer","ca125",8,"5-10",8.1
+"74","CGPLOV437P","healthy",NA,"Non-cancer","ca125",4.98,"<5",2.6
+"75","CGPLOV608P","healthy",NA,"Non-cancer","ca125",13.81,">10",10.3
+"76","CGPLOV510P","healthy",NA,"Non-cancer","ca125",170.6,">10",21.3
+"77","CGPLOV442P","healthy",NA,"Non-cancer","ca125",36.6,"5-10",7
+"78","CGPLOV446P","healthy",NA,"Non-cancer","ca125",32.61,">10",32
+"79","CGPLOV373P","healthy",NA,"Non-cancer","ca125",42.58,">10",20.8
+"80","CGPLOV368P","healthy",NA,"Non-cancer","ca125",26.3,NA,NA
+"81","CGPLOV371P","healthy",NA,"Non-cancer","ca125",10.82,NA,NA
+"82","CGPLOV443P","healthy",NA,"Non-cancer","ca125",14.29,"5-10",7.6
+"83","CGPLOV512P","healthy",NA,"Non-cancer","ca125",481.9,NA,NA
+"84","CGPLOV513P","healthy",NA,"Non-cancer","ca125",49.37,"5-10",8.6
+"85","CGPLOV611P","healthy",NA,"Non-cancer","ca125",23.51,"5-10",6.8
+"86","CGPLOV445P","healthy",NA,"Non-cancer","ca125",32.18,">10",12.1
+"87","CGPLOV505P","healthy",NA,"Non-cancer","ca125",5.39,NA,NA
+"88","CGPLOV468P","healthy",NA,"Non-cancer","ca125",37.75,">10",12.9
+"89","CGPLOV395P","healthy",NA,"Non-cancer","ca125",24.53,"5-10",5.6
+"90","CGPLOV394P","healthy",NA,"Non-cancer","ca125",14.51,"<5",1.7
+"91","CGPLOV448P","healthy",NA,"Non-cancer","ca125",30.11,">10",20.5
+"92","CGPLOV511P","healthy",NA,"Non-cancer","ca125",8.76,"5-10",8.1
+"93","CGPLOV396P","healthy",NA,"Non-cancer","ca125",8.94,"5-10",8.5
+"94","CGPLOV451P","healthy",NA,"Non-cancer","ca125",24.02,"<5",3
+"95","CGPLOV452P","healthy",NA,"Non-cancer","ca125",58.76,">10",15
+"96","CGPLOV514P","healthy",NA,"Non-cancer","ca125",13.5,"5-10",8.3
+"97","CGPLOV454P","healthy",NA,"Non-cancer","ca125",12.72,">10",17
+"98","CGPLOV453P","healthy",NA,"Non-cancer","ca125",10.18,">10",17.7
+"99","CGPLOV356P","healthy",NA,"Non-cancer","ca125",24.33,">10",11
+"100","CGPLOV467P","healthy",NA,"Non-cancer","ca125",15.4,">10",15
+"101","CGPLOV358P","healthy",NA,"Non-cancer","ca125",27.09,">10",11.2
+"102","CGPLOV450P","healthy",NA,"Non-cancer","ca125",4.96,">10",10.1
+"103","CGPLOV359P","healthy",NA,"Non-cancer","ca125",7.17,NA,NA
+"104","CGPLOV360P","healthy",NA,"Non-cancer","ca125",17.33,"5-10",9
+"105","CGPLOV456P","healthy",NA,"Non-cancer","ca125",13.82,">10",19.7
+"106","CGPLOV352P","healthy",NA,"Non-cancer","ca125",18.01,">10",25
+"107","CGPLOV576P","healthy",NA,"Non-cancer","ca125",161.5,">10",16.7
+"108","CGPLOV397P","healthy",NA,"Non-cancer","ca125",42.08,NA,NA
+"109","CGPLOV457P","healthy",NA,"Non-cancer","ca125",56.46,"5-10",6.8
+"110","CGPLOV515P","healthy",NA,"Non-cancer","ca125",78.8,"5-10",6.8
+"111","CGPLOV361P","healthy",NA,"Non-cancer","ca125",25.51,">10",15
+"112","CGPLOV473P","healthy",NA,"Non-cancer","ca125",37.18,">10",18.3
+"113","CGPLOV375P","healthy",NA,"Non-cancer","ca125",89.51,"5-10",7.5
+"114","CGPLOV471P","healthy",NA,"Non-cancer","ca125",69.08,NA,NA
+"115","CGPLOV376P","healthy",NA,"Non-cancer","ca125",49.87,">10",14
+"116","CGPLOV600P","healthy",NA,"Non-cancer","ca125",36.94,NA,NA
+"117","CGPLOV466P","healthy",NA,"Non-cancer","ca125",22.72,">10",24.5
+"118","CGPLOV362P","healthy",NA,"Non-cancer","ca125",18.54,">10",14
+"119","CGPLOV335P","healthy",NA,"Non-cancer","ca125",8.89,NA,NA
+"120","CGPLOV472P","healthy",NA,"Non-cancer","ca125",6.94,"5-10",9
+"121","CGPLOV334P","healthy",NA,"Non-cancer","ca125",9.46,NA,NA
+"122","CGPLOV378P","healthy",NA,"Non-cancer","ca125",295.5,NA,NA
+"123","CGPLOV363P","healthy",NA,"Non-cancer","ca125",88.49,NA,NA
+"124","CGPLOV382P","healthy",NA,"Non-cancer","ca125",31.04,NA,NA
+"125","CGPLOV380P","healthy",NA,"Non-cancer","ca125",32.67,">10",20
+"126","CGPLOV364P","healthy",NA,"Non-cancer","ca125",14.31,"5-10",6.8
+"127","CGPLOV474P","healthy",NA,"Non-cancer","ca125",23.86,"5-10",5.3
+"128","CGPLOV517P","healthy",NA,"Non-cancer","ca125",10.77,NA,NA
+"129","CGPLOV519P","healthy",NA,"Non-cancer","ca125",9.37,NA,NA
+"130","CGPLOV523P","healthy",NA,"Non-cancer","ca125",16.53,">10",16.2
+"131","CGPLOV338P","healthy",NA,"Non-cancer","ca125",134.7,"<5",1
+"132","CGPLOV532P","healthy",NA,"Non-cancer","ca125",7.45,"5-10",8
+"133","CGPLOV478P","healthy",NA,"Non-cancer","ca125",63.59,">10",20
+"134","CGPLOV412P","healthy",NA,"Non-cancer","ca125",421.5,"5-10",9.9
+"135","CGPLOV526P","healthy",NA,"Non-cancer","ca125",5.91,"5-10",8.3
+"136","CGPLOV591P","healthy",NA,"Non-cancer","ca125",36.49,">10",12
+"137","CGPLOV590P","healthy",NA,"Non-cancer","ca125",15.33,">10",15
+"138","CGPLOV481P","healthy",NA,"Non-cancer","ca125",7.97,"<5",3.5
+"139","CGPLOV407P","healthy",NA,"Non-cancer","ca125",103.7,">10",12.9
+"140","CGPLOV480P","healthy",NA,"Non-cancer","ca125",11.03,">10",11.2
+"141","CGPLOV367P","healthy",NA,"Non-cancer","ca125",115.5,">10",20
+"142","CGPLOV411P","healthy",NA,"Non-cancer","ca125",29.03,">10",12.4
+"143","CGPLOV406P","healthy",NA,"Non-cancer","ca125",262.7,">10",13
+"144","CGPLOV521P","healthy",NA,"Non-cancer","ca125",38.48,">10",11.7
+"145","CGPLOV524P","healthy",NA,"Non-cancer","ca125",4.24,NA,NA
+"146","CGPLOV483P","healthy",NA,"Non-cancer","ca125",14.74,">10",110
+"147","CGPLOV344P","healthy",NA,"Non-cancer","ca125",16.89,"5-10",5.9
+"148","CGPLOV413P","healthy",NA,"Non-cancer","ca125",12.05,"5-10",6.6
+"149","CGPLOV415P","healthy",NA,"Non-cancer","ca125",120.8,NA,NA
+"150","CGPLOV531P","healthy",NA,"Non-cancer","ca125",53.73,">10",17.3
+"151","CGPLOV485P","healthy",NA,"Non-cancer","ca125",18.41,">10",10.3
+"152","CGPLOV487P","healthy",NA,"Non-cancer","ca125",69.05,"5-10",6
+"153","CGPLOV399P","healthy",NA,"Non-cancer","ca125",7.31,">10",18
+"154","CGPLOV525P","healthy",NA,"Non-cancer","ca125",24.3,"5-10",6
+"155","CGPLOV488P","healthy",NA,"Non-cancer","ca125",19.34,"5-10",5.2
+"156","CGPLOV465P","healthy",NA,"Non-cancer","ca125",10.29,">10",11.1
+"157","CGPLOV490P","healthy",NA,"Non-cancer","ca125",359.8,"5-10",5.5
+"158","CGPLOV417P","healthy",NA,"Non-cancer","ca125",557.9,">10",13
+"159","CGPLOV493P","healthy",NA,"Non-cancer","ca125",33.55,"<5",2.93
+"160","CGPLOV161P","healthy",NA,"Non-cancer","ca125",87,">10",16
+"161","CGPLOV459P","cancer","HGSOC","III","ca125",50.45,"5-10",7.9
+"162","CGPLOV320P","cancer","HGSOC","IV","ca125",1283,NA,NA
+"163","CGPLOV326P","cancer","Endometrioid","I","ca125",14.35,NA,NA
+"164","CGPLOV556P","cancer","HGSOC","III","ca125",114.2,NA,NA
+"165","CGPLOV566P","cancer","Clear Cell","II","ca125",22.25,NA,NA
+"166","CGPLOV565P","cancer","HGSOC","III","ca125",449.8,">10",14
+"167","CGPLOV561P","cancer","HGSOC","I","ca125",121.5,NA,NA
+"168","CGPLOV592P","cancer","Clear Cell","II","ca125",16.39,">10",13
+"169","CGPLOV497P","cancer","HGSOC","III","ca125",265.7,">10",16
+"170","CGPLOV606P","cancer","Endometrioid","I","ca125",18.11,"5-10",6.7
+"171","CGPLOV569P","cancer","HGSOC","III","ca125",865.7,"5-10",9.8
+"172","CGPLOV578P","cancer","HGSOC","III","ca125",633.9,"5-10",9.5
+"173","CGPLOV574P","cancer","HGSOC","III","ca125",38.88,"5-10",6.5
+"174","CGPLOV392P","cancer","HGSOC","I","ca125",8.08,">10",12
+"175","CGPLOV573P","cancer","Endometrioid","Unknown","ca125",5454,">10",13.6
+"176","CGPLOV331P","cancer","Mucinous","I","ca125",23.03,NA,NA
+"177","CGPLOV597P","cancer","LGSOC","III","ca125",469.2,NA,NA
+"178","CGPLOV372P","cancer","HGSOC","II","ca125",1184,">10",18
+"179","CGPLOV374P","cancer","HGSOC","III","ca125",145.6,NA,NA
+"180","CGPLOV332P","cancer","Endometrioid","I","ca125",358.5,NA,NA
+"181","CGPLOV462P","cancer","Clear Cell","I","ca125",30.78,"5-10",8.9
+"182","CGPLOV444P","cancer","HGSOC","II","ca125",129.5,">10",14.1
+"183","CGPLOV377P","cancer","HGSOC","III","ca125",153.2,"<5",1
+"184","CGPLOV355P","cancer","Endometrioid","III","ca125",312.6,">10",11
+"185","CGPLOV357P","cancer","Clear Cell","I","ca125",87.11,NA,NA
+"186","CGPLOV370P","cancer","Mucinous","I","ca125",179.3,">10",16
+"187","CGPLOV496P","cancer","LGSOC","II","ca125",182.3,">10",10.2
+"188","CGPLOV470P","cancer","Mucinous","I","ca125",37.93,">10",25
+"189","CGPLOV516P","cancer","HGSOC","II","ca125",168.4,">10",13.3
+"190","CGPLOV580P","cancer","Endometrioid","II","ca125",151.2,">10",12
+"191","CGPLOV379P","cancer","Endometrioid","I","ca125",725.5,">10",25
+"192","CGPLOV449P","cancer","Mucinous","I","ca125",24.1,">10",21.9
+"193","CGPLOV584P","cancer","HGSOC","Unknown","ca125",88.41,">10",12.8
+"194","CGPLOV398P","cancer","HGSOC","III","ca125",27.37,">10",12
+"195","CGPLOV384P","cancer","LGSOC","III","ca125",114.7,NA,NA
+"196","CGPLOV336P","cancer","HGSOC","III","ca125",467.2,NA,NA
+"197","CGPLOV383P","cancer","Mucinous","III","ca125",188.2,">10",17
+"198","CGPLOV589P","cancer","Mucinous","I","ca125",31.49,">10",13.7
+"199","CGPLOV402P","cancer","HGSOC","III","ca125",2193,">10",10.2
+"200","CGPLOV401P","cancer","Clear Cell","II","ca125",22.05,">10",12.5
+"201","CGPLOV520P","cancer","Endometrioid","II","ca125",138.7,">10",16.8
+"202","CGPLOV482P","cancer","Other","IV","ca125",895.8,">10",25
+"203","CGPLOV408P","cancer","Clear Cell","II","ca125",30.39,NA,NA
+"204","CGPLOV410P","cancer","HGSOC","III","ca125",364.1,">10",19
+"205","CGPLOV340P","cancer","HGSOC","III","ca125",827.4,"5-10",9.5
+"206","CGPLOV484P","cancer",NA,"Unknown","ca125",31.23,NA,NA
+"207","CGPLOV489P","cancer","Endometrioid","Unknown","ca125",360.6,"5-10",9.2
+"208","CGPLOV414P","cancer","Mixed","II","ca125",255.4,">10",16.3
+"209","CGPLOV339P","cancer","HGSOC","III","ca125",126.1,NA,NA
+"210","CGPLOV343P","cancer","Endometrioid","II","ca125",28.24,">10",18.3
+"211","CGPLOV345P","cancer","Other","II","ca125",16.2,">10",15
+"212","CGPLOV418P","cancer","Mucinous","I","ca125",65.4,">10",17
+"213","PGDX26279P","healthy","0","Non-cancer","ca125",14,"<5",2.6
+"214","PGDX26278P","healthy","0","Non-cancer","ca125",17,NA,NA
+"215","PGDX26277P","healthy","0","Non-cancer","ca125",14,"<5",3.6
+"216","PGDX26276P","healthy","0","Non-cancer","ca125",83,NA,NA
+"217","PGDX26275P","healthy","0","Non-cancer","ca125",9,">10",18
+"218","PGDX26273P","healthy","0","Non-cancer","ca125",68,">10",24
+"219","PGDX26272P","healthy","0","Non-cancer","ca125",42,">10",11
+"220","PGDX26271P","healthy","0","Non-cancer","ca125",31,"<5",3.8
+"221","PGDX25883P","healthy","0","Non-cancer","ca125",174,"5-10",7.4
+"222","PGDX25882P","healthy","0","Non-cancer","ca125",11,">10",10
+"223","PGDX25879P","healthy","0","Non-cancer","ca125",157,">10",12
+"224","PGDX25872P","healthy","0","Non-cancer","ca125",13,"5-10",9.4
+"225","PGDX25870P","healthy","0","Non-cancer","ca125",13,"<5",4.5
+"226","PGDX25868P","healthy","0","Non-cancer","ca125",11,"5-10",6.3
+"227","PGDX25867P","healthy","0","Non-cancer","ca125",32,">10",20
+"228","PGDX25866P","healthy","0","Non-cancer","ca125",18,">10",10
+"229","PGDX25865P","healthy","0","Non-cancer","ca125",88,"5-10",7
+"230","PGDX25857P","cancer","Mucinous","I","ca125",21,NA,NA
+"231","PGDX25855P","healthy","0","Non-cancer","ca125",222,NA,NA
+"232","PGDX25842P","healthy","0","Non-cancer","ca125",51,NA,NA
+"233","PGDX25841P","healthy","0","Non-cancer","ca125",6,NA,NA
+"234","PGDX25840P","healthy","0","Non-cancer","ca125",21,"5-10",9.8
+"235","PGDX25830P","cancer","Endometrioid","II","ca125",250,"5-10",8.7
+"236","PGDX25829P","cancer","Clear Cell","II","ca125",34,">10",12
+"237","PGDX25827P","cancer","Sarcoma","III","ca125",20,">10",13
+"238","PGDX25809P","cancer","HGSOC","II","ca125",512,">10",12
+"239","PGDX25801P","cancer","Granulosa","II","ca125",17,"5-10",5
+"240","PGDX25800P","cancer","Endometrioid","I","ca125",112,">10",20
+"241","PGDX25799P","cancer","HGSOC","III","ca125",316,">10",12
+"242","PGDX25796P","cancer","HGSOC","III","ca125",944,"5-10",8.3
+"243","PGDX25795P","cancer","HGSOC","III","ca125",104,"5-10",7
+"244","PGDX25793P","cancer","HGSOC","III","ca125",434,">10",13
+"245","PGDX25772P","cancer","HGSOC","I","ca125",274,">10",12
+"246","PGDX25771P","cancer","Endometrioid","I","ca125",270,">10",23
+"247","PGDX25770P","cancer","Clear Cell","I","ca125",52,">10",18.4
+"248","PGDX25769P","cancer","LGSOC","I","ca125",790,">10",18
+"249","PGDX25768P","cancer","LGSOC","III","ca125",72,">10",17
+"250","PGDX25767P","cancer","HGSOC","I","ca125",392,"5-10",7.1
+"251","PGDX25765P","cancer","Granulosa","I","ca125",39,"5-10",9.8
+"252","PGDX25707P","cancer","HGSOC","I","ca125",396,"5-10",5.5
+"253","PGDX25706P","cancer","LGSOC","II","ca125",517,"5-10",5
+"254","PGDX25705P","cancer","Poorly Diff.","I","ca125",122,">10",10
+"255","PGDX25704P","cancer","Endometrioid","I","ca125",55,"5-10",8.8
+"256","PGDX25698P","cancer","Clear Cell","II","ca125",717,NA,NA
+"257","PGDX25684P","cancer","HGSOC","III","ca125",2003,"5-10",7
+"258","PGDX25683P","cancer","HGSOC","II","ca125",805,"5-10",8
+"259","PGDX25682P","cancer","Clear Cell","I","ca125",22,">10",19.6
+"260","PGDX25577P","cancer","Mucinous","I","ca125",33,">10",18
+"261","PGDX25573P","cancer","LGSOC","III","ca125",135,"5-10",7.5
+"262","PGDX26258P","healthy",NA,"Non-cancer","ca125",551,"5-10",9.9
+"263","PGDX26069P","healthy",NA,"Non-cancer","ca125",534,">10",11
+"264","PGDX25881P","healthy",NA,"Non-cancer","ca125",108,">10",28
+"265","PGDX26054P","healthy",NA,"Non-cancer","ca125",186,">10",15
+"266","PGDX26257P","healthy",NA,"Non-cancer","ca125",121,"5-10",7.9
+"267","PGDX25885P","healthy",NA,"Non-cancer","ca125",134,"5-10",6.5
+"268","PGDX25886P","healthy",NA,"Non-cancer","ca125",28,"5-10",5.9
+"269","PGDX26263P","healthy",NA,"Non-cancer","ca125",62,">10",35
+"270","PGDX25884P","healthy",NA,"Non-cancer","ca125",81,">10",15
+"271","PGDX26261P","healthy",NA,"Non-cancer","ca125",141,">10",10.7
+"272","PGDX25869P","healthy",NA,"Non-cancer","ca125",139,">10",24.8
+"273","PGDX26264P","healthy",NA,"Non-cancer","ca125",785,">10",17
+"274","PGDX26256P","healthy",NA,"Non-cancer","ca125",445,">10",22
+"275","PGDX25880P","healthy",NA,"Non-cancer","ca125",593,"5-10",5.8
+"276","PGDX25856P","healthy",NA,"Non-cancer","ca125",111,">10",20
+"277","PGDX26055P","healthy",NA,"Non-cancer","ca125",144,"5-10",7
+"278","PGDX26260P","healthy",NA,"Non-cancer","ca125",2483,">10",11.5
+"279","PGDX26259P","healthy",NA,"Non-cancer","ca125",48,">10",14
+"280","PGDX26066P","healthy",NA,"Non-cancer","ca125",80,">10",16.5
+"281","PGDX26274P","healthy",NA,"Non-cancer","ca125",31,">10",12
+"282","PGDX25864P","healthy",NA,"Non-cancer","ca125",23,">10",11
+"283","PGDX25887P","healthy",NA,"Non-cancer","ca125",52,">10",20
+"284","PGDX25703P","cancer","Mucinous","II","ca125",160,"5-10",5.7
+"285","PGDX25798P","cancer","Other","I","ca125",80,">10",20
+"286","PGDX25693P","cancer","HGSOC","I","ca125",354,"5-10",7
+"287","PGDX25824P","cancer","Other","I","ca125",3448,">10",13
+"288","PGDX25797P","cancer","Clear Cell","II","ca125",28,">10",14
+"289","PGDX25574P","cancer","Mucinous","I","ca125",5,"<5",1.4
+"290","PGDX25766P","cancer","HGSOC","II","ca125",222,"5-10",7.7
+"291","PGDX25696P","cancer","HGSOC","II","ca125",206,"5-10",7.5
+"292","PGDX25576P","cancer","Giant Cell","I","ca125",458,">10",15
+"293","PGDX25695P","cancer","Mucinous","II","ca125",69,">10",26
+"294","PGDX25825P","cancer","HGSOC","II","ca125",251,">10",15
+"295","PGDX25692P","cancer","HGSOC","III","ca125",2458,">10",15
+"296","PGDX25794P","cancer","HGSOC","III","ca125",51,">10",11
+"297","PGDX25697P","cancer","HGSOC","III","ca125",103,"5-10",7.7
+"298","CGPLOV421P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.105730067537218,">10",21.9
+"299","CGPLOV422P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.210514115980585,"5-10",8.5
+"300","CGPLOV423P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.189100800048785,"5-10",6.9
+"301","CGPLOV460P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.22696938195445,"<5",4.4
+"302","CGPLOV539P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.139941749029505,"<5",3.3
+"303","CGPLOV540P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.281937412921867,">10",10
+"304","CGPLOV542P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.190859842593414,NA,NA
+"305","CGPLOV425P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.151950564986257,"5-10",7.3
+"306","CGPLOV506P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.193831112040796,">10",13
+"307","CGPLOV427P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.170679374668286,">10",17.5
+"308","CGPLOV315P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.15440282091878,"5-10",6
+"309","CGPLOV317P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.167940144204866,NA,NA
+"310","CGPLOV610P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.139999005096326,"<5",0.9
+"311","CGPLOV419P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.104892990387592,NA,NA
+"312","CGPLOV420P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.175076068668398,">10",10
+"313","CGPLOV545P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.156773864905604,NA,NA
+"314","CGPLOV546P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.203503580577354,NA,NA
+"315","CGPLOV498P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.172418181815208,">10",15.1
+"316","CGPLOV507P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.137985563740659,NA,NA
+"317","CGPLOV499P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.158751651922312,"5-10",8.2
+"318","CGPLOV500P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.226796814724225,NA,NA
+"319","CGPLOV321P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.18291975808672,NA,NA
+"320","CGPLOV549P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.130169377549431,NA,NA
+"321","CGPLOV527P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.169566135289214,NA,NA
+"322","CGPLOV429P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.159863502656899,"5-10",6.9
+"323","CGPLOV430P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.0668557233126586,"5-10",5.2
+"324","CGPLOV322P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.132210210563074,NA,NA
+"325","CGPLOV551P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.11578484756334,NA,NA
+"326","CGPLOV432P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.201429866558335,NA,NA
+"327","CGPLOV347P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.293392519393151,NA,NA
+"328","CGPLOV324P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.266687091520586,NA,NA
+"329","CGPLOV323P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.183624373843098,NA,NA
+"330","CGPLOV528P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.123093393544083,NA,NA
+"331","CGPLOV553P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119594029427751,NA,NA
+"332","CGPLOV554P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.191007233060761,NA,NA
+"333","CGPLOV431P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.127363159906242,"5-10",9.3
+"334","CGPLOV501P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.182964026881634,">10",20
+"335","CGPLOV325P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.153872531862187,NA,NA
+"336","CGPLOV387P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.203033273076427,NA,NA
+"337","CGPLOV502P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.132237262951891,NA,NA
+"338","CGPLOV612P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.153982028578154,NA,NA
+"339","CGPLOV386P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.118683242014581,NA,NA
+"340","CGPLOV327P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.211148194497623,NA,NA
+"341","CGPLOV559P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.163686770466716,">10",10.9
+"342","CGPLOV503P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.36383166895361,NA,NA
+"343","CGPLOV388P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.143660449448961,">10",12
+"344","CGPLOV391P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.137234902509406,"<5",4.3
+"345","CGPLOV562P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.127893139912531,NA,NA
+"346","CGPLOV329P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.109055178171767,NA,NA
+"347","CGPLOV433P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.126022719073268,NA,NA
+"348","CGPLOV435P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.148524802899578,"5-10",7.6
+"349","CGPLOV434P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.136010272184085,"5-10",5.6
+"350","CGPLOV330P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.124631097821743,NA,NA
+"351","CGPLOV389P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.135561043843222,">10",10.3
+"352","CGPLOV495P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.158381727683759,NA,NA
+"353","CGPLOV568P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.125968732720112,">10",14.7
+"354","CGPLOV463P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.164570689303406,">10",19.6
+"355","CGPLOV567P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.168189702049815,"5-10",7.7
+"356","CGPLOV607P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.13798568854062,">10",13.8
+"357","CGPLOV572P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.294405214346214,">10",13
+"358","CGPLOV508P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.164540721118603,NA,NA
+"359","CGPLOV575P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.146444349158202,NA,NA
+"360","CGPLOV350P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.100948165202394,"5-10",9.6
+"361","CGPLOV351P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.197113840417699,">10",12.2
+"362","CGPLOV438P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.0944040845234444,">10",12.5
+"363","CGPLOV464P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.108170644040733,"5-10",5.3
+"364","CGPLOV571P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.27978844945691,">10",11
+"365","CGPLOV393P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.136143033768008,"5-10",9.8
+"366","CGPLOV439P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.170372309942357,">10",12.4
+"367","CGPLOV577P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.360176673048508,">10",18
+"368","CGPLOV353P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119622681817037,"<5",1.5
+"369","CGPLOV509P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.166396766206587,">10",11.1
+"370","CGPLOV441P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.124848470418633,"5-10",8.1
+"371","CGPLOV437P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.121677579196744,"<5",2.6
+"372","CGPLOV608P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.158203982768534,">10",10.3
+"373","CGPLOV510P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.213549637049847,">10",21.3
+"374","CGPLOV442P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119399485106765,"5-10",7
+"375","CGPLOV446P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.167405826914012,">10",32
+"376","CGPLOV373P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.25859731611996,">10",20.8
+"377","CGPLOV368P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.126167275192972,NA,NA
+"378","CGPLOV371P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.160477612654204,NA,NA
+"379","CGPLOV443P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.179034305628411,"5-10",7.6
+"380","CGPLOV512P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.149687942549518,NA,NA
+"381","CGPLOV513P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.194793773961912,"5-10",8.6
+"382","CGPLOV611P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.237318795371344,"5-10",6.8
+"383","CGPLOV445P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.1813893965346,">10",12.1
+"384","CGPLOV505P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.135475976649147,NA,NA
+"385","CGPLOV468P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.247203767468298,">10",12.9
+"386","CGPLOV395P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.189302187771397,"5-10",5.6
+"387","CGPLOV394P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.13840166709504,"<5",1.7
+"388","CGPLOV448P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.144738194740107,">10",20.5
+"389","CGPLOV511P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.113175289959304,"5-10",8.1
+"390","CGPLOV396P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.151201087155984,"5-10",8.5
+"391","CGPLOV451P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.115285032527135,"<5",3
+"392","CGPLOV452P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.173486517109425,">10",15
+"393","CGPLOV514P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.233248373495402,"5-10",8.3
+"394","CGPLOV454P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.120014047894572,">10",17
+"395","CGPLOV453P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.153338035818195,">10",17.7
+"396","CGPLOV356P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.137827579271945,">10",11
+"397","CGPLOV467P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.121362916460588,">10",15
+"398","CGPLOV358P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.151904174628319,">10",11.2
+"399","CGPLOV450P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.113774093063042,">10",10.1
+"400","CGPLOV359P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.16521958106604,NA,NA
+"401","CGPLOV360P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.17507801965582,"5-10",9
+"402","CGPLOV456P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.177525719575784,">10",19.7
+"403","CGPLOV352P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.0902228057129594,">10",25
+"404","CGPLOV576P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.129367149728731,">10",16.7
+"405","CGPLOV397P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.396619599823012,NA,NA
+"406","CGPLOV457P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.111933007009246,"5-10",6.8
+"407","CGPLOV515P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.110924008669227,"5-10",6.8
+"408","CGPLOV361P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.148279435997246,">10",15
+"409","CGPLOV473P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.0944053209959401,">10",18.3
+"410","CGPLOV375P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.152232918438821,"5-10",7.5
+"411","CGPLOV471P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.224325360202401,NA,NA
+"412","CGPLOV376P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.1116662795694,">10",14
+"413","CGPLOV600P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.161853855419691,NA,NA
+"414","CGPLOV466P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.223587093884796,">10",24.5
+"415","CGPLOV362P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.201433232334374,">10",14
+"416","CGPLOV335P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.173092663158083,NA,NA
+"417","CGPLOV472P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.131902085680185,"5-10",9
+"418","CGPLOV334P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119320562918726,NA,NA
+"419","CGPLOV378P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.155107868927994,NA,NA
+"420","CGPLOV363P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.239664209739346,NA,NA
+"421","CGPLOV382P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.105088035871312,NA,NA
+"422","CGPLOV380P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.149192902838808,">10",20
+"423","CGPLOV364P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.122207482651293,"5-10",6.8
+"424","CGPLOV474P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.114308490559001,"5-10",5.3
+"425","CGPLOV517P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.121248377431804,NA,NA
+"426","CGPLOV519P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.166859471871203,NA,NA
+"427","CGPLOV523P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.138522847261746,">10",16.2
+"428","CGPLOV338P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.133413291738945,"<5",1
+"429","CGPLOV532P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.1886608590486,"5-10",8
+"430","CGPLOV478P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.1266511806304,">10",20
+"431","CGPLOV412P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.16750545415077,"5-10",9.9
+"432","CGPLOV526P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.156207810469946,"5-10",8.3
+"433","CGPLOV591P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.238503048626566,">10",12
+"434","CGPLOV590P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.155505862552508,">10",15
+"435","CGPLOV481P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.383124549903712,"<5",3.5
+"436","CGPLOV407P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.147224479766063,">10",12.9
+"437","CGPLOV480P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.166988154439281,">10",11.2
+"438","CGPLOV367P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.398105186221922,">10",20
+"439","CGPLOV411P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.13333383614799,">10",12.4
+"440","CGPLOV406P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.155969429033178,">10",13
+"441","CGPLOV521P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.137974339333779,">10",11.7
+"442","CGPLOV524P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.188099862084662,NA,NA
+"443","CGPLOV483P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119996969344809,">10",110
+"444","CGPLOV344P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.185829672481314,"5-10",5.9
+"445","CGPLOV413P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.192388667052039,"5-10",6.6
+"446","CGPLOV415P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.178924549393082,NA,NA
+"447","CGPLOV531P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.168735248486909,">10",17.3
+"448","CGPLOV485P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.252525231703974,">10",10.3
+"449","CGPLOV487P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.111275658273116,"5-10",6
+"450","CGPLOV399P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.157895410827362,">10",18
+"451","CGPLOV525P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.119643732025473,"5-10",6
+"452","CGPLOV488P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.14510355769653,"5-10",5.2
+"453","CGPLOV465P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.129692381347772,">10",11.1
+"454","CGPLOV490P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.19084668311516,"5-10",5.5
+"455","CGPLOV417P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.255423060967685,">10",13
+"456","CGPLOV493P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.200731648264619,"<5",2.93
+"457","CGPLOV161P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.279024144705167,">10",16
+"458","CGPLOV459P","cancer","HGSOC","III","Diagnostic ZEUS",0.997387073872102,"5-10",7.9
+"459","CGPLOV320P","cancer","HGSOC","IV","Diagnostic ZEUS",0.99999999999961,NA,NA
+"460","CGPLOV326P","cancer","Endometrioid","I","Diagnostic ZEUS",0.321899146550301,NA,NA
+"461","CGPLOV556P","cancer","HGSOC","III","Diagnostic ZEUS",0.950644721155217,NA,NA
+"462","CGPLOV566P","cancer","Clear Cell","II","Diagnostic ZEUS",0.235322816421031,NA,NA
+"463","CGPLOV565P","cancer","HGSOC","III","Diagnostic ZEUS",0.90249499570056,">10",14
+"464","CGPLOV561P","cancer","HGSOC","I","Diagnostic ZEUS",0.347488275747809,NA,NA
+"465","CGPLOV592P","cancer","Clear Cell","II","Diagnostic ZEUS",0.695870528347821,">10",13
+"466","CGPLOV497P","cancer","HGSOC","III","Diagnostic ZEUS",0.990060988008879,">10",16
+"467","CGPLOV606P","cancer","Endometrioid","I","Diagnostic ZEUS",0.25932317452158,"5-10",6.7
+"468","CGPLOV569P","cancer","HGSOC","III","Diagnostic ZEUS",0.982652880476105,"5-10",9.8
+"469","CGPLOV578P","cancer","HGSOC","III","Diagnostic ZEUS",0.995335188243336,"5-10",9.5
+"470","CGPLOV574P","cancer","HGSOC","III","Diagnostic ZEUS",0.165154211498423,"5-10",6.5
+"471","CGPLOV392P","cancer","HGSOC","I","Diagnostic ZEUS",0.241047707263535,">10",12
+"472","CGPLOV573P","cancer","Endometrioid","Unknown","Diagnostic ZEUS",0.228095843749465,">10",13.6
+"473","CGPLOV331P","cancer","Mucinous","I","Diagnostic ZEUS",0.115101982217987,NA,NA
+"474","CGPLOV597P","cancer","LGSOC","III","Diagnostic ZEUS",0.728192433173393,NA,NA
+"475","CGPLOV372P","cancer","HGSOC","II","Diagnostic ZEUS",0.997529724435355,">10",18
+"476","CGPLOV374P","cancer","HGSOC","III","Diagnostic ZEUS",0.554910159836065,NA,NA
+"477","CGPLOV332P","cancer","Endometrioid","I","Diagnostic ZEUS",0.232756124858086,NA,NA
+"478","CGPLOV462P","cancer","Clear Cell","I","Diagnostic ZEUS",0.159085419166634,"5-10",8.9
+"479","CGPLOV444P","cancer","HGSOC","II","Diagnostic ZEUS",0.254387632201034,">10",14.1
+"480","CGPLOV377P","cancer","HGSOC","III","Diagnostic ZEUS",0.971397614293094,"<5",1
+"481","CGPLOV355P","cancer","Endometrioid","III","Diagnostic ZEUS",0.485302604793377,">10",11
+"482","CGPLOV357P","cancer","Clear Cell","I","Diagnostic ZEUS",0.338348913766879,NA,NA
+"483","CGPLOV370P","cancer","Mucinous","I","Diagnostic ZEUS",0.313307694547883,">10",16
+"484","CGPLOV496P","cancer","LGSOC","II","Diagnostic ZEUS",0.154722529397284,">10",10.2
+"485","CGPLOV470P","cancer","Mucinous","I","Diagnostic ZEUS",0.150298609175897,">10",25
+"486","CGPLOV516P","cancer","HGSOC","II","Diagnostic ZEUS",0.999859309897628,">10",13.3
+"487","CGPLOV580P","cancer","Endometrioid","II","Diagnostic ZEUS",0.491972610344174,">10",12
+"488","CGPLOV379P","cancer","Endometrioid","I","Diagnostic ZEUS",0.974011827274897,">10",25
+"489","CGPLOV449P","cancer","Mucinous","I","Diagnostic ZEUS",0.231933882556053,">10",21.9
+"490","CGPLOV584P","cancer","HGSOC","Unknown","Diagnostic ZEUS",0.650091696603904,">10",12.8
+"491","CGPLOV398P","cancer","HGSOC","III","Diagnostic ZEUS",0.307871089993169,">10",12
+"492","CGPLOV384P","cancer","LGSOC","III","Diagnostic ZEUS",0.208164605241966,NA,NA
+"493","CGPLOV336P","cancer","HGSOC","III","Diagnostic ZEUS",0.994418741403006,NA,NA
+"494","CGPLOV383P","cancer","Mucinous","III","Diagnostic ZEUS",0.21015695756706,">10",17
+"495","CGPLOV589P","cancer","Mucinous","I","Diagnostic ZEUS",0.187872851358631,">10",13.7
+"496","CGPLOV402P","cancer","HGSOC","III","Diagnostic ZEUS",0.974459701631552,">10",10.2
+"497","CGPLOV401P","cancer","Clear Cell","II","Diagnostic ZEUS",0.126037642779252,">10",12.5
+"498","CGPLOV520P","cancer","Endometrioid","II","Diagnostic ZEUS",0.414957866439053,">10",16.8
+"499","CGPLOV482P","cancer","Other","IV","Diagnostic ZEUS",0.999743412010917,">10",25
+"500","CGPLOV408P","cancer","Clear Cell","II","Diagnostic ZEUS",0.24384427992735,NA,NA
+"501","CGPLOV410P","cancer","HGSOC","III","Diagnostic ZEUS",0.999999999999999,">10",19
+"502","CGPLOV340P","cancer","HGSOC","III","Diagnostic ZEUS",0.999992731668332,"5-10",9.5
+"503","CGPLOV484P","cancer",NA,"Unknown","Diagnostic ZEUS",0.173319633092787,NA,NA
+"504","CGPLOV489P","cancer","Endometrioid","Unknown","Diagnostic ZEUS",0.993581692541355,"5-10",9.2
+"505","CGPLOV414P","cancer","Mixed","II","Diagnostic ZEUS",0.371356672669674,">10",16.3
+"506","CGPLOV339P","cancer","HGSOC","III","Diagnostic ZEUS",0.660442966823248,NA,NA
+"507","CGPLOV343P","cancer","Endometrioid","II","Diagnostic ZEUS",0.191705657707984,">10",18.3
+"508","CGPLOV345P","cancer","Other","II","Diagnostic ZEUS",0.58221426775248,">10",15
+"509","CGPLOV418P","cancer","Mucinous","I","Diagnostic ZEUS",0.272320857215619,">10",17
+"510","PGDX26279P","healthy","0","Non-cancer","Diagnostic ZEUS",0.688934768773533,"<5",2.6
+"511","PGDX26278P","healthy","0","Non-cancer","Diagnostic ZEUS",0.272552800059858,NA,NA
+"512","PGDX26277P","healthy","0","Non-cancer","Diagnostic ZEUS",0.229053930874611,"<5",3.6
+"513","PGDX26276P","healthy","0","Non-cancer","Diagnostic ZEUS",0.242363198458069,NA,NA
+"514","PGDX26275P","healthy","0","Non-cancer","Diagnostic ZEUS",0.174996709336054,">10",18
+"515","PGDX26273P","healthy","0","Non-cancer","Diagnostic ZEUS",0.234999925948717,">10",24
+"516","PGDX26272P","healthy","0","Non-cancer","Diagnostic ZEUS",0.179995845577574,">10",11
+"517","PGDX26271P","healthy","0","Non-cancer","Diagnostic ZEUS",0.262960740394515,"<5",3.8
+"518","PGDX25883P","healthy","0","Non-cancer","Diagnostic ZEUS",0.207790799628564,"5-10",7.4
+"519","PGDX25882P","healthy","0","Non-cancer","Diagnostic ZEUS",0.319497232335117,">10",10
+"520","PGDX25879P","healthy","0","Non-cancer","Diagnostic ZEUS",0.254209159340989,">10",12
+"521","PGDX25872P","healthy","0","Non-cancer","Diagnostic ZEUS",0.209400032653394,"5-10",9.4
+"522","PGDX25870P","healthy","0","Non-cancer","Diagnostic ZEUS",0.202482622522695,"<5",4.5
+"523","PGDX25868P","healthy","0","Non-cancer","Diagnostic ZEUS",0.244700085786634,"5-10",6.3
+"524","PGDX25867P","healthy","0","Non-cancer","Diagnostic ZEUS",0.342353478867001,">10",20
+"525","PGDX25866P","healthy","0","Non-cancer","Diagnostic ZEUS",0.170130598007605,">10",10
+"526","PGDX25865P","healthy","0","Non-cancer","Diagnostic ZEUS",0.241732869476585,"5-10",7
+"527","PGDX25857P","cancer","Mucinous","I","Diagnostic ZEUS",0.194759515355392,NA,NA
+"528","PGDX25855P","healthy","0","Non-cancer","Diagnostic ZEUS",0.347715890929838,NA,NA
+"529","PGDX25842P","healthy","0","Non-cancer","Diagnostic ZEUS",0.238391166502448,NA,NA
+"530","PGDX25841P","healthy","0","Non-cancer","Diagnostic ZEUS",0.208265172502311,NA,NA
+"531","PGDX25840P","healthy","0","Non-cancer","Diagnostic ZEUS",0.295245062156113,"5-10",9.8
+"532","PGDX25830P","cancer","Endometrioid","II","Diagnostic ZEUS",0.573020196479112,"5-10",8.7
+"533","PGDX25829P","cancer","Clear Cell","II","Diagnostic ZEUS",0.35527449000441,">10",12
+"534","PGDX25827P","cancer","Sarcoma","III","Diagnostic ZEUS",0.528825669410465,">10",13
+"535","PGDX25809P","cancer","HGSOC","II","Diagnostic ZEUS",0.918287434635323,">10",12
+"536","PGDX25801P","cancer","Granulosa","II","Diagnostic ZEUS",0.288951214381495,"5-10",5
+"537","PGDX25800P","cancer","Endometrioid","I","Diagnostic ZEUS",0.798073139282091,">10",20
+"538","PGDX25799P","cancer","HGSOC","III","Diagnostic ZEUS",0.647758585949734,">10",12
+"539","PGDX25796P","cancer","HGSOC","III","Diagnostic ZEUS",0.659824166091703,"5-10",8.3
+"540","PGDX25795P","cancer","HGSOC","III","Diagnostic ZEUS",0.518536315801259,"5-10",7
+"541","PGDX25793P","cancer","HGSOC","III","Diagnostic ZEUS",0.999101734849848,">10",13
+"542","PGDX25772P","cancer","HGSOC","I","Diagnostic ZEUS",0.999996514619334,">10",12
+"543","PGDX25771P","cancer","Endometrioid","I","Diagnostic ZEUS",0.897799082608039,">10",23
+"544","PGDX25770P","cancer","Clear Cell","I","Diagnostic ZEUS",0.314668911803072,">10",18.4
+"545","PGDX25769P","cancer","LGSOC","I","Diagnostic ZEUS",0.395190778770709,">10",18
+"546","PGDX25768P","cancer","LGSOC","III","Diagnostic ZEUS",0.277507342888045,">10",17
+"547","PGDX25767P","cancer","HGSOC","I","Diagnostic ZEUS",0.277527071808519,"5-10",7.1
+"548","PGDX25765P","cancer","Granulosa","I","Diagnostic ZEUS",0.19788153873391,"5-10",9.8
+"549","PGDX25707P","cancer","HGSOC","I","Diagnostic ZEUS",0.338096989249563,"5-10",5.5
+"550","PGDX25706P","cancer","LGSOC","II","Diagnostic ZEUS",0.585156302585326,"5-10",5
+"551","PGDX25705P","cancer","Poorly Diff.","I","Diagnostic ZEUS",0.907255786754763,">10",10
+"552","PGDX25704P","cancer","Endometrioid","I","Diagnostic ZEUS",0.946722546752021,"5-10",8.8
+"553","PGDX25698P","cancer","Clear Cell","II","Diagnostic ZEUS",0.417700849432237,NA,NA
+"554","PGDX25684P","cancer","HGSOC","III","Diagnostic ZEUS",0.868411232783756,"5-10",7
+"555","PGDX25683P","cancer","HGSOC","II","Diagnostic ZEUS",0.999984639295262,"5-10",8
+"556","PGDX25682P","cancer","Clear Cell","I","Diagnostic ZEUS",0.250984551094332,">10",19.6
+"557","PGDX25577P","cancer","Mucinous","I","Diagnostic ZEUS",0.266367372443914,">10",18
+"558","PGDX25573P","cancer","LGSOC","III","Diagnostic ZEUS",0.716504521805271,"5-10",7.5
+"559","PGDX26258P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.276763134879996,"5-10",9.9
+"560","PGDX26069P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.313099233724594,">10",11
+"561","PGDX25881P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.294842964856191,">10",28
+"562","PGDX26054P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.57512212573429,">10",15
+"563","PGDX26257P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.507328082167932,"5-10",7.9
+"564","PGDX25885P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.274623074773395,"5-10",6.5
+"565","PGDX25886P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.200060908364437,"5-10",5.9
+"566","PGDX26263P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.256114194895262,">10",35
+"567","PGDX25884P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.243886793184837,">10",15
+"568","PGDX26261P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.275750656754152,">10",10.7
+"569","PGDX25869P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.304644482753987,">10",24.8
+"570","PGDX26264P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.415539367430837,">10",17
+"571","PGDX26256P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.493363451424123,">10",22
+"572","PGDX25880P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.231300538178081,"5-10",5.8
+"573","PGDX25856P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.327407828375818,">10",20
+"574","PGDX26055P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.304314403381544,"5-10",7
+"575","PGDX26260P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.666643369345371,">10",11.5
+"576","PGDX26259P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.401109439422054,">10",14
+"577","PGDX26066P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.39028804742752,">10",16.5
+"578","PGDX26274P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.377302383685467,">10",12
+"579","PGDX25864P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.219440141058886,">10",11
+"580","PGDX25887P","healthy",NA,"Non-cancer","Diagnostic ZEUS",0.192107059318206,">10",20
+"581","PGDX25703P","cancer","Mucinous","II","Diagnostic ZEUS",0.272843617605375,"5-10",5.7
+"582","PGDX25798P","cancer","Other","I","Diagnostic ZEUS",0.30170237822927,">10",20
+"583","PGDX25693P","cancer","HGSOC","I","Diagnostic ZEUS",0.993305921391762,"5-10",7
+"584","PGDX25824P","cancer","Other","I","Diagnostic ZEUS",0.99953645907174,">10",13
+"585","PGDX25797P","cancer","Clear Cell","II","Diagnostic ZEUS",0.240989817802288,">10",14
+"586","PGDX25574P","cancer","Mucinous","I","Diagnostic ZEUS",0.176025676484654,"<5",1.4
+"587","PGDX25766P","cancer","HGSOC","II","Diagnostic ZEUS",0.586132135865693,"5-10",7.7
+"588","PGDX25696P","cancer","HGSOC","II","Diagnostic ZEUS",0.672452349950471,"5-10",7.5
+"589","PGDX25576P","cancer","Giant Cell","I","Diagnostic ZEUS",0.992333703945411,">10",15
+"590","PGDX25695P","cancer","Mucinous","II","Diagnostic ZEUS",0.198908282492629,">10",26
+"591","PGDX25825P","cancer","HGSOC","II","Diagnostic ZEUS",0.999999135436593,">10",15
+"592","PGDX25692P","cancer","HGSOC","III","Diagnostic ZEUS",0.988969660736976,">10",15
+"593","PGDX25794P","cancer","HGSOC","III","Diagnostic ZEUS",0.835996357455345,">10",11
+"594","PGDX25697P","cancer","HGSOC","III","Diagnostic ZEUS",0.725547261712049,"5-10",7.7

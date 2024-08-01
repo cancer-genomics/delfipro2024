@@ -1,0 +1,300 @@
+---
+title: "Fig 4"
+site: workflowr::wflow_site
+output:
+  workflowr::wflow_html:
+    toc: false
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r packages, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(data.table)
+library(RColorBrewer)
+library(grid)
+library(gridExtra)
+library(here)
+library(ggstance)
+library(readxl)
+library(devtools)
+devtools::load_all(here("code","liver.tools"))
+```
+Read in Noushin's data for TCGA figure
+
+```{r data}
+fig.data <- readRDS(here('data', 'tcga', 'data.rds'))
+```
+
+## TCGA copy number
+
+TCGA figure panel -- problems, chromosome widths, making the panel match size of one facet in z-score panel
+
+```{r plot, fig.height= 23, fig.width=8,dev=c("png", "pdf")}
+setDT(fig.data)
+fig.data[,bin:=as.factor(rev(bin))][]
+fig.data$disease<-"TCGA Ovarian Cancers\n(n = 597)"
+plot <- fig.data %>%
+    mutate(disease="TCGA Ovarian Cancers\n(n = 597)") %>%
+    ggplot(aes(x=value, y=bin, color=change, fill=change)) +
+    facet_grid(arm~disease, scales = 'free_y') + ##,
+    ##           switch = 'y')+#, space = 'free')+
+    ##facet_wrap(~arm, ncol=1, scales="free_y") + ##
+    geom_col() +
+    scale_x_continuous() +
+    #scale_fill_brewer(palette = 'Set1')+
+    #scale_color_brewer(palette = 'Set1')+
+    scale_color_manual(values=c("red3","#18468B"))+
+    scale_fill_manual(values=c("red3","#18468B"))+
+    theme_minimal(base_size=24) +
+    theme(strip.text.y = element_text(angle = 0,
+                                      hjust = 0.5,
+                                      vjust = 0.5,
+                                      size=20),
+          strip.text.x=element_text(size=20),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+          panel.grid =  element_blank(),
+          legend.title = element_blank(),
+          legend.position="bottom",
+          axis.title.x = element_blank(),
+          strip.background = element_blank()) + ##removing label
+    #xlab("Proportion of\ncases with CNV") +
+    ylab("Chromosome Arm")
+```
+
+## Ovarian study z-scores
+
+The z-score's with our data panel. Problems -- chromosome width.
+
+```{r z_scores}
+meta<-fread(here("data","metadata.csv"))
+meta<-meta %>% select(-V1) %>% mutate(classifier_type2=if_else(id=="CGPLOV161P","Benign",classifier_type2))
+
+data<-fread(here("data","screening_train_data.csv")) %>% select(-type)
+data2<-fread(here("data","diag_train_data.csv")) %>% filter(type=="healthy") %>% select(-type)
+data<-rbind(data,data2)
+
+data<-inner_join(data,meta %>% select(id,classifier_type),by="id") %>% rename(type=classifier_type)
+
+
+
+features<-data
+
+cols <- brewer.pal(7,"Set1")
+cols[3] <- cols[4]
+
+features <- features %>% select(id,starts_with("z"))
+features <- inner_join(features, meta %>%
+                                     select(id,`classifier_type2`),
+                           by=c("id"="id"))
+
+
+
+
+datx<-read_csv(here("data/scores","All_Scores_CV.csv"))
+datx<-datx %>% filter(training_set_include_screening=="yes"|training_set_include_diag=="yes")
+datx<-datx %>% select(id,classifier_type,`Screening ZEUS`,`Diagnostic ZEUS`,subtype_simple,stage)
+datx<-datx %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+features<-features %>% filter(id %in% datx$id)
+
+inner_join(features %>% select(id,classifier_type2),datx %>% select(model,id,classifier_type),by="id")
+
+features <- features %>%
+        gather(key="Arm", value="Zscore", starts_with("z"))
+    features$Arm <- sapply( str_split(features$Arm,"_"), "[", 2 )
+
+    chrlevels <- c("1p","1q","2p","2q","3p","3q","4p","4q","5p",
+                   "5q","6p","6q","7p","7q","8p","8q","9p","9q",
+                   "10p","10q","11p","11q","12p","12q",
+                   "13q","14q","15q","16p","16q","17p","17q",
+                   "18p","18q","19p","19q","20p","20q","21q","22q")
+    features$Arm <- factor(features$Arm,
+                           levels = chrlevels)
+    features <- features %>% mutate(colors=if_else(Zscore<=0,"Negative","Positive"))
+    ##features$colors<-factor(features$colors,levels=c("Positive","Negative"))
+    ##Z-score for two-tailed p-value .05 w/ bonferroni correction for 39 arms
+    features <- features %>%
+        mutate(colors=if_else(Zscore>= -3.22 & Zscore <= 3.22 ,
+                              "Neutral", features$colors))
+    ##features<- features %>% mutate(transp=if_else(colors=="Neutral",.9,.2))
+    ##features<- features %>% mutate(transp=if_else(colors=="Neutral",.05,.99))
+    features <- features %>% mutate(transp=if_else(colors=="Neutral",1,1))
+    ##features<-features %>% mutate(colors=if_else(Zscore<=0,"Negative","Positive"))
+    features$colors<-factor(features$colors,levels=c("Positive","Negative","Neutral"))
+    features$y=1
+    ##features$log<-log10(abs(features$Zscore))
+    ##features <- features %>% mutate(log=if_else(Zscore<=0,-1*log,log))
+    features <- features %>% mutate(Zscore=if_else(Zscore<= -75,-75,Zscore))
+    features <- features %>% mutate(Zscore=if_else(Zscore>75,75,Zscore))
+    features <- features %>%
+        mutate(`type`=if_else(`classifier_type2`=="cancer","Ovarian Cancer",classifier_type2))
+      features <- features %>%
+        mutate(`type`=if_else(`classifier_type2`=="non-cancer","Non-cancer",type))
+
+    features$type <- factor(features$`type`,
+                                  levels=c("Ovarian Cancer","Benign","Non-cancer"))
+    features2  <- features %>%
+        rename(z=Zscore) %>%
+        mutate(root2=nroot(z, 2)) %>%
+        mutate(root3=nroot(z, 3))
+
+
+features2 <- features2  %>%
+    select(id, type, Arm,
+           z, root2, root3, y, colors, transp)
+###YOU ARE HERE AFTER LUNCH!!!
+ns <- features2 %>%
+    group_by(type) %>%
+    summarize(n=length(unique(id))) %>%
+    mutate(label=paste0(type, "\n(n = ", n, ")"))
+ns <- setNames(ns$label, ns$type)
+cols[2]<-"#18468B"
+cols[1]<-"red3"
+
+zplot_cancer <- features2 %>%
+    ggplot(aes(x=y, y=z, color=colors, alpha=transp)) +
+    geom_point(size=5) +
+    facet_grid(Arm ~ type, scales = 'free_y',labeller=labeller(type=ns)) +
+    coord_flip() +
+    theme_minimal(base_size=24) +
+    theme(strip.text.y.left = element_text(angle = 0,
+                                           hjust = 0.5,
+                                           vjust = 0.5),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+
+          panel.grid =  element_blank(),
+          plot.title = element_blank(),
+          legend.title = element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "bottom",
+          strip.text.y = element_blank(),
+          axis.title.x = element_blank()) + #####removing label
+    scale_y_continuous(limits = c(-75,75),breaks=c(-70,0,70)) +
+    scale_alpha_identity() +
+    scale_fill_manual(values = cols) +
+    scale_color_manual(values = cols) #+
+    #ylab("Z-Score")
+```
+
+
+```{r z_scores2}
+meta<-fread(here("data","metadata.csv"))
+meta<-meta %>% select(-V1) %>% mutate(classifier_type2=if_else(id=="CGPLOV161P","Benign",classifier_type2))
+
+data<-fread(here("data","screening_test_data.csv")) %>% select(-type)
+data2<-fread(here("data","diag_test_data.csv")) %>% filter(type=="healthy") %>% select(-type)
+data<-rbind(data,data2)
+
+data<-inner_join(data,meta %>% select(id,classifier_type),by="id") %>% rename(type=classifier_type)
+
+
+
+features<-data
+
+cols <- brewer.pal(7,"Set1")
+cols[3] <- cols[4]
+
+features <- features %>% select(id,starts_with("z"))
+features <- inner_join(features, meta %>%
+                                     select(id,`classifier_type2`),
+                           by=c("id"="id"))
+
+
+
+
+datx<-read_csv(here("data/scores","All_Scores_Val.csv"))
+datx<-datx %>% filter(screen_val=="yes"|diag_val=="yes")
+datx<-datx %>% select(id,classifier_type,`Screening ZEUS`,`Diagnostic ZEUS`,subtype_simple,stage)
+datx<-datx %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+features<-features %>% filter(id %in% datx$id)
+
+features <- features %>%
+        gather(key="Arm", value="Zscore", starts_with("z"))
+    features$Arm <- sapply( str_split(features$Arm,"_"), "[", 2 )
+
+    chrlevels <- c("1p","1q","2p","2q","3p","3q","4p","4q","5p",
+                   "5q","6p","6q","7p","7q","8p","8q","9p","9q",
+                   "10p","10q","11p","11q","12p","12q",
+                   "13q","14q","15q","16p","16q","17p","17q",
+                   "18p","18q","19p","19q","20p","20q","21q","22q")
+    features$Arm <- factor(features$Arm,
+                           levels = chrlevels)
+    features <- features %>% mutate(colors=if_else(Zscore<=0,"Negative","Positive"))
+    ##features$colors<-factor(features$colors,levels=c("Positive","Negative"))
+    ##Z-score for two-tailed p-value .05 w/ bonferroni correction for 39 arms
+    features <- features %>%
+        mutate(colors=if_else(Zscore>= -3.22 & Zscore <= 3.22 ,
+                              "Neutral", features$colors))
+    ##features<- features %>% mutate(transp=if_else(colors=="Neutral",.9,.2))
+    ##features<- features %>% mutate(transp=if_else(colors=="Neutral",.05,.99))
+    features <- features %>% mutate(transp=if_else(colors=="Neutral",1,1))
+    ##features<-features %>% mutate(colors=if_else(Zscore<=0,"Negative","Positive"))
+    features$colors<-factor(features$colors,levels=c("Positive","Negative","Neutral"))
+    features$y=1
+    ##features$log<-log10(abs(features$Zscore))
+    ##features <- features %>% mutate(log=if_else(Zscore<=0,-1*log,log))
+    features <- features %>% mutate(Zscore=if_else(Zscore<= -75,-75,Zscore))
+    features <- features %>% mutate(Zscore=if_else(Zscore>75,75,Zscore))
+    features <- features %>%
+        mutate(`type`=if_else(`classifier_type2`=="cancer","Ovarian Cancer",classifier_type2))
+      features <- features %>%
+        mutate(`type`=if_else(`classifier_type2`=="non-cancer","Non-cancer",type))
+
+    features$type <- factor(features$`type`,
+                                  levels=c("Ovarian Cancer","Benign","Non-cancer"))
+    features2  <- features %>%
+        rename(z=Zscore) %>%
+        mutate(root2=nroot(z, 2)) %>%
+        mutate(root3=nroot(z, 3))
+
+
+features2 <- features2  %>%
+    select(id, type, Arm,
+           z, root2, root3, y, colors, transp)
+###YOU ARE HERE AFTER LUNCH!!!
+ns <- features2 %>%
+    group_by(type) %>%
+    summarize(n=length(unique(id))) %>%
+    mutate(label=paste0(type, "\n(n = ", n, ")"))
+ns <- setNames(ns$label, ns$type)
+cols[2]<-"#18468B"
+cols[1]<-"red3"
+
+zplot_cancer_val <- features2 %>%
+    ggplot(aes(x=y, y=z, color=colors, alpha=transp)) +
+    geom_point(size=5) +
+    facet_grid(Arm ~ type, scales = 'free_y',labeller=labeller(type=ns)) +
+    coord_flip() +
+    theme_minimal(base_size=24) +
+    theme(strip.text.y.left = element_text(angle = 0,
+                                           hjust = 0.5,
+                                           vjust = 0.5),
+          axis.text.y = element_blank(),
+          axis.ticks = element_blank(),
+
+          panel.grid =  element_blank(),
+          plot.title = element_blank(),
+          legend.title = element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "bottom",
+          strip.text.y = element_blank(),
+          axis.title.x = element_blank()) + #####removing label
+    scale_y_continuous(limits = c(-75,75),breaks=c(-70,0,70)) +
+    scale_alpha_identity() +
+    scale_fill_manual(values = cols) +
+    scale_color_manual(values = cols) #+
+    #ylab("Z-Score")
+```
+Adding together the TCGA and z-score panel -- problems -- chromosome width, size of TCGA panel, not yet stacked with feature importance panel.
+
+```{r cowplot, fig.height=30, fig.width=25,dev=c("png", "pdf","svg")}
+#pdf("test.pdf")
+cowplot::plot_grid(plot,zplot_cancer,zplot_cancer_val,nrow=1,align="v",axis="l")
+#dev.off() #
+```
+

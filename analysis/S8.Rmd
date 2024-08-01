@@ -1,0 +1,195 @@
+---
+title: "S8"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r background, echo=FALSE, include=FALSE}
+###################################
+# S8
+#####################################
+library(tidyverse)
+library(readxl)
+library(devtools)
+library(pROC)
+library(cowplot)
+library(here)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+#Clean out list section
+rm(list=ls());gc()
+```
+
+```{r}
+#For fragplot of the validation cohorts
+valsets<-read_csv(here("data/scores/All_Scores_Val.csv"))
+
+screen <- valsets %>% filter(screen_val == "yes" & cohort != "UPenn2")
+
+s2 <- valsets %>% filter(screen_val == "yes" & cohort == "UPenn2")
+s2$classifier_type <- gsub("healthy", "benign", s2$classifier_type)
+screen <- rbind(screen, s2)
+diag <- valsets %>% filter(diag_val == "yes" & classifier_type != "cancer")
+diag$classifier_type <- gsub("healthy", "benign", diag$classifier_type)
+fragplot <-rbind(screen, diag)
+
+frags <- read.csv(here("data/long_bins_hiseq.csv"))
+frags <- frags %>% filter(id %in% fragplot$id)
+
+frag1 <- frags %>% group_by(id) %>%
+  mutate(ratio.cor = short.cor/ long.cor,
+    ratio.scaled = scale(ratio.cor),
+    ratiovar = factor(paste0("ratio_", bin), paste0("ratio_",1:496)))
+
+frag2 <- frag1 %>% select(id, bin, arm, contains("ratio"))
+
+
+#################
+# filter for metadata
+#################
+meta <- fragplot
+
+b <- inner_join(frag2,meta, by = c("id"="id"))
+table(b$cohort)
+```
+
+```{r}
+#################################
+# calculate non-cancer median
+################################
+med.df <-
+    b %>% filter(classifier_type == "healthy") %>%
+    group_by(bin) %>%
+    mutate(healthy.ratio.med = median(ratio.scaled[classifier_type %in% c("healthy", "Healthy")]))
+
+summary.df <- b %>% group_by(id) %>%
+    mutate(ratio.hmedian = cor(unique(med.df$healthy.ratio.med), ratio.scaled,  method="pearson", use="complete.obs"), ratio.hmed.abs = abs(ratio.hmedian))
+
+summary.df %>% select(ratio.hmedian, ratio.hmed.abs) %>% distinct() %>% arrange(desc(ratio.hmedian))
+b2 <- summary.df
+
+```
+
+```{r}
+arm <-  b2 %>% group_by(arm) %>% summarize(n=n()) %>%
+  mutate(arm = as.character(arm))
+
+small.arms <- setNames(c("", "", "12q", "", "16q",
+                         "", "17q", "", "18q",
+                         "", "19", "", "20",
+                         "21", "22"),
+                       c("10p", "12p", "12q", "16p", "16q",
+                         "17p", "17q", "18p", "18q",
+                         "19p", "19q", "20p", "20q",
+                         "21q", "22q"))
+arm.labels <- setNames(arm$arm, arm$arm)
+arm.labels[names(small.arms)] <- small.arms
+
+fragment.theme2 <- theme(panel.background=element_rect(fill="white", color="white"),
+                         plot.background=element_rect(fill="white", color="white"),
+                         axis.line.y.left=element_line(color="black"),
+                         axis.line.y.right=element_line(color="black"),
+                         panel.grid.major = element_blank(),
+                         panel.grid.minor = element_blank(),
+                         strip.background=element_blank(),
+                         axis.text.x=element_blank(),
+                         axis.text.y=element_text(face = "bold", size=25, color = "black"),
+                         axis.ticks.x=element_blank(),
+                         axis.title.x=element_blank(),
+                         axis.title.y=element_text(face = "bold", size=25, color = "black"),
+                         strip.text.x = element_text(face = "bold", size = 25),
+                         strip.placement = "top",
+                         strip.text.y = element_blank(),
+                         panel.spacing=unit(0, "lines"),
+                         legend.position = "bottom",
+                         legend.key=element_rect(fill="white", color = "white"),
+                         legend.key.size=unit(3, "line"),
+                         legend.text=element_text(size=35),
+                         legend.title=element_text(size=40),
+                         legend.title.align=0.5)
+
+```
+
+```{r, fragplot generation,fig.height= 10, fig.width=30,dev=c("png", "pdf")}
+####
+# specifics to the graphic
+####
+size <- 1
+cor.lim <- range(b2$ratio.hmed.abs)
+fgrid <- facet_grid(classifier_type ~ arm,
+                    space="free_x",
+                    scales="free_x",
+                    labeller=labeller(arm=arm.labels),
+                    switch = "x")
+
+
+####
+# Plotting the graphic
+####
+b2$arm <- factor(b2$arm,levels = c("1p","1q","2p","2q","3p","3q","4p","4q","5p","5q","6p",
+                                     "6q","7p", "7q","8p","8q","9p","9q","10p","10q","11p","11q",
+                                     "12p", "12q", "13q","14q","15q","16p","16q","17p","17q","18p",
+                                     "18q","19p","19q","20p","20q","21q","22q","Xp","Xq"))
+
+
+
+b2$classifier_type <- factor(b$classifier_type, levels = c("healthy", "benign", "cancer"))
+
+library(cowplot)
+b3 <- b2 %>% group_by(id) %>% mutate(ratio.centered = scale(ratio.cor, scale = FALSE))
+b3 <- b3 %>% mutate(ratio.hmed.abs2 = ifelse(ratio.hmed.abs < 0.75, 0.75, ratio.hmed.abs)) 
+library(ggsci)
+fig <- ggplot(b3, aes(x=bin, y=ratio.centered, group=reorder(id, -ratio.hmed.abs), color = classifier_type)) +
+  geom_line(aes(color = ratio.hmed.abs2), size=size) +
+  scale_color_gradient(low="#18468B", high="gray85", limits=c(0.75,1)) +
+  ylim(-0.1,0.3) +
+  fgrid +
+  fragment.theme2 +
+  labs(x="", y="Fragmentation profile", color="Correlation to women without cancer median") +
+  guides(color=guide_legend(override.aes = list(shape = 21, size = 5, face = "bold")))
+
+fig
+```
+
+```{r,fig.height=14,fig.width=30}
+panel.labels <- b3 %>%
+  group_by(classifier_type) %>%
+  summarize(n=length(unique(id)),
+            .groups="drop") %>%
+  mutate(labels=paste0(c("Women without cancer (n=",
+                         "Women with benign lesions (n=",
+                         "Women with cancer (n="),
+                       n, ")"),
+         arm="1p") %>%
+  mutate(x=rep(3, 3), y=rep(0.2, 3))
+
+panel.labels
+
+library("cowplot"); library(grid)
+fig <- ggdraw(fig) + draw_grob(textGrob(
+  label=panel.labels$labels[1],
+  x = unit(0.15, "npc"),
+  y = unit(0.95, "npc"),
+  hjust = 0,
+  gp = gpar(fontface="bold", cex=2.5)
+))  +
+  draw_grob(textGrob(
+    label=panel.labels$labels[2],
+    x = unit(0.15, "npc"),
+    y = unit(0.67, "npc"),
+    hjust = 0,
+    gp = gpar(fontface="bold", cex=2.5)
+  )) +
+  draw_grob(textGrob(
+    label=panel.labels$labels[3],
+    x = unit(0.15, "npc"),
+    y = unit(0.375, "npc"),
+    hjust = 0,
+    gp = gpar(fontface="bold", cex=2.5)
+  )) 
+
+fig
+```
+

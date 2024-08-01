@@ -1,0 +1,167 @@
+---
+title: "S15B,C"
+author: "Jamie Medina"
+date: '2024-07-18'
+output: html_document
+---
+
+```{r S15B and C, fig.height= 12, fig.width=12,dev=c("png", "pdf")}
+###################################
+# S15B, C
+#####################################
+library(tidyverse)
+library(data.table)
+library(pROC)
+library(RColorBrewer)
+library(here)
+library(devtools)
+library(cowplot)
+library(readxl)
+library(devtools)
+load_all(here("code/useful.stuff.aa"))
+rename <- dplyr::rename
+#Clean out list section
+rm(list=ls());gc()
+
+#########################
+# Diagnostic by stage performances
+#########################
+dat<-read_csv(here("./data/scores/All_Scores_Val.csv"))
+dat<-dat %>% filter(diag_val=="yes")
+dat<-dat %>% select(id,classifier_type,ca125,`Diagnostic ZEUS`,subtype_simple,stage)
+dat<-dat %>% gather(key=model,value=score,-stage,-subtype_simple,-classifier_type,-id) %>% filter(!is.na(score))
+
+#cancer v. healthy
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|stage=="I")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"DELFI+CA125+HE4"
+c1$type<-paste0("Stage I AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|stage=="II")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("Stage II AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|stage=="III")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"DELFI+CA125+HE4"
+c3$type<-paste0("Stage III AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|stage=="IV")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"DELFI+CA125+HE4"
+c4$type<-paste0("Stage IV AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+r1<-rbind(c1,c2,c3,c4)
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+colors <- c("gray50","skyblue","pink","indianred")
+names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=type)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.6,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Diagnostic Validation by Stage")
+
+Diag_disc <-ggdraw(A)
+
+Diag_disc
+#ggsave("./docs/ROC_diag_val__Stage_060724.png", plot = Diag_disc)
+
+################
+# subtypes
+################
+#cancer v. healthy
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|subtype_simple=="HGSOC")
+c1<-format_roc(d$type,d$score,"")
+c1$model<-"DELFI+CA125+HE4"
+c1$type<-paste0("HGSOC AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|subtype_simple=="LGSOC")
+c2<-format_roc(d$type,d$score,"")
+c2$model<-"DELFI+CA125+HE4"
+c2$type<-paste0("LGSOC AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|subtype_simple=="Endometrioid")
+c3<-format_roc(d$type,d$score,"")
+c3$model<-"DELFI+CA125+HE4"
+c3$type<-paste0("Endometrioid AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|subtype_simple=="Mucinous")
+c4<-format_roc(d$type,d$score,"")
+c4$model<-"DELFI+CA125+HE4"
+c4$type<-paste0("Mucinous AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|subtype_simple=="Clear Cell")
+c5<-format_roc(d$type,d$score,"")
+c5$model<-"DELFI+CA125+HE4"
+c5$type<-paste0("Clear Cell AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+dat$type<-factor(dat$classifier_type,levels=c("healthy","cancer"))
+d<-dat %>% filter(model=="Diagnostic ZEUS") %>% filter(type=="healthy"|!subtype_simple %in% c("HGSOC","LGSOC","Endometrioid","Mucinous","Clear Cell"))
+c6<-format_roc(d$type,d$score,"")
+c6$model<-"DELFI+CA125+HE4"
+c6$type<-paste0("Other Subtypes AUC: ",round(roc(d$type,d$score)$auc[1],2)," (95% CI: ",round(roc(d$type,d$score,ci=T)$ci[1],2) ,"-",round(roc(d$type,d$score,ci=T)$ci[3],2) ,")")
+
+r1<-rbind(c1,c2,c3,c4,c5,c6)
+r1<-r1 %>% group_by(model) %>% arrange(sens)
+
+colors <- c("gray50","skyblue","pink","indianred", "purple3", "black")
+names(colors) <- c(unique(r1$type))
+
+A <- r1 %>%
+    ggplot(aes(spec, sens, group=type)) +
+    geom_line(aes(color=type), size=1.1) +
+    scale_x_reverse(expand=c(0, 0.01),
+                    breaks=c(0, 0.25, 0.5, 0.80, 1),
+                    labels=as.character(
+                        c("0", ".25", ".50", ".80", "1.0"))) +
+    scale_y_continuous(expand=c(0, 0.01),
+                       breaks=c(0, 0.25, 0.5, 0.75, 1),
+                       labels=as.character(
+                           c("0", ".25", ".50", ".75", "1.0"))) +
+    scale_color_manual(values=colors) +
+    theme_classic(base_size=20) +
+   theme(axis.title = element_text(face = "bold"),
+        axis.text.x=element_text(face = "bold"), 
+        axis.text.y=element_text(face = "bold"))+
+    theme(panel.grid=element_blank(),
+          legend.position=c(.7,.2),
+          aspect.ratio=0.8,
+          legend.text.align=1,
+          legend.title=element_text(size=20)) +
+    xlab("Specificity") + ylab("Sensitivity") + 
+    guides(color=guide_legend(title="AUC: (95% CI)", hjust=1)) + theme( strip.background = element_blank(), plot.title = element_text(hjust = 0.5))+ggtitle("Diagnostic Validation by Subtype")
+
+dx_val <-ggdraw(A)
+dx_val
+#ggsave("./docs/ROC_diag_val_060724.png", plot = dx_val)
+```
