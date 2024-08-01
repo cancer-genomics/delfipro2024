@@ -49,12 +49,21 @@ library(ggpubr)
 
 dat<-dat %>% mutate(`Diabetes Mellitus, Diabetes Type I and II`=if_else(`Diabetes Mellitus, Diabetes Type I and II`==1,"Diabetes Mellitus","None"))
 dat$`Diabetes Mellitus, Diabetes Type I and II`<-factor(dat$`Diabetes Mellitus, Diabetes Type I and II`,levels=c("None","Diabetes Mellitus"))
-p1<-ggplot(dat,aes(x=`Diabetes Mellitus, Diabetes Type I and II`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=151)","Diabetes Mellitus\n(n=7)"))
+
+ggplot(dat,aes(x=`Diabetes Mellitus, Diabetes Type I and II`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=151)","Diabetes Mellitus\n(n=7)"))
+
+#Bonferroni
+p1<-ggplot(dat,aes(x=`Diabetes Mellitus, Diabetes Type I and II`,y=`Screening ZEUS`))+theme_classic()+geom_boxplot(outlier.shape=NA,alpha=.75,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=151)","Diabetes Mellitus\n(n=7)"))+annotate("text", x=1,y=.71, label= "adjusted p-val = 1") 
+
 
 dat<-dat %>% mutate(`Arteriosclerosis`=if_else(`Arteriosclerosis`==1,"Arteriosclerosis","None"))
 dat$`Arteriosclerosis`<-factor(dat$`Arteriosclerosis`,levels=c("None","Arteriosclerosis"))
 
-p2<-ggplot(dat,aes(x=`Arteriosclerosis`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=152)","Arteriosclerosis\n(n=6)"))
+ggplot(dat,aes(x=`Arteriosclerosis`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=152)","Arteriosclerosis\n(n=6)"))
+
+#Bonferroni
+
+p2<-ggplot(dat,aes(x=`Arteriosclerosis`,y=`Screening ZEUS`))+theme_classic()+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=152)","Arteriosclerosis\n(n=6)"))+annotate("text", x=1,y=.71, label= "adjusted p-val = 0.12") 
 
 #dat<-dat %>% mutate(`Arthritis`=if_else(`Arthritis`==1,"TRUE","FALSE"))
 #ggplot(dat,aes(x=`Arthritis`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means()+geom_boxplot(outlier.shape=NA)+geom_jitter()
@@ -62,7 +71,10 @@ p2<-ggplot(dat,aes(x=`Arteriosclerosis`,y=`Screening ZEUS`))+theme_classic()+sta
 dat<-dat %>% mutate(`Hypertension`=if_else(`Hypertension`==1,"Hypertension","None"))
 dat$`Hypertension`<-factor(dat$`Hypertension`,levels=c("None","Hypertension"))
 
-p3<-ggplot(dat,aes(x=`Hypertension`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=107)","Hypertension\n(n=51)"))
+ggplot(dat,aes(x=`Hypertension`,y=`Screening ZEUS`))+theme_classic()+stat_compare_means(label.y=.71)+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=107)","Hypertension\n(n=51)"))
+
+
+p3<-ggplot(dat,aes(x=`Hypertension`,y=`Screening ZEUS`))+theme_classic()+geom_boxplot(outlier.shape=NA,alpha=.5,fill="steelblue",width=.5)+geom_jitter(width=.25)+xlab("")+ylab("DELFI-Pro Score")+scale_x_discrete(labels=c("None\n(n=107)","Hypertension\n(n=51)"))+annotate("text", x=1,y=.71, label= "adjusted p-val = 0.066") 
 
 library(cowplot)
 plot_grid(p1,p2,p3,ncol=3)

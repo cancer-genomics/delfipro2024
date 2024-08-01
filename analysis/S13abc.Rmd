@@ -251,7 +251,7 @@ data$cat<-factor(data$cat,levels=c("Benign Adnexal Mass\n(n = 203)","HGSOC\n(n =
 
 
 p<-ggplot(data,aes(x=cat,y=score))+geom_boxplot(outlier.shape=NA,alpha=.5,fill="darkblue",width=.5)+geom_jitter(color="gray50",size=1.5,width=.25,alpha=.75)+
-  facet_grid(.~group,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")
+  facet_grid(.~group,space="free",scales="free_x")+theme_classic()+theme(legend.position="none")+xlab("")+ylab("DELFI-Pro")+geom_hline(yintercept=.25,linetype="dashed",color="gray50")
 
 p
 
