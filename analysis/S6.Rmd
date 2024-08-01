@@ -24,7 +24,7 @@ rm(list=ls());gc()
 ```{r, ichor,fig.height= 12, fig.width=18,dev=c("png", "pdf")}
 ############
 # Read in dataframe
-samples <- read_excel(here("data","ichor_mfl_excel.xlsx"))
+samples <- read_excel(here("data","S6.xlsx"))
 dxd <- samples %>% filter(`Diagnostic Discovery Set` == "yes")
 screend <- samples %>% filter(`Screening Discovery Set` == "yes")
 #

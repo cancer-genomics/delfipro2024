@@ -360,7 +360,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -371,8 +371,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -385,9 +385,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>delfipro2024/</code> <span
@@ -410,21 +410,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -515,13 +512,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong0dea39c"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -530,7 +529,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 0dea39c.
+The results in this page were generated with repository version
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -550,92 +550,30 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    code/.DS_Store
     Ignored:    code/.Rhistory
+    Ignored:    code/liver.tools/.DS_Store
+    Ignored:    code/useful.stuff.aa/.DS_Store
+    Ignored:    code/useful.stuff.aa/R/.DS_Store
+    Ignored:    code/useful.stuff.aa/data/.DS_Store
+    Ignored:    code/useful.stuff.aa/raw-data/
     Ignored:    data/.DS_Store
+    Ignored:    data/scores/.DS_Store
 
 Untracked files:
-    Untracked:  CITATION.md
-    Untracked:  analysis/2A.Rmd
-    Untracked:  analysis/2B.Rmd
-    Untracked:  analysis/2c.Rmd
-    Untracked:  analysis/2d.Rmd
-    Untracked:  analysis/3abc.Rmd
-    Untracked:  analysis/3d.Rmd
-    Untracked:  analysis/4bcd.Rmd
-    Untracked:  analysis/S1.Rmd
-    Untracked:  analysis/S10B_C.Rmd
-    Untracked:  analysis/S10a.Rmd
-    Untracked:  analysis/S11.Rmd
-    Untracked:  analysis/S12.Rmd
-    Untracked:  analysis/S13abc.Rmd
-    Untracked:  analysis/S13d.Rmd
-    Untracked:  analysis/S14.Rmd
-    Untracked:  analysis/S15B_C.Rmd
-    Untracked:  analysis/S15a.Rmd
-    Untracked:  analysis/S16.Rmd
-    Untracked:  analysis/S17.Rmd
-    Untracked:  analysis/S2.Rmd
-    Untracked:  analysis/S3.Rmd
-    Untracked:  analysis/S4.Rmd
-    Untracked:  analysis/S5.Rmd
-    Untracked:  analysis/S6.Rmd
-    Untracked:  analysis/S7.Rmd
-    Untracked:  analysis/S8.Rmd
-    Untracked:  analysis/S9.Rmd
-    Untracked:  analysis/S_Source.Rmd
-    Untracked:  analysis/SessionInfo.Rmd
-    Untracked:  code/Simulation_setup.Rmd
-    Untracked:  code/allcancer_table_diag.r
-    Untracked:  code/allcancer_table_screen.r
-    Untracked:  code/collect_scores.r
-    Untracked:  code/diagnostic_model.r
-    Untracked:  code/feature_importance.Rmd
-    Untracked:  code/hgsoc_table_diag.r
-    Untracked:  code/hgsoc_table_screen.r
-    Untracked:  code/liver.tools/
-    Untracked:  code/proteins_screening_model.r
-    Untracked:  code/screening_model.r
-    Untracked:  code/useful.stuff.aa/
-    Untracked:  data/06062024_val_tumor_size.xlsx
-    Untracked:  data/2B.csv
-    Untracked:  data/2B_annot.csv
-    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
-    Untracked:  data/Proteins.csv
-    Untracked:  data/S12_data.csv
-    Untracked:  data/S12_data_p2.csv
-    Untracked:  data/S1_data.csv
-    Untracked:  data/S2_data.csv
-    Untracked:  data/S5.csv
-    Untracked:  data/S5_p2.csv
-    Untracked:  data/diag_test_data.csv
-    Untracked:  data/diag_train_data.csv
-    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
-    Untracked:  data/ichor_mfl_excel.xlsx
-    Untracked:  data/long_bins_hiseq.csv
-    Untracked:  data/metadata.csv
-    Untracked:  data/models/
-    Untracked:  data/scores/
-    Untracked:  data/screening_test_data.csv
-    Untracked:  data/screening_train_data.csv
-    Untracked:  data/simulations_metrics.csv
-    Untracked:  data/stability_superscreen.csv
-    Untracked:  data/tables/
-    Untracked:  data/tcga/
-    Untracked:  output/feature_importance.Rmd/
+    Untracked:  data/S16.xlsx
+    Untracked:  data/S17.xlsx
+    Untracked:  data/S6.xlsx
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitattributes
     Modified:   .gitignore
-    Modified:   README.md
-    Modified:   _workflowr.yml
-    Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
-    Modified:   code/README.md
-    Modified:   data/README.md
-    Modified:   delfipro2024.Rproj
-    Modified:   output/README.md
+    Modified:   analysis/S16.Rmd
+    Modified:   analysis/S17.Rmd
+    Modified:   analysis/S6.Rmd
+    Deleted:    data/06062024_val_tumor_size.xlsx
+    Deleted:    data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Deleted:    data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Deleted:    data/ichor_mfl_excel.xlsx
 
 </code></pre>
 <p>
@@ -650,10 +588,73 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/2A.Rmd</code>) and HTML
+(<code>docs/2A.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/analysis/2A.Rmd" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+start
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/cancer-genomics/delfipro2024/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/2A.html" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+start
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -732,6 +733,43 @@ fig &lt;- ggplot(b3, aes(x=bin, y=ratio.centered, group=reorder(id, -ratio.hmedi
 Warning: Please use `linewidth` instead.</code></pre>
 <pre class="r"><code>fig</code></pre>
 <p><img src="figure/2A.Rmd/fragplot%20generation-1.png" width="2880" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-fragplot-generation-1">
+Past versions of "fragplot generation-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-fragplot-generation-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/2A.Rmd/fragplot generation-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>panel.labels &lt;- b3 %&gt;%
   #filter(category != &quot;non-cancer&quot;) %&gt;%
   group_by(classifier_type) %&gt;%
@@ -775,6 +813,43 @@ fig &lt;- ggdraw(fig) + draw_grob(textGrob(
   )) 
 fig</code></pre>
 <p><img src="figure/2A.Rmd/fragplot%20generation-2.png" width="2880" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-fragplot-generation-2">
+Past versions of "fragplot generation-2.png"
+</button>
+</p>
+<div id="fig-no-spaces-fragplot-generation-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/2A.Rmd/fragplot generation-2.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -810,18 +885,18 @@ loaded via a namespace (and not attached):
  [5] digest_0.6.27    utf8_1.2.2       R6_2.5.1         cellranger_1.1.0
  [9] backports_1.2.1  reprex_2.0.1     evaluate_0.14    highr_0.9       
 [13] httr_1.4.2       pillar_1.9.0     rlang_1.1.3      rstudioapi_0.13 
-[17] jquerylib_0.1.4  rmarkdown_2.10   labeling_0.4.2   munsell_0.5.0   
-[21] broom_0.7.9      compiler_4.0.5   httpuv_1.6.2     modelr_0.1.8    
-[25] xfun_0.25        pkgconfig_2.0.3  htmltools_0.5.2  tidyselect_1.2.1
-[29] fansi_0.5.0      crayon_1.4.1     tzdb_0.1.2       dbplyr_2.1.1    
-[33] withr_3.0.0      later_1.3.0      jsonlite_1.7.2   gtable_0.3.0    
-[37] lifecycle_1.0.4  DBI_1.1.1        git2r_0.28.0     magrittr_2.0.1  
-[41] scales_1.3.0     cli_3.6.2        stringi_1.7.4    farver_2.1.0    
-[45] fs_1.5.0         promises_1.2.0.1 xml2_1.3.2       bslib_0.3.0     
-[49] ellipsis_0.3.2   generics_0.1.3   vctrs_0.6.5      tools_4.0.5     
-[53] glue_1.7.0       hms_1.1.0        fastmap_1.1.0    yaml_2.2.1      
-[57] colorspace_2.0-2 rvest_1.0.1      knitr_1.33       haven_2.4.3     
-[61] sass_0.4.0      </code></pre>
+[17] whisker_0.4      jquerylib_0.1.4  rmarkdown_2.10   labeling_0.4.2  
+[21] munsell_0.5.0    broom_0.7.9      compiler_4.0.5   httpuv_1.6.2    
+[25] modelr_0.1.8     xfun_0.25        pkgconfig_2.0.3  htmltools_0.5.2 
+[29] tidyselect_1.2.1 fansi_0.5.0      crayon_1.4.1     tzdb_0.1.2      
+[33] dbplyr_2.1.1     withr_3.0.0      later_1.3.0      jsonlite_1.7.2  
+[37] gtable_0.3.0     lifecycle_1.0.4  DBI_1.1.1        git2r_0.28.0    
+[41] magrittr_2.0.1   scales_1.3.0     cli_3.6.2        stringi_1.7.4   
+[45] farver_2.1.0     fs_1.5.0         promises_1.2.0.1 xml2_1.3.2      
+[49] bslib_0.3.0      ellipsis_0.3.2   generics_0.1.3   vctrs_0.6.5     
+[53] tools_4.0.5      glue_1.7.0       hms_1.1.0        fastmap_1.1.0   
+[57] yaml_2.2.1       colorspace_2.0-2 rvest_1.0.1      knitr_1.33      
+[61] haven_2.4.3      sass_0.4.0      </code></pre>
 </div>
 
 

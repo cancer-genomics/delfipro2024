@@ -19,7 +19,7 @@ library(here)
 rm(list=ls());gc()
 
 #### tumor size in validation set again
-dat<-read_xlsx(here("data/06062024_val_tumor_size.xlsx"))
+dat<-read_xlsx(here("data/S16.xlsx"))
 dat$`LARGESTTMSIZE(CM)` <- as.numeric(dat$`LARGESTTMSIZE(CM)`)
 dat2 <- dat %>% drop_na(`LARGESTTMSIZE(CM)`) %>% select(`LARGESTTMSIZE(CM)`, `ADDTOTAL(CM)`, TUMQUANT, SCRNDELFIPRO, DIAGDELFIPRO)
 

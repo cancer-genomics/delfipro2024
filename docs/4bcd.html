@@ -357,7 +357,7 @@ future studies</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -368,8 +368,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -382,9 +382,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>delfipro2024/</code> <span
@@ -407,21 +407,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -512,13 +509,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong0dea39c">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea">
 <span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>Repository version:</strong> 0dea39c
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>
 </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong0dea39c"
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -527,7 +526,8 @@ and connecting the code version to the results is critical for
 reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 0dea39c.
+The results in this page were generated with repository version
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -547,92 +547,30 @@ Ignored files:
     Ignored:    analysis/.Rhistory
     Ignored:    code/.DS_Store
     Ignored:    code/.Rhistory
+    Ignored:    code/liver.tools/.DS_Store
+    Ignored:    code/useful.stuff.aa/.DS_Store
+    Ignored:    code/useful.stuff.aa/R/.DS_Store
+    Ignored:    code/useful.stuff.aa/data/.DS_Store
+    Ignored:    code/useful.stuff.aa/raw-data/
     Ignored:    data/.DS_Store
+    Ignored:    data/scores/.DS_Store
 
 Untracked files:
-    Untracked:  CITATION.md
-    Untracked:  analysis/2A.Rmd
-    Untracked:  analysis/2B.Rmd
-    Untracked:  analysis/2c.Rmd
-    Untracked:  analysis/2d.Rmd
-    Untracked:  analysis/3abc.Rmd
-    Untracked:  analysis/3d.Rmd
-    Untracked:  analysis/4bcd.Rmd
-    Untracked:  analysis/S1.Rmd
-    Untracked:  analysis/S10B_C.Rmd
-    Untracked:  analysis/S10a.Rmd
-    Untracked:  analysis/S11.Rmd
-    Untracked:  analysis/S12.Rmd
-    Untracked:  analysis/S13abc.Rmd
-    Untracked:  analysis/S13d.Rmd
-    Untracked:  analysis/S14.Rmd
-    Untracked:  analysis/S15B_C.Rmd
-    Untracked:  analysis/S15a.Rmd
-    Untracked:  analysis/S16.Rmd
-    Untracked:  analysis/S17.Rmd
-    Untracked:  analysis/S2.Rmd
-    Untracked:  analysis/S3.Rmd
-    Untracked:  analysis/S4.Rmd
-    Untracked:  analysis/S5.Rmd
-    Untracked:  analysis/S6.Rmd
-    Untracked:  analysis/S7.Rmd
-    Untracked:  analysis/S8.Rmd
-    Untracked:  analysis/S9.Rmd
-    Untracked:  analysis/S_Source.Rmd
-    Untracked:  analysis/SessionInfo.Rmd
-    Untracked:  code/Simulation_setup.Rmd
-    Untracked:  code/allcancer_table_diag.r
-    Untracked:  code/allcancer_table_screen.r
-    Untracked:  code/collect_scores.r
-    Untracked:  code/diagnostic_model.r
-    Untracked:  code/feature_importance.Rmd
-    Untracked:  code/hgsoc_table_diag.r
-    Untracked:  code/hgsoc_table_screen.r
-    Untracked:  code/liver.tools/
-    Untracked:  code/proteins_screening_model.r
-    Untracked:  code/screening_model.r
-    Untracked:  code/useful.stuff.aa/
-    Untracked:  data/06062024_val_tumor_size.xlsx
-    Untracked:  data/2B.csv
-    Untracked:  data/2B_annot.csv
-    Untracked:  data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
-    Untracked:  data/Proteins.csv
-    Untracked:  data/S12_data.csv
-    Untracked:  data/S12_data_p2.csv
-    Untracked:  data/S1_data.csv
-    Untracked:  data/S2_data.csv
-    Untracked:  data/S5.csv
-    Untracked:  data/S5_p2.csv
-    Untracked:  data/diag_test_data.csv
-    Untracked:  data/diag_train_data.csv
-    Untracked:  data/final_list_ovarian_3_15_24_benign_masses.xlsx
-    Untracked:  data/ichor_mfl_excel.xlsx
-    Untracked:  data/long_bins_hiseq.csv
-    Untracked:  data/metadata.csv
-    Untracked:  data/models/
-    Untracked:  data/scores/
-    Untracked:  data/screening_test_data.csv
-    Untracked:  data/screening_train_data.csv
-    Untracked:  data/simulations_metrics.csv
-    Untracked:  data/stability_superscreen.csv
-    Untracked:  data/tables/
-    Untracked:  data/tcga/
-    Untracked:  output/feature_importance.Rmd/
+    Untracked:  data/S16.xlsx
+    Untracked:  data/S17.xlsx
+    Untracked:  data/S6.xlsx
 
 Unstaged changes:
     Modified:   .Rprofile
     Modified:   .gitattributes
     Modified:   .gitignore
-    Modified:   README.md
-    Modified:   _workflowr.yml
-    Modified:   analysis/_site.yml
-    Modified:   analysis/about.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/license.Rmd
-    Modified:   code/README.md
-    Modified:   data/README.md
-    Modified:   delfipro2024.Rproj
-    Modified:   output/README.md
+    Modified:   analysis/S16.Rmd
+    Modified:   analysis/S17.Rmd
+    Modified:   analysis/S6.Rmd
+    Deleted:    data/06062024_val_tumor_size.xlsx
+    Deleted:    data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
+    Deleted:    data/final_list_ovarian_3_15_24_benign_masses.xlsx
+    Deleted:    data/ichor_mfl_excel.xlsx
 
 </code></pre>
 <p>
@@ -647,10 +585,73 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/4bcd.Rmd</code>) and HTML
+(<code>docs/4bcd.html</code>) files. If you’ve configured a remote Git
+repository (see <code>?wflow_git_remote</code>), click on the hyperlinks
+in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/analysis/4bcd.Rmd" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+start
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/cancer-genomics/delfipro2024/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/4bcd.html" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+start
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -749,6 +750,43 @@ ggplot2 3.5.0.
 Warning: Please use the `legend.position.inside` argument of `theme()` instead.</code></pre>
 <pre class="r"><code>panelA</code></pre>
 <p><img src="figure/4bcd.Rmd/panelA-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-panelA-1">
+Past versions of panelA-1.png
+</button>
+</p>
+<div id="fig-panelA-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/panelA-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#panelA &lt;- ggplotGrob(panelA)</code></pre>
 <pre class="r"><code>#panelA.data$tool&lt;-factor(panelA.data$tool,levels=c(&quot;US + AFP&quot;,&quot;DELFI&quot;))
 panelA2 &lt;- panelA.data %&gt;% 
@@ -783,6 +821,43 @@ panelA2</code></pre>
 <pre><code>Warning: Removed 90 rows containing non-finite outside the scale range
 (`stat_density2d()`).</code></pre>
 <p><img src="figure/4bcd.Rmd/panelA2-1.png" width="384" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-panelA2-1">
+Past versions of panelA2-1.png
+</button>
+</p>
+<div id="fig-panelA2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/panelA2-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#panelA2 &lt;- ggplotGrob(panelA2)</code></pre>
 <pre class="r"><code>set1&lt;-panelA+theme(legend.position=&quot;none&quot;)#+patchwork::inset_element(panelA2,.1,.1,.6,.6)
 
@@ -791,12 +866,86 @@ l&lt;-get_legend(panelA)</code></pre>
 returning the first one. To return all, use `return_all = TRUE`.</code></pre>
 <pre class="r"><code>set1</code></pre>
 <p><img src="figure/4bcd.Rmd/contours-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-contours-1">
+Past versions of contours-1.png
+</button>
+</p>
+<div id="fig-contours-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/contours-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>l</code></pre>
 <pre><code>zeroGrob[NULL] </code></pre>
 <pre class="r"><code>panelA2</code></pre>
 <pre><code>Warning: Removed 90 rows containing non-finite outside the scale range
 (`stat_density2d()`).</code></pre>
 <p><img src="figure/4bcd.Rmd/contours-2.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-contours-2">
+Past versions of contours-2.png
+</button>
+</p>
+<div id="fig-contours-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/contours-2.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>#I CHANGED THIS SECTION – ASK ROB</p>
 <pre class="r"><code>#prev.wide &lt;- rdirichlet(1000, cohorts$prevalence*1000) %&gt;%
 #    as_tibble() %&gt;%
@@ -830,6 +979,43 @@ prev.long %&gt;%
     theme(panel.grid=element_blank()) +
     xlim(c(0, 1))</code></pre>
 <p><img src="figure/4bcd.Rmd/prevalence-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-prevalence-1">
+Past versions of prevalence-1.png
+</button>
+</p>
+<div id="fig-prevalence-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/prevalence-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>prev3 &lt;- tibble(prevalence=prev)
 params4$prevalence &lt;- rep(prev3, 5)</code></pre>
 </div>
@@ -899,6 +1085,43 @@ set2&lt;-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA
         axis.text.y=element_text(face = &quot;bold&quot;))
 set2</code></pre>
 <p><img src="figure/4bcd.Rmd/fpr-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fpr-1">
+Past versions of fpr-1.png
+</button>
+</p>
+<div id="fig-fpr-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/fpr-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(mean(score))</code></pre>
 <pre><code># A tibble: 5 × 2
   tool             `mean(score)`
@@ -936,6 +1159,43 @@ set3&lt;-ggplot(dat,aes(x=tool,y=score,fill=tool))+geom_boxplot(outlier.shape=NA
 
 set3</code></pre>
 <p><img src="figure/4bcd.Rmd/ppv-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ppv-1">
+Past versions of ppv-1.png
+</button>
+</p>
+<div id="fig-ppv-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/ppv-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dat %&gt;% group_by(tool) %&gt;% summarize(mean(score))</code></pre>
 <pre><code># A tibble: 5 × 2
   tool             `mean(score)`
@@ -956,6 +1216,43 @@ set3</code></pre>
 5 DELFI-Pro        0.236     23.6    8.73   68.5 </code></pre>
 <pre class="r"><code>plot_grid(set1,set3,set2,ncol=3,rel_widths = c(1,.75,.75),align=&quot;h&quot;,axis=&quot;b&quot;)</code></pre>
 <p><img src="figure/4bcd.Rmd/full-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-full-1">
+Past versions of full-1.png
+</button>
+</p>
+<div id="fig-full-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94/docs/figure/4bcd.Rmd/full-1.png" target="_blank">c74d1ee</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#mc &lt;- filter(montecarlo, population==&quot;Early stage&quot;,
 #             tool %in% c(&quot;DELFI&quot;, &quot;US + AFP&quot;))
 mc&lt;-montecarlo
@@ -1060,15 +1357,15 @@ loaded via a namespace (and not attached):
  [73] sf_1.0-7                labeling_0.4.2          processx_3.5.2         
  [76] tidyselect_1.2.1        R6_2.5.1                generics_0.1.3         
  [79] DBI_1.1.1               pillar_1.9.0            haven_2.4.3            
- [82] withr_3.0.0             units_0.8-0             modelr_0.1.8           
- [85] crayon_1.4.1            gfonts_0.2.0            uuid_0.1-4             
- [88] KernSmooth_2.23-20      utf8_1.2.2              officer_0.6.5          
- [91] tzdb_0.1.2              rmarkdown_2.10          isoband_0.2.5          
- [94] callr_3.7.0             git2r_0.28.0            reprex_2.0.1           
- [97] digest_0.6.27           classInt_0.4-3          xtable_1.8-4           
-[100] httpuv_1.6.2            textshaping_0.3.7       openssl_1.4.5          
-[103] munsell_0.5.0           BiasedUrn_2.0.11        bslib_0.3.0            
-[106] askpass_1.1             sessioninfo_1.1.1      </code></pre>
+ [82] whisker_0.4             withr_3.0.0             units_0.8-0            
+ [85] modelr_0.1.8            crayon_1.4.1            gfonts_0.2.0           
+ [88] uuid_0.1-4              KernSmooth_2.23-20      utf8_1.2.2             
+ [91] officer_0.6.5           tzdb_0.1.2              rmarkdown_2.10         
+ [94] isoband_0.2.5           callr_3.7.0             git2r_0.28.0           
+ [97] reprex_2.0.1            digest_0.6.27           classInt_0.4-3         
+[100] xtable_1.8-4            httpuv_1.6.2            textshaping_0.3.7      
+[103] openssl_1.4.5           munsell_0.5.0           BiasedUrn_2.0.11       
+[106] bslib_0.3.0             askpass_1.1             sessioninfo_1.1.1      </code></pre>
 </div>
 </div>
 </div>

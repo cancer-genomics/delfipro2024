@@ -19,7 +19,7 @@ library(data.table)
 #Clean out list section
 rm(list=ls());gc()
 
-proteins <- read_xlsx(here("data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx"))
+proteins <- read_xlsx(here("data/S17.xlsx"))
 proteins$`Roche Ca-125 U/mL` <- as.numeric(as.character(proteins$`Roche Ca-125 U/mL`))
 proteins$nki <- as.numeric(as.character(proteins$nki))
 proteins$nki_he4 <- as.numeric(as.character(proteins$nki_he4))
