@@ -15,8 +15,8 @@
 
 <title>S11</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -31,14 +31,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -75,6 +75,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -95,6 +96,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -152,11 +156,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -185,8 +193,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -194,16 +202,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -320,7 +321,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -396,10 +397,10 @@ title="This is the local directory in which the code in this file was executed."
 </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
-1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -512,15 +513,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree0bc9e1d3a5845eafd155da362449ca99bfdbad88targetblank0bc9e1da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/0bc9e1d3a5845eafd155da362449ca99bfdbad88" target="_blank">0bc9e1d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree0bc9e1d3a5845eafd155da362449ca99bfdbad88targetblank0bc9e1da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -530,7 +531,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>.
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/0bc9e1d3a5845eafd155da362449ca99bfdbad88" target="_blank">0bc9e1d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -545,35 +546,15 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    analysis/.DS_Store
-    Ignored:    analysis/.Rhistory
-    Ignored:    code/.DS_Store
-    Ignored:    code/.Rhistory
-    Ignored:    code/liver.tools/.DS_Store
-    Ignored:    code/useful.stuff.aa/.DS_Store
-    Ignored:    code/useful.stuff.aa/R/.DS_Store
-    Ignored:    code/useful.stuff.aa/data/.DS_Store
-    Ignored:    code/useful.stuff.aa/raw-data/
-    Ignored:    data/.DS_Store
-    Ignored:    data/scores/.DS_Store
+    Ignored:    .Rhistory
 
 Untracked files:
-    Untracked:  data/S16.xlsx
-    Untracked:  data/S17.xlsx
-    Untracked:  data/S6.xlsx
+    Untracked:  README.html
+    Untracked:  renv.lock
+    Untracked:  renv/
 
 Unstaged changes:
     Modified:   .Rprofile
-    Modified:   .gitattributes
-    Modified:   .gitignore
-    Modified:   analysis/S16.Rmd
-    Modified:   analysis/S17.Rmd
-    Modified:   analysis/S6.Rmd
-    Deleted:    data/06062024_val_tumor_size.xlsx
-    Deleted:    data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
-    Deleted:    data/final_list_ovarian_3_15_24_benign_masses.xlsx
-    Deleted:    data/ichor_mfl_excel.xlsx
 
 </code></pre>
 <p>
@@ -588,7 +569,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/S11.Rmd</code>) and HTML
@@ -618,6 +598,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/cancer-genomics/delfipro2024/28c6a1bb309a862e2e60fbf2bdc779820bea10a0/docs/S11.html" target="_blank">28c6a1b</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+aa fix more stuff
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -659,32 +656,39 @@ start
 </div>
 </div>
 </div>
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.5.0     ✔ purrr   1.0.2
-✔ tibble  3.2.1     ✔ dplyr   1.1.4
-✔ tidyr   1.3.1     ✔ stringr 1.5.1
-✔ readr   2.0.1     ✔ forcats 0.5.1</code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-<pre><code>here() starts at /Users/akshayaannapragada/Dropbox/ScannedNotes/VelculescuLab/Cancer Genomics Lab/Ovarian_fragmentome/delfipro2024</code></pre>
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+here() starts at /Users/rscharpf/Downloads/delfipro2024</code></pre>
 <pre><code>          used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-Ncells 1305704 69.8    2272672 121.4         NA  2272672 121.4
-Vcells 2181763 16.7    8388608  64.0      32768  3440986  26.3</code></pre>
-<pre><code>New names:</code></pre>
-<pre><code>Rows: 479 Columns: 22── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (16): id, id2, cohort, type, type2, training_set_include_screening, trai...
-dbl  (5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4
-lgl  (1): menopause_status
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.New names:Rows: 479 Columns: 22── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (16): id, id2, cohort, type, type2, training_set_include_screening, trai...
-dbl  (5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4
-lgl  (1): menopause_status
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+Ncells 1672275 89.4    3352160 179.1         NA  2072430 110.7
+Vcells 3004470 23.0    8388608  64.0      65536  3665436  28.0</code></pre>
+<pre><code>New names:
+Rows: 479 Columns: 22
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+(16): id, id2, cohort, type, type2, training_set_include_screening, trai... dbl
+(5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4 lgl (1):
+menopause_status
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+New names:
+Rows: 479 Columns: 22
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+(16): id, id2, cohort, type, type2, training_set_include_screening, trai... dbl
+(5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4 lgl (1):
+menopause_status
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `` -&gt; `...1`</code></pre>
 <pre><code># A tibble: 6 × 7
   id         classifier_type subtype_simple stage model           score  rank
   &lt;chr&gt;      &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;
@@ -759,53 +763,66 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.5 (2021-03-31)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+<pre><code>R version 4.4.1 (2024-06-14)
+Platform: aarch64-apple-darwin23.4.0
+Running under: macOS Sonoma 14.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /opt/homebrew/Cellar/openblas/0.3.27/lib/libopenblasp-r0.3.27.dylib 
+LAPACK: /opt/homebrew/Cellar/r/4.4.1/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
+time zone: America/New_York
+tzcode source: internal
+
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] here_1.0.1      ggpubr_0.6.0    forcats_0.5.1   stringr_1.5.1  
- [5] dplyr_1.1.4     purrr_1.0.2     readr_2.0.1     tidyr_1.3.1    
- [9] tibble_3.2.1    ggplot2_3.5.0   tidyverse_1.3.1 workflowr_1.6.2
+ [1] here_1.0.1      ggpubr_0.6.0    lubridate_1.9.3 forcats_1.0.0  
+ [5] stringr_1.5.1   dplyr_1.1.4     purrr_1.0.2     readr_2.1.5    
+ [9] tidyr_1.3.1     tibble_3.2.1    ggplot2_3.5.1   tidyverse_2.0.0
+[13] workflowr_1.7.1
 
 loaded via a namespace (and not attached):
- [1] nlme_3.1-152      fs_1.5.0          lubridate_1.7.10  bit64_4.0.5      
- [5] httr_1.4.2        rprojroot_2.0.2   tools_4.0.5       backports_1.2.1  
- [9] bslib_0.3.0       utf8_1.2.2        R6_2.5.1          DBI_1.1.1        
-[13] mgcv_1.8-36       colorspace_2.0-2  withr_3.0.0       tidyselect_1.2.1 
-[17] bit_4.0.4         curl_4.3.2        compiler_4.0.5    git2r_0.28.0     
-[21] cli_3.6.2         rvest_1.0.1       xml2_1.3.2        labeling_0.4.2   
-[25] sass_0.4.0        scales_1.3.0      digest_0.6.27     foreign_0.8-81   
-[29] rmarkdown_2.10    rio_0.5.27        pkgconfig_2.0.3   htmltools_0.5.2  
-[33] highr_0.9         dbplyr_2.1.1      fastmap_1.1.0     rlang_1.1.3      
-[37] readxl_1.3.1      rstudioapi_0.13   farver_2.1.0      jquerylib_0.1.4  
-[41] generics_0.1.3    jsonlite_1.7.2    vroom_1.5.4       zip_2.2.0        
-[45] car_3.0-11        magrittr_2.0.1    Matrix_1.3-4      Rcpp_1.0.7       
-[49] munsell_0.5.0     fansi_0.5.0       abind_1.4-5       lifecycle_1.0.4  
-[53] stringi_1.7.4     whisker_0.4       yaml_2.2.1        carData_3.0-4    
-[57] grid_4.0.5        parallel_4.0.5    promises_1.2.0.1  crayon_1.4.1     
-[61] lattice_0.20-44   haven_2.4.3       splines_4.0.5     hms_1.1.0        
-[65] knitr_1.33        pillar_1.9.0      ggsignif_0.6.2    reprex_2.0.1     
-[69] glue_1.7.0        evaluate_0.14     data.table_1.14.0 modelr_0.1.8     
-[73] vctrs_0.6.5       tzdb_0.1.2        httpuv_1.6.2      cellranger_1.1.0 
-[77] gtable_0.3.0      assertthat_0.2.1  xfun_0.25         openxlsx_4.2.4   
-[81] broom_0.7.9       rstatix_0.7.2     later_1.3.0       ellipsis_0.3.2   </code></pre>
+ [1] gtable_0.3.5        xfun_0.46           bslib_0.8.0        
+ [4] processx_3.8.4      rstatix_0.7.2       lattice_0.22-6     
+ [7] callr_3.7.6         tzdb_0.4.0          vctrs_0.6.5        
+[10] tools_4.4.1         ps_1.7.7            generics_0.1.3     
+[13] parallel_4.4.1      fansi_1.0.6         highr_0.11         
+[16] pkgconfig_2.0.3     Matrix_1.7-0        lifecycle_1.0.4    
+[19] farver_2.1.2        compiler_4.4.1      git2r_0.33.0.9000  
+[22] munsell_0.5.1       getPass_0.2-4       carData_3.0-5      
+[25] httpuv_1.6.15       htmltools_0.5.8.1   sass_0.4.9         
+[28] yaml_2.3.10         crayon_1.5.3        later_1.3.2        
+[31] pillar_1.9.0        car_3.1-2           jquerylib_0.1.4    
+[34] whisker_0.4.1       cachem_1.1.0        abind_1.4-5        
+[37] nlme_3.1-165        tidyselect_1.2.1    digest_0.6.36      
+[40] stringi_1.8.4       labeling_0.4.3      splines_4.4.1      
+[43] rprojroot_2.0.4     fastmap_1.2.0       grid_4.4.1         
+[46] colorspace_2.1-1    cli_3.6.3           magrittr_2.0.3     
+[49] utf8_1.2.4          broom_1.0.6         withr_3.0.1        
+[52] scales_1.3.0        promises_1.3.0      backports_1.5.0    
+[55] bit64_4.0.5         timechange_0.3.0    rmarkdown_2.27     
+[58] httr_1.4.7          bit_4.0.5           ggsignif_0.6.4     
+[61] hms_1.1.3           evaluate_0.24.0     knitr_1.48         
+[64] mgcv_1.9-1          rlang_1.1.4         Rcpp_1.0.13        
+[67] glue_1.7.0          BiocManager_1.30.23 renv_1.0.7         
+[70] vroom_1.6.5         rstudioapi_0.16.0   jsonlite_1.8.8     
+[73] R6_2.5.1            fs_1.6.4           </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->

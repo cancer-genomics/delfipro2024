@@ -13,8 +13,8 @@
 
 <title>Fig 4 feature importance</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -29,14 +29,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -73,6 +73,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -93,6 +94,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -150,11 +154,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -183,8 +191,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -192,16 +200,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -318,7 +319,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -392,10 +393,10 @@ title="This is the local directory in which the code in this file was executed."
 </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version
-1.6.2). The <em>Checks</em> tab describes the reproducibility checks
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -508,15 +509,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree0bc9e1d3a5845eafd155da362449ca99bfdbad88targetblank0bc9e1da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/0bc9e1d3a5845eafd155da362449ca99bfdbad88" target="_blank">0bc9e1d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treec74d1ee3872c077b7bd65f0ffb6aa657b10a8e94targetblankc74d1eea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree0bc9e1d3a5845eafd155da362449ca99bfdbad88targetblank0bc9e1da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -526,7 +527,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/c74d1ee3872c077b7bd65f0ffb6aa657b10a8e94" target="_blank">c74d1ee</a>.
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/0bc9e1d3a5845eafd155da362449ca99bfdbad88" target="_blank">0bc9e1d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -541,35 +542,15 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    analysis/.DS_Store
-    Ignored:    analysis/.Rhistory
-    Ignored:    code/.DS_Store
-    Ignored:    code/.Rhistory
-    Ignored:    code/liver.tools/.DS_Store
-    Ignored:    code/useful.stuff.aa/.DS_Store
-    Ignored:    code/useful.stuff.aa/R/.DS_Store
-    Ignored:    code/useful.stuff.aa/data/.DS_Store
-    Ignored:    code/useful.stuff.aa/raw-data/
-    Ignored:    data/.DS_Store
-    Ignored:    data/scores/.DS_Store
+    Ignored:    .Rhistory
 
 Untracked files:
-    Untracked:  data/S16.xlsx
-    Untracked:  data/S17.xlsx
-    Untracked:  data/S6.xlsx
+    Untracked:  README.html
+    Untracked:  renv.lock
+    Untracked:  renv/
 
 Unstaged changes:
     Modified:   .Rprofile
-    Modified:   .gitattributes
-    Modified:   .gitignore
-    Modified:   analysis/S16.Rmd
-    Modified:   analysis/S17.Rmd
-    Modified:   analysis/S6.Rmd
-    Deleted:    data/06062024_val_tumor_size.xlsx
-    Deleted:    data/CA125_HE4_Manifest_Results to Velculescu Group 09 22 23.xlsx
-    Deleted:    data/final_list_ovarian_3_15_24_benign_masses.xlsx
-    Deleted:    data/ichor_mfl_excel.xlsx
 
 </code></pre>
 <p>
@@ -584,7 +565,6 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown (<code>analysis/S3.Rmd</code>) and HTML
@@ -614,6 +594,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/cancer-genomics/delfipro2024/28c6a1bb309a862e2e60fbf2bdc779820bea10a0/docs/S3.html" target="_blank">28c6a1b</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-01
+</td>
+<td>
+aa fix more stuff
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -656,102 +653,127 @@ start
 </div>
 </div>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>✔ ggplot2 3.5.0     ✔ purrr   1.0.2
-✔ tibble  3.2.1     ✔ dplyr   1.1.4
-✔ tidyr   1.3.1     ✔ stringr 1.5.1
-✔ readr   2.0.1     ✔ forcats 0.5.1</code></pre>
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code>library(caret)</code></pre>
-<pre><code>Loading required package: lattice</code></pre>
-<pre><code>
-Attaching package: &#39;caret&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
+<pre><code>Loading required package: lattice
+
+Attaching package: &#39;caret&#39;
+
+The following object is masked from &#39;package:purrr&#39;:
 
     lift</code></pre>
 <pre class="r"><code>library(recipes)</code></pre>
 <pre><code>
-Attaching package: &#39;recipes&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:stringr&#39;:
+Attaching package: &#39;recipes&#39;
 
-    fixed</code></pre>
-<pre><code>The following object is masked from &#39;package:stats&#39;:
+The following object is masked from &#39;package:stringr&#39;:
+
+    fixed
+
+The following object is masked from &#39;package:stats&#39;:
 
     step</code></pre>
 <pre class="r"><code>library(pROC)</code></pre>
-<pre><code>Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.</code></pre>
-<pre><code>
-Attaching package: &#39;pROC&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
+<pre><code>Type &#39;citation(&quot;pROC&quot;)&#39; for a citation.
+
+Attaching package: &#39;pROC&#39;
+
+The following objects are masked from &#39;package:stats&#39;:
 
     cov, smooth, var</code></pre>
 <pre class="r"><code>library(devtools)</code></pre>
-<pre><code>Loading required package: usethis</code></pre>
-<pre><code>
-Attaching package: &#39;devtools&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:recipes&#39;:
+<pre><code>Loading required package: usethis
+
+Attaching package: &#39;devtools&#39;
+
+The following object is masked from &#39;package:recipes&#39;:
 
     check</code></pre>
 <pre class="r"><code>library(reshape2)</code></pre>
 <pre><code>
-Attaching package: &#39;reshape2&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+Attaching package: &#39;reshape2&#39;
+
+The following object is masked from &#39;package:tidyr&#39;:
 
     smiths</code></pre>
 <pre class="r"><code>library(plyr)</code></pre>
-<pre><code>------------------------------------------------------------------------------</code></pre>
-<pre><code>You have loaded plyr after dplyr - this is likely to cause problems.
+<pre><code>------------------------------------------------------------------------------
+You have loaded plyr after dplyr - this is likely to cause problems.
 If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-library(plyr); library(dplyr)</code></pre>
-<pre><code>------------------------------------------------------------------------------</code></pre>
-<pre><code>
-Attaching package: &#39;plyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
+library(plyr); library(dplyr)
+------------------------------------------------------------------------------
+
+Attaching package: &#39;plyr&#39;
+
+The following objects are masked from &#39;package:dplyr&#39;:
 
     arrange, count, desc, failwith, id, mutate, rename, summarise,
-    summarize</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
+    summarize
+
+The following object is masked from &#39;package:purrr&#39;:
 
     compact</code></pre>
 <pre class="r"><code>library(here)</code></pre>
-<pre><code>here() starts at /Users/akshayaannapragada/Dropbox/ScannedNotes/VelculescuLab/Cancer Genomics Lab/Ovarian_fragmentome/delfipro2024</code></pre>
-<pre><code>
-Attaching package: &#39;here&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:plyr&#39;:
+<pre><code>here() starts at /Users/rscharpf/Downloads/delfipro2024
+
+Attaching package: &#39;here&#39;
+
+The following object is masked from &#39;package:plyr&#39;:
 
     here</code></pre>
 <pre class="r"><code>library(readxl)
 library(data.table)</code></pre>
 <pre><code>
-Attaching package: &#39;data.table&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:reshape2&#39;:
+Attaching package: &#39;data.table&#39;
 
-    dcast, melt</code></pre>
-<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
+The following objects are masked from &#39;package:reshape2&#39;:
 
-    between, first, last</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
+    dcast, melt
+
+The following objects are masked from &#39;package:lubridate&#39;:
+
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
+
+The following objects are masked from &#39;package:dplyr&#39;:
+
+    between, first, last
+
+The following object is masked from &#39;package:purrr&#39;:
 
     transpose</code></pre>
 <pre class="r"><code>here &lt;- here::here
 library(ggpubr)</code></pre>
 <pre><code>
-Attaching package: &#39;ggpubr&#39;</code></pre>
-<pre><code>The following object is masked from &#39;package:plyr&#39;:
+Attaching package: &#39;ggpubr&#39;
+
+The following object is masked from &#39;package:plyr&#39;:
 
     mutate</code></pre>
-<pre><code>New names:Rows: 479 Columns: 22── Column specification ────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (16): id, id2, cohort, type, type2, training_set_include_screening, trai...
-dbl  (5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4
-lgl  (1): menopause_status
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre><code>New names:
+Rows: 479 Columns: 22
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
+(16): id, id2, cohort, type, type2, training_set_include_screening, trai... dbl
+(5): ...1, Screening ZEUS, Diagnostic ZEUS, ca125, he4 lgl (1):
+menopause_status
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `` -&gt; `...1`</code></pre>
 <pre><code>Warning: The dot-dot notation (`..scaled..`) was deprecated in ggplot2 3.4.0.
-
-Warning: Please use `after_stat(scaled)` instead.</code></pre>
+ℹ Please use `after_stat(scaled)` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
 <p><img src="figure/S3.Rmd/coefs-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-coefs-1">
@@ -799,73 +821,79 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.0.5 (2021-03-31)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+<pre><code>R version 4.4.1 (2024-06-14)
+Platform: aarch64-apple-darwin23.4.0
+Running under: macOS Sonoma 14.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+BLAS:   /opt/homebrew/Cellar/openblas/0.3.27/lib/libopenblasp-r0.3.27.dylib 
+LAPACK: /opt/homebrew/Cellar/r/4.4.1/lib/R/lib/libRlapack.dylib;  LAPACK version 3.12.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
+time zone: America/New_York
+tzcode source: internal
+
 attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
+[1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] ggpubr_0.6.0      data.table_1.14.0 readxl_1.3.1      here_1.0.1       
- [5] plyr_1.8.6        reshape2_1.4.4    devtools_2.4.2    usethis_2.0.1    
- [9] pROC_1.17.0.1     recipes_0.1.16    caret_6.0-88      lattice_0.20-44  
-[13] forcats_0.5.1     stringr_1.5.1     dplyr_1.1.4       purrr_1.0.2      
-[17] readr_2.0.1       tidyr_1.3.1       tibble_3.2.1      ggplot2_3.5.0    
-[21] tidyverse_1.3.1   workflowr_1.6.2  
+ [1] ggpubr_0.6.0      data.table_1.15.4 readxl_1.4.3      here_1.0.1       
+ [5] plyr_1.8.9        reshape2_1.4.4    devtools_2.4.5    usethis_3.0.0    
+ [9] pROC_1.18.5       recipes_1.1.0     caret_6.0-94      lattice_0.22-6   
+[13] lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1     dplyr_1.1.4      
+[17] purrr_1.0.2       readr_2.1.5       tidyr_1.3.1       tibble_3.2.1     
+[21] ggplot2_3.5.1     tidyverse_2.0.0   workflowr_1.7.1  
 
 loaded via a namespace (and not attached):
-  [1] backports_1.2.1      splines_4.0.5        listenv_0.8.0       
-  [4] digest_0.6.27        foreach_1.5.1        htmltools_0.5.2     
-  [7] fansi_0.5.0          magrittr_2.0.1       memoise_2.0.0       
- [10] tzdb_0.1.2           openxlsx_4.2.4       remotes_2.4.0       
- [13] globals_0.14.0       modelr_0.1.8         gower_0.2.2         
- [16] vroom_1.5.4          prettyunits_1.1.1    colorspace_2.0-2    
- [19] rvest_1.0.1          haven_2.4.3          xfun_0.25           
- [22] callr_3.7.0          crayon_1.4.1         jsonlite_1.7.2      
- [25] survival_3.2-13      iterators_1.0.13     glue_1.7.0          
- [28] gtable_0.3.0         ipred_0.9-11         car_3.0-11          
- [31] pkgbuild_1.2.0       future.apply_1.8.1   abind_1.4-5         
- [34] scales_1.3.0         DBI_1.1.1            rstatix_0.7.2       
- [37] Rcpp_1.0.7           foreign_0.8-81       bit_4.0.4           
- [40] stats4_4.0.5         lava_1.6.10          prodlim_2019.11.13  
- [43] httr_1.4.2           ellipsis_0.3.2       farver_2.1.0        
- [46] pkgconfig_2.0.3      nnet_7.3-16          sass_0.4.0          
- [49] dbplyr_2.1.1         utf8_1.2.2           tidyselect_1.2.1    
- [52] labeling_0.4.2       rlang_1.1.3          later_1.3.0         
- [55] munsell_0.5.0        cellranger_1.1.0     tools_4.0.5         
- [58] cachem_1.0.6         cli_3.6.2            generics_0.1.3      
- [61] broom_0.7.9          evaluate_0.14        fastmap_1.1.0       
- [64] yaml_2.2.1           ModelMetrics_1.2.2.2 processx_3.5.2      
- [67] knitr_1.33           bit64_4.0.5          fs_1.5.0            
- [70] zip_2.2.0            future_1.22.1        nlme_3.1-152        
- [73] whisker_0.4          xml2_1.3.2           compiler_4.0.5      
- [76] rstudioapi_0.13      curl_4.3.2           testthat_3.0.4      
- [79] ggsignif_0.6.2       reprex_2.0.1         bslib_0.3.0         
- [82] stringi_1.7.4        highr_0.9            ps_1.6.0            
- [85] desc_1.3.0           Matrix_1.3-4         vctrs_0.6.5         
- [88] pillar_1.9.0         lifecycle_1.0.4      jquerylib_0.1.4     
- [91] httpuv_1.6.2         R6_2.5.1             promises_1.2.0.1    
- [94] rio_0.5.27           parallelly_1.27.0    sessioninfo_1.1.1   
- [97] codetools_0.2-18     MASS_7.3-54          assertthat_0.2.1    
-[100] pkgload_1.2.1        rprojroot_2.0.2      withr_3.0.0         
-[103] parallel_4.0.5       hms_1.1.0            grid_4.0.5          
-[106] rpart_4.1-15         timeDate_3043.102    class_7.3-19        
-[109] rmarkdown_2.10       carData_3.0-4        git2r_0.28.0        
-[112] lubridate_1.7.10    </code></pre>
+  [1] rstudioapi_0.16.0    jsonlite_1.8.8       magrittr_2.0.3      
+  [4] farver_2.1.2         rmarkdown_2.27       fs_1.6.4            
+  [7] vctrs_0.6.5          memoise_2.0.1        rstatix_0.7.2       
+ [10] htmltools_0.5.8.1    broom_1.0.6          cellranger_1.1.0    
+ [13] sass_0.4.9           parallelly_1.38.0    bslib_0.8.0         
+ [16] htmlwidgets_1.6.4    cachem_1.1.0         whisker_0.4.1       
+ [19] mime_0.12            lifecycle_1.0.4      iterators_1.0.14    
+ [22] pkgconfig_2.0.3      Matrix_1.7-0         R6_2.5.1            
+ [25] fastmap_1.2.0        future_1.34.0        shiny_1.9.1         
+ [28] digest_0.6.36        colorspace_2.1-1     ps_1.7.7            
+ [31] rprojroot_2.0.4      pkgload_1.4.0        labeling_0.4.3      
+ [34] fansi_1.0.6          timechange_0.3.0     httr_1.4.7          
+ [37] abind_1.4-5          compiler_4.4.1       remotes_2.5.0       
+ [40] bit64_4.0.5          withr_3.0.1          backports_1.5.0     
+ [43] carData_3.0-5        highr_0.11           pkgbuild_1.4.4      
+ [46] ggsignif_0.6.4       MASS_7.3-61          lava_1.8.0          
+ [49] sessioninfo_1.2.2    ModelMetrics_1.2.2.2 tools_4.4.1         
+ [52] httpuv_1.6.15        future.apply_1.11.2  nnet_7.3-19         
+ [55] glue_1.7.0           callr_3.7.6          nlme_3.1-165        
+ [58] promises_1.3.0       grid_4.4.1           getPass_0.2-4       
+ [61] generics_0.1.3       gtable_0.3.5         tzdb_0.4.0          
+ [64] class_7.3-22         hms_1.1.3            car_3.1-2           
+ [67] utf8_1.2.4           foreach_1.5.2        pillar_1.9.0        
+ [70] vroom_1.6.5          later_1.3.2          splines_4.4.1       
+ [73] renv_1.0.7           survival_3.7-0       bit_4.0.5           
+ [76] tidyselect_1.2.1     miniUI_0.1.1.1       knitr_1.48          
+ [79] git2r_0.33.0.9000    stats4_4.4.1         xfun_0.46           
+ [82] hardhat_1.4.0        timeDate_4032.109    stringi_1.8.4       
+ [85] yaml_2.3.10          evaluate_0.24.0      codetools_0.2-20    
+ [88] BiocManager_1.30.23  cli_3.6.3            rpart_4.1.23        
+ [91] xtable_1.8-4         munsell_0.5.1        processx_3.8.4      
+ [94] jquerylib_0.1.4      Rcpp_1.0.13          globals_0.16.3      
+ [97] parallel_4.4.1       ellipsis_0.3.2       gower_1.0.1         
+[100] profvis_0.3.8        urlchecker_1.0.1     listenv_0.9.1       
+[103] ipred_0.9-15         scales_1.3.0         prodlim_2024.06.25  
+[106] crayon_1.5.3         rlang_1.1.4         </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
