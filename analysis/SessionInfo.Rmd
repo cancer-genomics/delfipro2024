@@ -39,7 +39,9 @@ library(ggsci)
 library(egg)
 library(caret)
 library(recipes)
-
+library(workflowr)
+library(renv)
+library(git2r)
 
 ```
 
