@@ -46,7 +46,8 @@ find_params <- function(i, dat){
     dat <- dat[i, ]
     params <- epi.betabuster(mode=dat$mode,
                              conf=0.975,
-                             greaterthan=TRUE,
+                             ##greaterthan=TRUE,
+                             imsure="greater than",
                              x=dat$lower,
                              max.shape1=500,
                              conf.level=0.95)
