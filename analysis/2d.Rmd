@@ -6,6 +6,7 @@ output: html_document
 ```{r packages}
 library(tidyverse)
 library(caret)
+library(glmnet)
 library(recipes)
 library(pROC)
 library(devtools)
@@ -80,9 +81,9 @@ feature_sds <- model_input %>%
 feature_coefs <- data.frame(features = names(feature_sds),
                             sd = as.numeric(feature_sds))
 feature_coefs <- merge(feature_coefs,
-	                   data.frame(features = rownames(orig_coefs),
-	                   	          orig_coefs = as.numeric(orig_coefs)),
-	                   by = 'features', all.x = TRUE)
+                       data.frame(features = rownames(orig_coefs),
+                                  orig_coefs = as.numeric(orig_coefs)),
+                       by = 'features', all.x = TRUE)
 feature_coefs$scaled_coefs <- feature_coefs$orig_coefs * feature_coefs$sd
 ```
 
