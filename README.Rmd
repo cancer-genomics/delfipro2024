@@ -15,6 +15,12 @@ There are 5 folders of interest in this workflowr.
 
 (1) analysis - contains code needed to generate each figure and supplementary figure of the paper.
 
+```{r echo=FALSE}
+library(workflowr)
+wflow_build("analysis/*.Rmd")
+```
+
+
 (2) code - This contains code needed to train DELFI-Pro models and compile the model scores, as well as some packages with functions used by other code in this repository. This folder contains a separate README describing each file.
 
 (3) data - This contains raw data used to generate the figures and tables, as well as data compiled by scripts in the code folder.
