@@ -15,7 +15,7 @@ There are 5 folders of interest in this workflowr.
 
 (1) analysis - contains code needed to generate each figure and supplementary figure of the paper.
 
-```{r echo=FALSE}
+```{r eval=FALSE}
 library(workflowr)
 wflow_build("analysis/*.Rmd")
 ```
