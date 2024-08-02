@@ -31,5 +31,10 @@ wflow_build("analysis/*.Rmd")
 
 SessionInfo.Rmd in the analysis folder, and the corresponding html in the docs folder document the versions of packages used to compile this repo. 
 
+The package versions used in the repository are managed by [renv](https://rstudio.github.io/renv/articles/renv.html). After cloning the repo and starting an R session in the project directory, renv will be downloaded and installed.
+renv will print any conflicts between the installed package versions and the renv lock file. Follow the suggestions printed to install the missing packages. 
+The `renv::status()` function can be used to identify version conflicts between the repository and the installed packages, 
+while the `renv::restore()` function can be used to restore the versions used in the repository.
+
 This repository is available on Github, and may be run as a workflowr project to generate a webpage with all code and figures linked. 
-[workflowr]: https://github.com/jdblischak/workflowr
+[workflowr](https://github.com/jdblischak/workflowr)
