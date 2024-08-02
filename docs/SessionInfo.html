@@ -509,15 +509,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree7c3f17e71671dc4747d3b095434756e83c0bda55targetblank7c3f17ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treee6ce2b66814589bcbf312a6dbfb3483a606bcd29targetblanke6ce2b6a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/7c3f17e71671dc4747d3b095434756e83c0bda55" target="_blank">7c3f17e</a>
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/e6ce2b66814589bcbf312a6dbfb3483a606bcd29" target="_blank">e6ce2b6</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024tree7c3f17e71671dc4747d3b095434756e83c0bda55targetblank7c3f17ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomcancergenomicsdelfipro2024treee6ce2b66814589bcbf312a6dbfb3483a606bcd29targetblanke6ce2b6a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -527,7 +527,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/cancer-genomics/delfipro2024/tree/7c3f17e71671dc4747d3b095434756e83c0bda55" target="_blank">7c3f17e</a>.
+<a href="https://github.com/cancer-genomics/delfipro2024/tree/e6ce2b66814589bcbf312a6dbfb3483a606bcd29" target="_blank">e6ce2b6</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -589,6 +589,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/cancer-genomics/delfipro2024/blob/e6ce2b66814589bcbf312a6dbfb3483a606bcd29/analysis/SessionInfo.Rmd" target="_blank">e6ce2b6</a>
+</td>
+<td>
+shay-279
+</td>
+<td>
+2024-08-02
+</td>
+<td>
+update sessioninfo
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/cancer-genomics/delfipro2024/10390620aa560716f6553910e2be88e6cb32c46f/docs/SessionInfo.html" target="_blank">1039062</a>
+</td>
+<td>
+Shashikant Koul
+</td>
+<td>
+2024-08-02
+</td>
+<td>
+Rebuild workflow, update renv lock file
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -691,7 +725,7 @@ The following objects are masked from &#39;package:stats&#39;:
     cov, smooth, var</code></pre>
 <pre class="r"><code>library(RColorBrewer)
 library(here)</code></pre>
-<pre><code>here() starts at /Users/skoul/Library/CloudStorage/Dropbox/CGL-Mac/Projects/delfipro2024</code></pre>
+<pre><code>here() starts at /Users/skoul/Library/CloudStorage/Dropbox/CGL-Mac/Archives/delfipro2024</code></pre>
 <pre class="r"><code>library(devtools)</code></pre>
 <pre><code>Loading required package: usethis</code></pre>
 <pre class="r"><code>library(cowplot)
@@ -858,7 +892,54 @@ The following object is masked from &#39;package:ggpubr&#39;:
 
     ggarrange</code></pre>
 <pre class="r"><code>library(caret)
-library(recipes)</code></pre>
+library(recipes)
+library(workflowr)
+library(renv)</code></pre>
+<pre><code>
+Attaching package: &#39;renv&#39;
+
+The following object is masked from &#39;package:recipes&#39;:
+
+    update
+
+The following object is masked from &#39;package:devtools&#39;:
+
+    install
+
+The following object is masked from &#39;package:purrr&#39;:
+
+    modify
+
+The following objects are masked from &#39;package:stats&#39;:
+
+    embed, update
+
+The following objects are masked from &#39;package:utils&#39;:
+
+    history, upgrade
+
+The following objects are masked from &#39;package:base&#39;:
+
+    autoload, load, remove, use</code></pre>
+<pre class="r"><code>library(git2r)</code></pre>
+<pre><code>
+Attaching package: &#39;git2r&#39;
+
+The following objects are masked from &#39;package:renv&#39;:
+
+    checkout, init, status
+
+The following object is masked from &#39;package:magrittr&#39;:
+
+    add
+
+The following object is masked from &#39;package:dplyr&#39;:
+
+    pull
+
+The following objects are masked from &#39;package:purrr&#39;:
+
+    is_empty, when</code></pre>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.4.1 (2024-06-14)
 Platform: aarch64-apple-darwin20
@@ -879,19 +960,20 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] egg_0.4.5             ggsci_3.2.0           patchwork_1.2.0      
- [4] epiR_2.0.75           survival_3.7-0        magrittr_2.0.3       
- [7] mvtnorm_1.2-5         gtools_3.9.5          ggpubr_0.6.0         
-[10] plyr_1.8.9            reshape2_1.4.4        recipes_1.1.0        
-[13] caret_6.0-94          lattice_0.22-6        ggstance_0.3.7       
-[16] gridExtra_2.3         circlize_0.4.16       ComplexHeatmap_2.20.0
-[19] openxlsx_4.2.6.1      readxl_1.4.3          devtools_2.4.5       
-[22] usethis_3.0.0         here_1.0.1            RColorBrewer_1.1-3   
-[25] pROC_1.18.5           data.table_1.15.4     cowplot_1.1.3        
-[28] lubridate_1.9.3       forcats_1.0.0         stringr_1.5.1        
-[31] dplyr_1.1.4           purrr_1.0.2           readr_2.1.5          
-[34] tidyr_1.3.1           tibble_3.2.1          ggplot2_3.5.1        
-[37] tidyverse_2.0.0       workflowr_1.7.1      
+ [1] git2r_0.33.0          renv_1.0.7            egg_0.4.5            
+ [4] ggsci_3.2.0           patchwork_1.2.0       epiR_2.0.75          
+ [7] survival_3.7-0        magrittr_2.0.3        mvtnorm_1.2-5        
+[10] gtools_3.9.5          ggpubr_0.6.0          plyr_1.8.9           
+[13] reshape2_1.4.4        recipes_1.1.0         caret_6.0-94         
+[16] lattice_0.22-6        ggstance_0.3.7        gridExtra_2.3        
+[19] circlize_0.4.16       ComplexHeatmap_2.20.0 openxlsx_4.2.6.1     
+[22] readxl_1.4.3          devtools_2.4.5        usethis_3.0.0        
+[25] here_1.0.1            RColorBrewer_1.1-3    pROC_1.18.5          
+[28] data.table_1.15.4     cowplot_1.1.3         lubridate_1.9.3      
+[31] forcats_1.0.0         stringr_1.5.1         dplyr_1.1.4          
+[34] purrr_1.0.2           readr_2.1.5           tidyr_1.3.1          
+[37] tibble_3.2.1          ggplot2_3.5.1         tidyverse_2.0.0      
+[40] workflowr_1.7.1      
 
 loaded via a namespace (and not attached):
   [1] splines_4.4.1           later_1.3.2             BiasedUrn_2.0.12       
@@ -904,42 +986,42 @@ loaded via a namespace (and not attached):
  [22] askpass_1.2.0           zip_2.3.1               sessioninfo_1.2.2      
  [25] pkgbuild_1.4.4          DBI_1.2.3               abind_1.4-5            
  [28] pkgload_1.4.0           BiocGenerics_0.50.0     nnet_7.3-19            
- [31] ipred_0.9-15            git2r_0.33.0            gdtools_0.3.7          
- [34] lava_1.8.0              IRanges_2.38.1          S4Vectors_0.42.1       
- [37] listenv_0.9.1           crul_1.5.0              units_0.8-5            
- [40] parallelly_1.38.0       codetools_0.2-20        xml2_1.3.6             
- [43] tidyselect_1.2.1        shape_1.4.6.1           httpcode_0.3.0         
- [46] matrixStats_1.3.0       stats4_4.4.1            jsonlite_1.8.8         
- [49] GetoptLong_1.0.5        e1071_1.7-14            ellipsis_0.3.2         
- [52] iterators_1.0.14        systemfonts_1.1.0       foreach_1.5.2          
- [55] tools_4.4.1             ragg_1.3.2              Rcpp_1.0.13            
- [58] glue_1.7.0              prodlim_2024.06.25      xfun_0.46              
- [61] withr_3.0.1             BiocManager_1.30.23     fastmap_1.2.0          
- [64] fansi_1.0.6             openssl_2.2.0           callr_3.7.6            
- [67] digest_0.6.36           timechange_0.3.0        R6_2.5.1               
- [70] mime_0.12               textshaping_0.4.0       colorspace_2.1-1       
- [73] utf8_1.2.4              generics_0.1.3          fontLiberation_0.1.0   
- [76] renv_1.0.7              class_7.3-22            httr_1.4.7             
- [79] htmlwidgets_1.6.4       whisker_0.4.1           ModelMetrics_1.2.2.2   
- [82] pkgconfig_2.0.3         gtable_0.3.5            timeDate_4032.109      
- [85] htmltools_0.5.8.1       fontBitstreamVera_0.1.1 carData_3.0-5          
- [88] profvis_0.3.8           clue_0.3-65             scales_1.3.0           
- [91] png_0.1-8               gower_1.0.1             knitr_1.48             
- [94] rstudioapi_0.16.0       uuid_1.2-1              tzdb_0.4.0             
- [97] rjson_0.2.21            curl_5.2.1              nlme_3.1-165           
-[100] zoo_1.8-12              proxy_0.4-27            cachem_1.1.0           
-[103] GlobalOptions_0.1.2     flextable_0.9.6         KernSmooth_2.23-24     
-[106] parallel_4.4.1          miniUI_0.1.1.1          pillar_1.9.0           
-[109] vctrs_0.6.5             urlchecker_1.0.1        promises_1.3.0         
-[112] car_3.1-2               xtable_1.8-4            cluster_2.1.6          
-[115] evaluate_0.24.0         cli_3.6.3               compiler_4.4.1         
-[118] rlang_1.1.4             crayon_1.5.3            future.apply_1.11.2    
-[121] ggsignif_0.6.4          classInt_0.4-10         ps_1.7.7               
-[124] getPass_0.2-4           fs_1.6.4                stringi_1.8.4          
-[127] pander_0.6.5            munsell_0.5.1           fontquiver_0.2.1       
-[130] Matrix_1.7-0            hms_1.1.3               future_1.34.0          
-[133] gfonts_0.2.0            shiny_1.9.0             broom_1.0.6            
-[136] memoise_2.0.1           bslib_0.8.0             officer_0.6.6          </code></pre>
+ [31] ipred_0.9-15            gdtools_0.3.7           lava_1.8.0             
+ [34] IRanges_2.38.1          S4Vectors_0.42.1        listenv_0.9.1          
+ [37] crul_1.5.0              units_0.8-5             parallelly_1.38.0      
+ [40] codetools_0.2-20        xml2_1.3.6              tidyselect_1.2.1       
+ [43] shape_1.4.6.1           httpcode_0.3.0          matrixStats_1.3.0      
+ [46] stats4_4.4.1            jsonlite_1.8.8          GetoptLong_1.0.5       
+ [49] e1071_1.7-14            ellipsis_0.3.2          iterators_1.0.14       
+ [52] systemfonts_1.1.0       foreach_1.5.2           tools_4.4.1            
+ [55] ragg_1.3.2              Rcpp_1.0.13             glue_1.7.0             
+ [58] prodlim_2024.06.25      xfun_0.46               withr_3.0.1            
+ [61] BiocManager_1.30.23     fastmap_1.2.0           fansi_1.0.6            
+ [64] openssl_2.2.0           callr_3.7.6             digest_0.6.36          
+ [67] timechange_0.3.0        R6_2.5.1                mime_0.12              
+ [70] textshaping_0.4.0       colorspace_2.1-1        utf8_1.2.4             
+ [73] generics_0.1.3          fontLiberation_0.1.0    class_7.3-22           
+ [76] httr_1.4.7              htmlwidgets_1.6.4       whisker_0.4.1          
+ [79] ModelMetrics_1.2.2.2    pkgconfig_2.0.3         gtable_0.3.5           
+ [82] timeDate_4032.109       htmltools_0.5.8.1       fontBitstreamVera_0.1.1
+ [85] carData_3.0-5           profvis_0.3.8           clue_0.3-65            
+ [88] scales_1.3.0            png_0.1-8               gower_1.0.1            
+ [91] knitr_1.48              rstudioapi_0.16.0       uuid_1.2-1             
+ [94] tzdb_0.4.0              rjson_0.2.21            curl_5.2.1             
+ [97] nlme_3.1-165            zoo_1.8-12              proxy_0.4-27           
+[100] cachem_1.1.0            GlobalOptions_0.1.2     flextable_0.9.6        
+[103] KernSmooth_2.23-24      parallel_4.4.1          miniUI_0.1.1.1         
+[106] pillar_1.9.0            vctrs_0.6.5             urlchecker_1.0.1       
+[109] promises_1.3.0          car_3.1-2               xtable_1.8-4           
+[112] cluster_2.1.6           evaluate_0.24.0         cli_3.6.3              
+[115] compiler_4.4.1          rlang_1.1.4             crayon_1.5.3           
+[118] future.apply_1.11.2     ggsignif_0.6.4          classInt_0.4-10        
+[121] ps_1.7.7                getPass_0.2-4           fs_1.6.4               
+[124] stringi_1.8.4           pander_0.6.5            munsell_0.5.1          
+[127] fontquiver_0.2.1        Matrix_1.7-0            hms_1.1.3              
+[130] future_1.34.0           gfonts_0.2.0            shiny_1.9.0            
+[133] broom_1.0.6             memoise_2.0.1           bslib_0.8.0            
+[136] officer_0.6.6          </code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -968,19 +1050,20 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] egg_0.4.5             ggsci_3.2.0           patchwork_1.2.0      
- [4] epiR_2.0.75           survival_3.7-0        magrittr_2.0.3       
- [7] mvtnorm_1.2-5         gtools_3.9.5          ggpubr_0.6.0         
-[10] plyr_1.8.9            reshape2_1.4.4        recipes_1.1.0        
-[13] caret_6.0-94          lattice_0.22-6        ggstance_0.3.7       
-[16] gridExtra_2.3         circlize_0.4.16       ComplexHeatmap_2.20.0
-[19] openxlsx_4.2.6.1      readxl_1.4.3          devtools_2.4.5       
-[22] usethis_3.0.0         here_1.0.1            RColorBrewer_1.1-3   
-[25] pROC_1.18.5           data.table_1.15.4     cowplot_1.1.3        
-[28] lubridate_1.9.3       forcats_1.0.0         stringr_1.5.1        
-[31] dplyr_1.1.4           purrr_1.0.2           readr_2.1.5          
-[34] tidyr_1.3.1           tibble_3.2.1          ggplot2_3.5.1        
-[37] tidyverse_2.0.0       workflowr_1.7.1      
+ [1] git2r_0.33.0          renv_1.0.7            egg_0.4.5            
+ [4] ggsci_3.2.0           patchwork_1.2.0       epiR_2.0.75          
+ [7] survival_3.7-0        magrittr_2.0.3        mvtnorm_1.2-5        
+[10] gtools_3.9.5          ggpubr_0.6.0          plyr_1.8.9           
+[13] reshape2_1.4.4        recipes_1.1.0         caret_6.0-94         
+[16] lattice_0.22-6        ggstance_0.3.7        gridExtra_2.3        
+[19] circlize_0.4.16       ComplexHeatmap_2.20.0 openxlsx_4.2.6.1     
+[22] readxl_1.4.3          devtools_2.4.5        usethis_3.0.0        
+[25] here_1.0.1            RColorBrewer_1.1-3    pROC_1.18.5          
+[28] data.table_1.15.4     cowplot_1.1.3         lubridate_1.9.3      
+[31] forcats_1.0.0         stringr_1.5.1         dplyr_1.1.4          
+[34] purrr_1.0.2           readr_2.1.5           tidyr_1.3.1          
+[37] tibble_3.2.1          ggplot2_3.5.1         tidyverse_2.0.0      
+[40] workflowr_1.7.1      
 
 loaded via a namespace (and not attached):
   [1] splines_4.4.1           later_1.3.2             BiasedUrn_2.0.12       
@@ -993,42 +1076,42 @@ loaded via a namespace (and not attached):
  [22] askpass_1.2.0           zip_2.3.1               sessioninfo_1.2.2      
  [25] pkgbuild_1.4.4          DBI_1.2.3               abind_1.4-5            
  [28] pkgload_1.4.0           BiocGenerics_0.50.0     nnet_7.3-19            
- [31] ipred_0.9-15            git2r_0.33.0            gdtools_0.3.7          
- [34] lava_1.8.0              IRanges_2.38.1          S4Vectors_0.42.1       
- [37] listenv_0.9.1           crul_1.5.0              units_0.8-5            
- [40] parallelly_1.38.0       codetools_0.2-20        xml2_1.3.6             
- [43] tidyselect_1.2.1        shape_1.4.6.1           httpcode_0.3.0         
- [46] matrixStats_1.3.0       stats4_4.4.1            jsonlite_1.8.8         
- [49] GetoptLong_1.0.5        e1071_1.7-14            ellipsis_0.3.2         
- [52] iterators_1.0.14        systemfonts_1.1.0       foreach_1.5.2          
- [55] tools_4.4.1             ragg_1.3.2              Rcpp_1.0.13            
- [58] glue_1.7.0              prodlim_2024.06.25      xfun_0.46              
- [61] withr_3.0.1             BiocManager_1.30.23     fastmap_1.2.0          
- [64] fansi_1.0.6             openssl_2.2.0           callr_3.7.6            
- [67] digest_0.6.36           timechange_0.3.0        R6_2.5.1               
- [70] mime_0.12               textshaping_0.4.0       colorspace_2.1-1       
- [73] utf8_1.2.4              generics_0.1.3          fontLiberation_0.1.0   
- [76] renv_1.0.7              class_7.3-22            httr_1.4.7             
- [79] htmlwidgets_1.6.4       whisker_0.4.1           ModelMetrics_1.2.2.2   
- [82] pkgconfig_2.0.3         gtable_0.3.5            timeDate_4032.109      
- [85] htmltools_0.5.8.1       fontBitstreamVera_0.1.1 carData_3.0-5          
- [88] profvis_0.3.8           clue_0.3-65             scales_1.3.0           
- [91] png_0.1-8               gower_1.0.1             knitr_1.48             
- [94] rstudioapi_0.16.0       uuid_1.2-1              tzdb_0.4.0             
- [97] rjson_0.2.21            curl_5.2.1              nlme_3.1-165           
-[100] zoo_1.8-12              proxy_0.4-27            cachem_1.1.0           
-[103] GlobalOptions_0.1.2     flextable_0.9.6         KernSmooth_2.23-24     
-[106] parallel_4.4.1          miniUI_0.1.1.1          pillar_1.9.0           
-[109] vctrs_0.6.5             urlchecker_1.0.1        promises_1.3.0         
-[112] car_3.1-2               xtable_1.8-4            cluster_2.1.6          
-[115] evaluate_0.24.0         cli_3.6.3               compiler_4.4.1         
-[118] rlang_1.1.4             crayon_1.5.3            future.apply_1.11.2    
-[121] ggsignif_0.6.4          classInt_0.4-10         ps_1.7.7               
-[124] getPass_0.2-4           fs_1.6.4                stringi_1.8.4          
-[127] pander_0.6.5            munsell_0.5.1           fontquiver_0.2.1       
-[130] Matrix_1.7-0            hms_1.1.3               future_1.34.0          
-[133] gfonts_0.2.0            shiny_1.9.0             broom_1.0.6            
-[136] memoise_2.0.1           bslib_0.8.0             officer_0.6.6          </code></pre>
+ [31] ipred_0.9-15            gdtools_0.3.7           lava_1.8.0             
+ [34] IRanges_2.38.1          S4Vectors_0.42.1        listenv_0.9.1          
+ [37] crul_1.5.0              units_0.8-5             parallelly_1.38.0      
+ [40] codetools_0.2-20        xml2_1.3.6              tidyselect_1.2.1       
+ [43] shape_1.4.6.1           httpcode_0.3.0          matrixStats_1.3.0      
+ [46] stats4_4.4.1            jsonlite_1.8.8          GetoptLong_1.0.5       
+ [49] e1071_1.7-14            ellipsis_0.3.2          iterators_1.0.14       
+ [52] systemfonts_1.1.0       foreach_1.5.2           tools_4.4.1            
+ [55] ragg_1.3.2              Rcpp_1.0.13             glue_1.7.0             
+ [58] prodlim_2024.06.25      xfun_0.46               withr_3.0.1            
+ [61] BiocManager_1.30.23     fastmap_1.2.0           fansi_1.0.6            
+ [64] openssl_2.2.0           callr_3.7.6             digest_0.6.36          
+ [67] timechange_0.3.0        R6_2.5.1                mime_0.12              
+ [70] textshaping_0.4.0       colorspace_2.1-1        utf8_1.2.4             
+ [73] generics_0.1.3          fontLiberation_0.1.0    class_7.3-22           
+ [76] httr_1.4.7              htmlwidgets_1.6.4       whisker_0.4.1          
+ [79] ModelMetrics_1.2.2.2    pkgconfig_2.0.3         gtable_0.3.5           
+ [82] timeDate_4032.109       htmltools_0.5.8.1       fontBitstreamVera_0.1.1
+ [85] carData_3.0-5           profvis_0.3.8           clue_0.3-65            
+ [88] scales_1.3.0            png_0.1-8               gower_1.0.1            
+ [91] knitr_1.48              rstudioapi_0.16.0       uuid_1.2-1             
+ [94] tzdb_0.4.0              rjson_0.2.21            curl_5.2.1             
+ [97] nlme_3.1-165            zoo_1.8-12              proxy_0.4-27           
+[100] cachem_1.1.0            GlobalOptions_0.1.2     flextable_0.9.6        
+[103] KernSmooth_2.23-24      parallel_4.4.1          miniUI_0.1.1.1         
+[106] pillar_1.9.0            vctrs_0.6.5             urlchecker_1.0.1       
+[109] promises_1.3.0          car_3.1-2               xtable_1.8-4           
+[112] cluster_2.1.6           evaluate_0.24.0         cli_3.6.3              
+[115] compiler_4.4.1          rlang_1.1.4             crayon_1.5.3           
+[118] future.apply_1.11.2     ggsignif_0.6.4          classInt_0.4-10        
+[121] ps_1.7.7                getPass_0.2-4           fs_1.6.4               
+[124] stringi_1.8.4           pander_0.6.5            munsell_0.5.1          
+[127] fontquiver_0.2.1        Matrix_1.7-0            hms_1.1.3              
+[130] future_1.34.0           gfonts_0.2.0            shiny_1.9.0            
+[133] broom_1.0.6             memoise_2.0.1           bslib_0.8.0            
+[136] officer_0.6.6          </code></pre>
 </div>
 
 
