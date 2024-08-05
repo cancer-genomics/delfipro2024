@@ -1915,15 +1915,19 @@
     "git2r": {
       "Package": "git2r",
       "Version": "0.33.0.9000",
-      "Source": "Local",
-      "RemoteType": "local",
-      "RemoteUrl": "~/Dropbox/CGL-Mac/Projects/git2r",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "git2r",
+      "RemoteUsername": "ropensci",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "cc07d5407e3e17aa3e4f97803039cb7abbabcffd",
       "Requirements": [
         "R",
         "graphics",
         "utils"
       ],
-      "Hash": "9e3c0ed476a73490c1cf7539eab87b42"
+      "Hash": "0da33f428d0d5bf598b0f0dc6af09499"
     },
     "gitcreds": {
       "Package": "gitcreds",
@@ -3562,7 +3566,7 @@
       "Package": "shiny",
       "Version": "1.9.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "R6",
